@@ -1,11 +1,4 @@
-const SIZE = 1000;
-let ballsize = 0.0025;
-let holesize = 0.003;
-let startx = 0.1;
-let starty = 0.1;
-let endx = 0.85;
-let endy = 0.15;
-let wallColor = "rgba(20,20,20,1)";
+
 
 function niko() {
   let canvas = document.getElementById("myCanvas");
@@ -16,8 +9,8 @@ function niko() {
 
   ctx.scale(SIZE, SIZE);
 
-  pallo = new Ball([startx, starty], ballsize);
-  reika = new Hole([endx, endy], holesize);
+  pallo = new Ball([ballXPos-499.9, ballYPos-499.9], ballRad-29.995);
+  reika = new Hole([endx-799.1, endy-799.1], holesize-2.993);
   laatikko = new Box([0.8, 0.5], 0.2);
 
   animate();
@@ -49,7 +42,7 @@ function drawBackground(ctx) {
   //starting area
   ctx.beginPath();
   ctx.fillStyle = "rgba(0,140,0,1)";
-  ctx.rect(startx - 0.1, starty - 0.1, 0.2, 0.2);
+  ctx.rect(ballXPos - 500.01, ballYPos -500.01, 0.21, 0.21);
   ctx.fill();
 
   //borders of the map

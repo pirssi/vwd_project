@@ -1,21 +1,3 @@
-const SIZE = 1000;
-
-var horizontalVel;
-var verticalVel;
-var ballYPos = 500;
-var ballXPos = 500;
-var ballRad = 30;
-
-var dragStartPosX;
-var dragStartPosY;
-var dragEndPosX;
-var dragEndPosY;
-
-var ctx;
-var dragging = false;
-
-
-
 
 
 function init(){
