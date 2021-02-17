@@ -5,6 +5,12 @@ var verticalVel;
 var ballYPos = 500;
 var ballXPos = 500;
 var ballRad = 30;
+
+var dragStartPosX;
+var dragStartPosY;
+var dragEndPosX;
+var dragEndPosY;
+
 var ctx;
 var dragging = false;
 
@@ -25,8 +31,6 @@ function init(){
     canvas.width = SIZE;
     canvas.height = SIZE;
 
-
-
     drawBackground(ctx);
     golfBall.draw();    
 }
@@ -38,31 +42,20 @@ function pointerDown(e){
     console.log("***")
     console.log("mousedown")
     
-    //set mouseCoordinates by using eventlistener
-    var mouseX = e.layerX;
-    var mouseY = e.layerY;
+    //get the starting coordinates on MouseDown
+    dragStartPosX = e.layerX;
+    dragStartPosY = e.layerY;
 
-    console.log(mouseX, mouseY);
-    console.log(golfBall.xPos * 0.83, golfBall.yPos * 0.83);
+    console.log("Start X : " + dragStartPosX, " Start Y : " + dragStartPosY);
 
     // golfball coordinates need to be adjusted beacuse of 80vmin in css file
     gbX = golfBall.xPos * 0.83;
     gbY = golfBall.yPos * 0.83;
 
-    // if distance from ball center is closer than radius distance, allow ball hit
-    if (DistanceSqr(mouseX, mouseY, gbX, gbY) < golfBall.rad * golfBall.rad){
-        dragging = true;
-    }
+    dragging = true
 }
 
-// calculates math
-function DistanceSqr(mX, mY, bX, bY){
 
-    console.log((mX-bX)*(mX-bX));
-    console.log((mY-bY)*(mY-bY));
-
-    return ((mX-bX)*(mX-bX) + (mY-bY)*(mY-bY));
-}
 
 // while moving pointer 
 function pointerMove(e){
@@ -74,14 +67,28 @@ function pointerMove(e){
     }
 }
 
+
+
 // after pointer release
 function pointerUp (e){
     console.log("pointerUp");
 
+    // get the end coordinates on mouseUp
+    dragEndPosX = e.layerX;
+    dragEndPosY = e.layerY;
+    console.log("End X : " + dragEndPosX, " End Y : " + dragEndPosY);
+
+    // check if dragLenght was too short
+    if (DistanceSqr(dragStartPosX, dragStartPosY, dragEndPosX, dragEndPosY) < 2500){
+        dragging = false;
+        return;
+    }
+
     // set directions for ball movement
-    var dirX = e.layerX - (golfBall.xPos * 0.83);
-    var dirY = e.layerY - (golfBall.yPos * 0.83);
+    dirX = dragEndPosX - dragStartPosX;
+    dirY = dragEndPosY - dragStartPosY;
     var mag = Math.sqrt(dirX*dirX + dirY*dirY); // I dont know
+
 
     if (dragging == true){
         dragging = false;
@@ -97,6 +104,16 @@ function pointerUp (e){
 
 
 
+// calculates distance between mouseDown and mouseUp points
+function DistanceSqr(sX, sY, eX, eY){
+
+    console.log((sX-eX)*(sX-eX));
+    console.log((sY-eY)*(sY-eY));
+    console.log("dragLine lenght : " + ((sX-eX)*(sX-eX) + (sY-eY)*(sY-eY)) );
+
+    return ((sX-eX)*(sX-eX) + (sY-eY)*(sY-eY));
+}
+
 
 
 //function for creating ball variable
@@ -107,8 +124,9 @@ function Ball(xPos, yPos, rad, fStyle){
     this.draw = drawball;
     this.moveBall = moveBall;
     this.fillStyle = fStyle;
-
 }
+
+
 
 var golfBall = new Ball(ballYPos,ballXPos,ballRad,"darkred");
 
@@ -123,11 +141,14 @@ function drawball(){
     console.log("ball was drawn");
 }
 
+
+
  // moving ball
 function moveBall(dirX, dirY){
     this.xPos += dirX;
     this.yPos += dirY;
 }
+
 
 
 // background
@@ -138,6 +159,8 @@ function drawBackground(ctx){
     ctx.fill();
     ctx.closePath();
 }
+
+
 
 // ball animation on pointer release
 function animateBalls(){
@@ -152,7 +175,6 @@ function animateBalls(){
     golfBall.moveBall(animBallX, animBallY);
     drawBackground(ctx);
     golfBall.draw();
-
 }
 
 
