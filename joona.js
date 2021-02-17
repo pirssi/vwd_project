@@ -30,9 +30,6 @@ function pointerDown(e){
 
     console.log("Start X : " + dragStartPosX, " Start Y : " + dragStartPosY);
 
-    // golfball coordinates need to be adjusted beacuse of 80vmin in css file
-    gbX = golfBall.xPos * 0.83;
-    gbY = golfBall.yPos * 0.83;
 
     dragging = true
 }
@@ -45,10 +42,29 @@ function pointerMove(e){
         var mouseX = e.layerX;
         var mouseY = e.layerY;
         
+        // set linedirection for aiming line
+        lineDirX = SIZE - mouseX;
+        lineDirY = SIZE - mouseY;
+        // draw line to aim ball direction
+        DrawLineEraser(lineDirX, lineDirY);
+
         console.log(mouseX + " --- " + mouseY);
     }
 }
 
+function DrawLine(mX, mY){
+    ctx.beginPath();
+    ctx.moveTo(golfBall.xPos, golfBall.yPos);
+    ctx.lineTo(mX, mY);
+    ctx.stroke();
+}
+
+function DrawLineEraser(mX, mY){
+    ctx.clearRect(0,0,SIZE, SIZE);
+    drawBackground(ctx);
+    golfBall.draw();
+    DrawLine(mX, mY);
+}
 
 
 // after pointer release
@@ -66,9 +82,9 @@ function pointerUp (e){
         return;
     }
 
-    // set directions for ball movement
-    dirX = dragEndPosX - dragStartPosX;
-    dirY = dragEndPosY - dragStartPosY;
+    // ball direction is according to dragendPosition and golfBall centerposition
+    dirX = dragEndPosX - golfBall.xPos;
+    dirY = dragEndPosY - golfBall.yPos;
     var mag = Math.sqrt(dirX*dirX + dirY*dirY); // I dont know
 
 
@@ -115,7 +131,7 @@ var golfBall = new Ball(ballYPos,ballXPos,ballRad,"darkred");
 // function for drawing ball
 function drawball(){
 
-    ctx.fillStyle = "DarkRed";
+    ctx.fillStyle = "White";
     ctx.beginPath();
     ctx.arc(this.xPos, this.yPos, this.rad, 0, Math.PI*2, true);
     ctx.fill();
@@ -136,7 +152,7 @@ function moveBall(dirX, dirY){
 // background
 function drawBackground(ctx){
     ctx.beginPath();
-    ctx.fillStyle = "LightGrey";
+    ctx.fillStyle = "darkGreen";
     ctx.rect(0,0,SIZE,SIZE);
     ctx.fill();
     ctx.closePath();
