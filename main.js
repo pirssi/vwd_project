@@ -6,7 +6,7 @@ var ballYPos = 500;
 var ballXPos = 500;
 var ballRad = 30;
 let wallColor = "rgba(20,20,20,1)";
-
+var ballFriction = 1.015;
 
 var dragStartPosX;
 var dragStartPosY;

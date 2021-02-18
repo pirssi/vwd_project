@@ -25,8 +25,8 @@ function pointerDown(e){
     console.log("mousedown")
     
     //get the starting coordinates on MouseDown
-    dragStartPosX = e.layerX;
-    dragStartPosY = e.layerY;
+    dragStartPosX = e.layerX+500;
+    dragStartPosY = e.layerY+500;
 
     console.log("Start X : " + dragStartPosX, " Start Y : " + dragStartPosY);
 
@@ -39,8 +39,8 @@ function pointerDown(e){
 // while moving pointer 
 function pointerMove(e){
     if (dragging == true){
-        var mouseX = e.layerX;
-        var mouseY = e.layerY;
+        var mouseX = e.layerX+500;
+        var mouseY = e.layerY+500;
         
         // set linedirection for aiming line
         lineDirX = SIZE - mouseX;
@@ -72,12 +72,12 @@ function pointerUp (e){
     console.log("pointerUp");
 
     // get the end coordinates on mouseUp
-    dragEndPosX = e.layerX;
-    dragEndPosY = e.layerY;
+    dragEndPosX = e.layerX+500;
+    dragEndPosY = e.layerY+500;
     console.log("End X : " + dragEndPosX, " End Y : " + dragEndPosY);
 
     // check if dragLenght was too short
-    if (DistanceSqr(dragStartPosX, dragStartPosY, dragEndPosX, dragEndPosY) < 2500){
+    if (DistanceSqr(dragStartPosX, dragStartPosY, dragEndPosX, dragEndPosY) < 25){
         dragging = false;
         return;
     }
@@ -85,15 +85,15 @@ function pointerUp (e){
     // ball direction is according to dragendPosition and golfBall centerposition
     dirX = dragEndPosX - golfBall.xPos;
     dirY = dragEndPosY - golfBall.yPos;
-    var mag = Math.sqrt(dirX*dirX + dirY*dirY); // I dont know
-
+    var mag = Math.sqrt(dirX*dirX + dirY*dirY); // I dont know 
+                                                // :D
 
     if (dragging == true){
         dragging = false;
 
         // use directions and additional multiplier to set dir and vel
-        horizontalVel = (-dirX / mag) * 10;
-        verticalVel = (-dirY / mag) * 10;
+        horizontalVel = -dirX /25;
+        verticalVel = -dirY /25;
 
         //animation
         setInterval(animateBalls, 10);
@@ -169,7 +169,27 @@ function animateBalls(){
     var animBallX = horizontalVel;
     var animBallY = verticalVel;
 
-    
+    //ball friction and stopping
+    if(horizontalVel>0 ||horizontalVel<0)   
+    {
+        horizontalVel=horizontalVel/ballFriction;
+        if(horizontalVel<0.01 && horizontalVel>0)
+        horizontalVel=0;
+        
+        else if(horizontalVel>-0.01 && horizontalVel<0)
+        horizontalVel=0;
+    }
+
+    if(verticalVel>0 || verticalVel<0)
+    {
+        verticalVel=verticalVel/ballFriction;
+        if(verticalVel<0.01 && verticalVel>0)
+        verticalVel=0;
+
+        else if(verticalVel>-0.01 && verticalVel<0)
+        verticalVel=0;
+    }
+
     golfBall.moveBall(animBallX, animBallY);
     drawBackground(ctx);
     golfBall.draw();
