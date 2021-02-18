@@ -43,8 +43,8 @@ function pointerMove(e){
         var mouseY = e.layerY+500;
         
         // set linedirection for aiming line
-        lineDirX = SIZE - mouseX;
-        lineDirY = SIZE - mouseY;
+        lineDirX = mouseX;
+        lineDirY = mouseY;
         // draw line to aim ball direction
         DrawLineEraser(lineDirX, lineDirY);
 
@@ -92,8 +92,8 @@ function pointerUp (e){
         dragging = false;
 
         // use directions and additional multiplier to set dir and vel
-        horizontalVel = -dirX /25;
-        verticalVel = -dirY /25;
+        horizontalVel = dirX /25;
+        verticalVel = dirY /25;
 
         //animation
         setInterval(animateBalls, 10);
