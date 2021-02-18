@@ -208,8 +208,8 @@ function animateBalls(){
 
     }
 
-    if (horizontalVel < 0.05 && horizontalVel > -0.05  
-        && verticalVel < 0.05 && verticalVel > -0.05){
+    if (horizontalVel < 0.1 && horizontalVel > -0.1  
+        && verticalVel < 0.1 && verticalVel > -0.1){
             clearInterval(interval);
             ballMoving = false;
             console.log("interval cleared");
