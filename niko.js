@@ -11,44 +11,44 @@ function niko() {
   
 }
 
+function drawScene() {
+  reika.draw(ctx);
+  pallo.draw(ctx); //joona
+}
+
 function drawBackground() {
   //background
   ctx.beginPath();
-  ctx.fillStyle = "rgba(0,200,0,1)";
-  ctx.rect(0, 0, 1, 1);
+  ctx.fillStyle = "rgba(0,150,0,1)";
+  ctx.rect(0,0,SIZE,SIZE);
   ctx.fill();
   ctx.stroke();
-
-  //starting area
-  ctx.beginPath();
-  ctx.fillStyle = "rgba(0,140,0,1)";
-  ctx.rect(ballXPos - 500.01, ballYPos -500.01, 0.21, 0.21);
-  ctx.fill();
 
   //borders of the map
   ctx.beginPath();
-  ctx.lineWidth = 0.02;
-  ctx.rect(0, 0, 1, 1);
+  ctx.fillStyle = "black";
+  ctx.lineWidth = 5;
+  ctx.rect(0, 0, SIZE, SIZE);
   ctx.stroke();
 
   //wall test
-  ctx.beginPath();
-  ctx.lineWidth = 0.01;
-  ctx.strokeStyle = wallColor;
-  ctx.moveTo(0.2, 0);
-  ctx.lineTo(0.2, 0.8);
+  /*ctx.beginPath();
+  ctx.fillStyle = "black";
+  ctx.lineWidth = 5;
+  ctx.moveTo(200, 0);
+  ctx.lineTo(200, 800);
   ctx.stroke();
 
   //triangle test
   ctx.beginPath();
-  ctx.fillStyle = wallColor;
-  ctx.moveTo(0, 1);
-  ctx.lineTo(0.1, 1);
-  ctx.lineTo(0, 0.9);
+  ctx.fillStyle = "black";
+  ctx.moveTo(0, SIZE);
+  ctx.lineTo(100, SIZE);
+  ctx.lineTo(0, 900);
   ctx.closePath();
   ctx.stroke();
   ctx.fill();
-  ctx.restore();
+  ctx.restore();*/
 }
 
 

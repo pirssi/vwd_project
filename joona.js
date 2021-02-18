@@ -37,17 +37,11 @@ class Ball {
 
 function animate() {
     checkBounds(); // collision
-    drawScene();
+    drawScene(); // niko
     
     window.requestAnimationFrame(animate);
   }
   
-  function drawScene() {
-    reika.draw(ctx); //niko
-    pallo.draw(ctx);
-  }
-
-
 
 // on pointer down
 function pointerDown(e){
@@ -159,18 +153,6 @@ function moveBall(dirX, dirY){
     this.xPos += dirX;
     this.yPos += dirY;
 }
-
-
-
-// background
-function drawBackground(ctx){
-    ctx.beginPath();
-    ctx.fillStyle = "darkGreen";
-    ctx.rect(0,0,SIZE,SIZE);
-    ctx.fill();
-    ctx.closePath();
-}
-
 
 
 // ball animation on pointer release
