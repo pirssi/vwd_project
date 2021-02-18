@@ -1,21 +1,50 @@
 
+var pallo;
+var interval;
 
 function init(){
-
-    let canvas = document.getElementById("myCanvas");
-    ctx = canvas.getContext("2d");
-
     // mouse event handling
     canvas.addEventListener('mousedown',pointerDown,false);
     canvas.addEventListener('mousemove',pointerMove,false);
     canvas.addEventListener('mouseup',pointerUp,false);
 
-    canvas.width = SIZE;
-    canvas.height = SIZE;
+    pallo = new Ball(canvas.width*0.1, canvas.height*0.1);
 
-    drawBackground(ctx);
-    golfBall.draw();    
+    drawBackground(ctx);//niko
+    animate();
 }
+
+class Ball {
+    constructor(xPos, yPos) {
+      this.xPos = xPos;
+      this.yPos = yPos;
+      this.moveBall = moveBall;
+    }
+    
+    draw() {
+      ctx.beginPath();
+      ctx.save();
+      ctx.lineWidth = 0.4;
+  
+      ctx.fillStyle = "lightgray";
+      ctx.arc(this.xPos, this.yPos, 10, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+    }
+}
+
+
+function animate() {
+    drawScene();
+    window.requestAnimationFrame(animate);
+  }
+  
+  function drawScene() {
+    reika.draw(ctx); //niko
+    pallo.draw(ctx);
+    
+  }
 
 
 
@@ -29,7 +58,6 @@ function pointerDown(e){
     dragStartPosY = e.offsetY;
 
     console.log("Start X : " + dragStartPosX, " Start Y : " + dragStartPosY);
-
 
     dragging = true
 }
@@ -53,16 +81,17 @@ function pointerMove(e){
 }
 
 function DrawLine(mX, mY){
+    ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.moveTo(golfBall.xPos, golfBall.yPos);
+    ctx.moveTo(pallo.xPos, pallo.yPos);
     ctx.lineTo(mX, mY);
     ctx.stroke();
+    ctx.restore();
 }
 
 function DrawLineEraser(mX, mY){
     ctx.clearRect(0,0,SIZE, SIZE);
-    drawBackground(ctx);
-    golfBall.draw();
+    drawBackground(ctx);//niko
     DrawLine(mX, mY);
 }
 
@@ -77,14 +106,14 @@ function pointerUp (e){
     console.log("End X : " + dragEndPosX, " End Y : " + dragEndPosY);
 
     // check if dragLenght was too short
-    if (DistanceSqr(dragStartPosX, dragStartPosY, dragEndPosX, dragEndPosY) < 5){
+    if (DistanceSqr(dragStartPosX, dragStartPosY, dragEndPosX, dragEndPosY) < 1){
         dragging = false;
         return;
     }
 
-    // ball direction is according to dragendPosition and golfBall centerposition
-    dirX = dragEndPosX - golfBall.xPos;
-    dirY = dragEndPosY - golfBall.yPos;
+    // ball direction is according to dragendPosition and pallo centerposition
+    dirX = dragEndPosX - pallo.xPos;
+    dirY = dragEndPosY - pallo.yPos;
     var mag = Math.sqrt(dirX*dirX + dirY*dirY); // I dont know 
                                                 // :D
 
@@ -96,7 +125,7 @@ function pointerUp (e){
         verticalVel = dirY /25;
 
         //animation
-        setInterval(animateBalls, 10);
+        interval = setInterval(animateBalls, 10);
     }
 }
 
@@ -110,33 +139,6 @@ function DistanceSqr(sX, sY, eX, eY){
     console.log("dragLine lenght : " + ((sX-eX)*(sX-eX) + (sY-eY)*(sY-eY)) );
 
     return ((sX-eX)*(sX-eX) + (sY-eY)*(sY-eY));
-}
-
-
-
-//function for creating ball variable
-function Ball(xPos, yPos, rad, fStyle){
-    this.xPos = xPos;
-    this.yPos = yPos;
-    this.rad = rad;
-    this.draw = drawball;
-    this.moveBall = moveBall;
-    this.fillStyle = fStyle;
-}
-
-
-
-var golfBall = new Ball(ballYPos,ballXPos,ballRad,"darkred");
-
-// function for drawing ball
-function drawball(){
-
-    ctx.fillStyle = "White";
-    ctx.beginPath();
-    ctx.arc(this.xPos, this.yPos, this.rad, 0, Math.PI*2, true);
-    ctx.fill();
-    ctx.restore();
-    console.log("ball was drawn");
 }
 
 
@@ -163,8 +165,6 @@ function drawBackground(ctx){
 // ball animation on pointer release
 function animateBalls(){
 
-    ctx.clearRect(0,0,SIZE,SIZE);
-
     // set new positions for ball
     var animBallX = horizontalVel;
     var animBallY = verticalVel;
@@ -190,9 +190,15 @@ function animateBalls(){
         verticalVel=0;
     }
 
-    golfBall.moveBall(animBallX, animBallY);
+    if (horizontalVel < 0.05 && horizontalVel > -0.05  
+        && verticalVel < 0.05 && verticalVel > -0.05){
+            clearInterval(interval);
+            console.log("interval cleared");
+        }
+
+    pallo.moveBall(animBallX, animBallY);
     drawBackground(ctx);
-    golfBall.draw();
+    pallo.draw(ctx);
 }
 
 

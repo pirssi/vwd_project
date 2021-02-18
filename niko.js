@@ -1,37 +1,17 @@
+var xPos;
+var yPos;
 
 
 function niko() {
-  let canvas = document.getElementById("myCanvas");
-  let ctx = canvas.getContext("2d");
-
   canvas.width = SIZE;
   canvas.height = SIZE;
 
-  ctx.scale(SIZE, SIZE);
+  reika = new Hole(canvas.width*0.8, canvas.height*0.8);
 
-  pallo = new Ball([ballXPos-499.9, ballYPos-499.9], ballRad-29.995);
-  reika = new Hole([endx-799.1, endy-799.1], holesize-2.993);
-  laatikko = new Box([0.8, 0.5], 0.2);
-
-  animate();
-}
-function animate() {
-  drawScene();
-  window.requestAnimationFrame(animate);
+  
 }
 
-function drawScene() {
-  let canvas = document.getElementById("myCanvas");
-  let ctx = canvas.getContext("2d");
-
-  drawBackground(ctx);
-
-  pallo.draw(ctx);
-  reika.draw(ctx);
-  laatikko.draw(ctx);
-}
-
-function drawBackground(ctx) {
+function drawBackground() {
   //background
   ctx.beginPath();
   ctx.fillStyle = "rgba(0,200,0,1)";
@@ -68,64 +48,24 @@ function drawBackground(ctx) {
   ctx.closePath();
   ctx.stroke();
   ctx.fill();
+  ctx.restore();
 }
 
-class Box {
-  constructor(loc, scale) {
-    this.location = loc;
-    this.scale = scale;
-  }
-  draw(ctx) {
-    ctx.beginPath();
 
-    ctx.save();
-    ctx.translate(this.location[0], this.location[1]);
-    ctx.scale(this.scale, this.scale);
-    ctx.lineWidth = 0.4;
-
-    ctx.fillStyle = wallColor;
-    ctx.rect(0, 0, 0.1, 0.1);
-    ctx.fill();
-    ctx.stroke();
-    ctx.restore();
-  }
-}
-
-class Ball {
-  constructor(loc, scale) {
-    this.location = loc;
-    this.scale = scale;
-  }
-  draw(ctx) {
-    ctx.beginPath();
-    ctx.save();
-    ctx.translate(this.location[0], this.location[1]);
-    ctx.scale(this.scale, this.scale);
-    ctx.lineWidth = 0.4;
-
-    ctx.fillStyle = "lightgray";
-    ctx.arc(0, 0, 5, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.stroke();
-    ctx.restore();
-  }
-}
 
 class Hole {
-  constructor(loc, scale) {
-    this.location = loc;
-    this.scale = scale;
+  constructor(xPos,yPos) {
+    this.xPos = xPos;
+    this.yPos = yPos;
   }
-  draw(ctx) {
+  draw() {
     ctx.beginPath();
 
     ctx.save();
-    ctx.translate(this.location[0], this.location[1]);
-    ctx.scale(this.scale, this.scale);
     ctx.lineWidth = 0.4;
 
     ctx.fillStyle = "black";
-    ctx.arc(0, 0, 5, 0, 2 * Math.PI);
+    ctx.arc(this.xPos, this.yPos, 30, 0, 2 * Math.PI);
     ctx.fill();
     ctx.stroke();
     ctx.restore();

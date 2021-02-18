@@ -12,15 +12,18 @@ var dragStartPosX;
 var dragStartPosY;
 var dragEndPosX;
 var dragEndPosY;
-let holesize = 3;
-let endx = 800;
-let endy = 800;
+
 
 var ctx;
+var canvas;
 var dragging = false;
 
 function main() {
 
+  canvas = document.getElementById("myCanvas");
+  ctx = canvas.getContext("2d");
+
+  niko();
   init();
   //drawScene();
 }
