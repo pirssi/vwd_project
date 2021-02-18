@@ -27,7 +27,7 @@ class Ball {
       ctx.lineWidth = 0.4;
   
       ctx.fillStyle = "lightgray";
-      ctx.arc(this.xPos, this.yPos, 10, 0, 2 * Math.PI);
+      ctx.arc(this.xPos, this.yPos, ballRad, 0, 2 * Math.PI);
       ctx.fill();
       ctx.stroke();
       ctx.restore();
@@ -36,20 +36,24 @@ class Ball {
 
 
 function animate() {
+    checkBounds(); // collision
     drawScene();
+    
     window.requestAnimationFrame(animate);
   }
   
   function drawScene() {
     reika.draw(ctx); //niko
     pallo.draw(ctx);
-    
   }
 
 
 
 // on pointer down
 function pointerDown(e){
+    if (ballMoving){
+        return;
+    }
     console.log("***")
     console.log("mousedown")
     
@@ -66,6 +70,9 @@ function pointerDown(e){
 
 // while moving pointer 
 function pointerMove(e){
+    if (ballMoving){
+        return;
+    }
     if (dragging == true){
         var mouseX = e.offsetX;
         var mouseY = e.offsetY;
@@ -92,12 +99,16 @@ function DrawLine(mX, mY){
 function DrawLineEraser(mX, mY){
     ctx.clearRect(0,0,SIZE, SIZE);
     drawBackground(ctx);//niko
+    checkBounds(); // collision
     DrawLine(mX, mY);
 }
 
 
 // after pointer release
 function pointerUp (e){
+    if (ballMoving){
+        return;
+    }
     console.log("pointerUp");
 
     // get the end coordinates on mouseUp
@@ -190,15 +201,27 @@ function animateBalls(){
         verticalVel=0;
     }
 
+    if (inHole){
+        verticalVel = 0;
+        horizontalVel = 0;
+        ballRad = 9;
+
+    }
+
     if (horizontalVel < 0.05 && horizontalVel > -0.05  
         && verticalVel < 0.05 && verticalVel > -0.05){
             clearInterval(interval);
+            ballMoving = false;
             console.log("interval cleared");
         }
+    else{
+        ballMoving = true;
+    }
 
     pallo.moveBall(animBallX, animBallY);
     drawBackground(ctx);
     pallo.draw(ctx);
+
 }
 
 

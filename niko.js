@@ -6,8 +6,8 @@ function niko() {
   canvas.width = SIZE;
   canvas.height = SIZE;
 
-  reika = new Hole(canvas.width*0.8, canvas.height*0.8);
-
+  reika = new Hole(canvas.width*0.8, canvas.height*0.8, 30);
+  reika2 = new Hole(canvas.width*0.8, canvas.height*0.8, 15)
   
 }
 
@@ -54,9 +54,10 @@ function drawBackground() {
 
 
 class Hole {
-  constructor(xPos,yPos) {
+  constructor(xPos,yPos, reikaRad) {
     this.xPos = xPos;
     this.yPos = yPos;
+    this.reikaRad = reikaRad;
   }
   draw() {
     ctx.beginPath();
@@ -65,7 +66,7 @@ class Hole {
     ctx.lineWidth = 0.4;
 
     ctx.fillStyle = "black";
-    ctx.arc(this.xPos, this.yPos, 30, 0, 2 * Math.PI);
+    ctx.arc(this.xPos, this.yPos, this.reikaRad, 0, 2 * Math.PI);
     ctx.fill();
     ctx.stroke();
     ctx.restore();
