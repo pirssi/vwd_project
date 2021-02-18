@@ -25,8 +25,8 @@ function pointerDown(e){
     console.log("mousedown")
     
     //get the starting coordinates on MouseDown
-    dragStartPosX = e.layerX;
-    dragStartPosY = e.layerY;
+    dragStartPosX = e.offsetX;
+    dragStartPosY = e.offsetY;
 
     console.log("Start X : " + dragStartPosX, " Start Y : " + dragStartPosY);
 
@@ -39,8 +39,8 @@ function pointerDown(e){
 // while moving pointer 
 function pointerMove(e){
     if (dragging == true){
-        var mouseX = e.layerX;
-        var mouseY = e.layerY;
+        var mouseX = e.offsetX;
+        var mouseY = e.offsetY;
         
         // set linedirection for aiming line
         lineDirX = mouseX;
@@ -72,12 +72,12 @@ function pointerUp (e){
     console.log("pointerUp");
 
     // get the end coordinates on mouseUp
-    dragEndPosX = e.layerX;
-    dragEndPosY = e.layerY;
+    dragEndPosX = e.offsetX;
+    dragEndPosY = e.offsetY;
     console.log("End X : " + dragEndPosX, " End Y : " + dragEndPosY);
 
     // check if dragLenght was too short
-    if (DistanceSqr(dragStartPosX, dragStartPosY, dragEndPosX, dragEndPosY) < 25){
+    if (DistanceSqr(dragStartPosX, dragStartPosY, dragEndPosX, dragEndPosY) < 5){
         dragging = false;
         return;
     }
