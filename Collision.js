@@ -60,6 +60,9 @@ var bounce = 0.95;
       console.log("holeInOne");
       inHole = true;
     }
+    else{
+      inHole=false;
+    }
 
     
     // reset insignificant amounts to 0
