@@ -4,7 +4,6 @@ var horizontalVel;
 var verticalVel;
 var ballYPos = 500;
 var ballXPos = 500;
-var ballRad = 10;
 let wallColor = "rgba(20,20,20,1)";
 var ballFriction = 1.015;
 var ballMoving = false;
@@ -17,6 +16,7 @@ var dragStartPosY;
 var dragEndPosX;
 var dragEndPosY;
 var strokes = 1;
+var prevStroke;
 
 var ctx;
 var canvas;

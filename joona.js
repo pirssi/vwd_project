@@ -8,16 +8,17 @@ function init(){
     canvas.addEventListener('mousemove',pointerMove,false);
     canvas.addEventListener('mouseup',pointerUp,false);
 
-    pallo = new Ball(canvas.width*0.1, canvas.height*0.1);
+    pallo = new Ball(canvas.width*0.1, canvas.height*0.1, 10);
 
     drawBackground(ctx);//niko
     animate();
 }
 
 class Ball {
-    constructor(xPos, yPos) {
+    constructor(xPos, yPos, ballRad) {
       this.xPos = xPos;
       this.yPos = yPos;
+      this.ballRad = ballRad;
       this.moveBall = moveBall;
     }
     
@@ -27,7 +28,7 @@ class Ball {
       ctx.lineWidth = 0.4;
   
       ctx.fillStyle = "lightgray";
-      ctx.arc(this.xPos, this.yPos, ballRad, 0, 2 * Math.PI);
+      ctx.arc(this.xPos, this.yPos, pallo.ballRad, 0, 2 * Math.PI);
       ctx.fill();
       ctx.stroke();
       ctx.restore();
@@ -77,7 +78,6 @@ function pointerMove(e){
         // draw line to aim ball direction
         DrawLineEraser(lineDirX, lineDirY);
 
-        console.log(mouseX + " --- " + mouseY);
     }
 }
 
@@ -108,7 +108,6 @@ function pointerUp (e){
     // get the end coordinates on mouseUp
     dragEndPosX = e.offsetX;
     dragEndPosY = e.offsetY;
-    console.log("End X : " + dragEndPosX, " End Y : " + dragEndPosY);
 
     // check if dragLenght was too short
     if (DistanceSqr(dragStartPosX, dragStartPosY, dragEndPosX, dragEndPosY) < 1){
@@ -138,11 +137,6 @@ function pointerUp (e){
 
 // calculates distance between mouseDown and mouseUp points
 function DistanceSqr(sX, sY, eX, eY){
-
-    console.log((sX-eX)*(sX-eX));
-    console.log((sY-eY)*(sY-eY));
-    console.log("dragLine lenght : " + ((sX-eX)*(sX-eX) + (sY-eY)*(sY-eY)) );
-
     return ((sX-eX)*(sX-eX) + (sY-eY)*(sY-eY));
 }
 
@@ -186,7 +180,7 @@ function animateBalls(){
     if (inHole){
         verticalVel = 0;
         horizontalVel = 0;
-        ballRad = 9;
+        pallo.ballRad = 9;
     }
 
     if (horizontalVel < 0.1 && horizontalVel > -0.1  
@@ -196,6 +190,7 @@ function animateBalls(){
 
             if(!inHole){
                 strokes +=1;
+                pallo.ballRad = 10;
             }
             
             console.log("interval cleared");
@@ -208,6 +203,22 @@ function animateBalls(){
     drawBackground(ctx);
     pallo.draw(ctx);
 
+}
+
+
+function ballHoleGravity(){
+
+    var sqrDistance = (pallo.xPos-reika.xPos)*(pallo.xPos-reika.xPos) + (pallo.yPos-reika.yPos)*(pallo.yPos-reika.yPos);
+    console.log(sqrDistance);
+
+    var ballHoleRadDist = (pallo.ballRad + reika.reikaRad) * (pallo.ballRad + reika.reikaRad);
+    console.log(ballHoleRadDist); 
+    if (pallo.yPos < reika.yPos * 0.9){
+        console.log("ball y is higher than reika y");
+    }
+    if (pallo.xPos < reika.xPos * 0.9){
+        console.log("ball x is towards left from reika x");
+    }
 }
 
 

@@ -14,29 +14,29 @@ var bounce = 0.95;
     // logic goes here
 
     // bottom bound / floor
-    if (pallo.yPos + ballRad >= canvas.height) {
+    if (pallo.yPos + pallo.ballRad >= canvas.height) {
       horizontalVel *= bounce;
       verticalVel *= -bounce;
-      pallo.yPos = canvas.height - ballRad;
+      pallo.yPos = canvas.height - pallo.ballRad;
     }
     // top bound / ceiling
-    if (pallo.yPos - ballRad <= 0) {
+    if (pallo.yPos - pallo.ballRad <= 0) {
       horizontalVel *= bounce;
       verticalVel *= -bounce;
-      pallo.yPos = ballRad;
+      pallo.yPos = pallo.ballRad;
     }
 
     // left bound
-    if (pallo.xPos - ballRad <= 0) {
+    if (pallo.xPos - pallo.ballRad <= 0) {
       verticalVel *= bounce;
       horizontalVel *= -bounce;
-      pallo.xPos = ballRad;
+      pallo.xPos = pallo.ballRad;
     }
     // right bound
-    if (pallo.xPos + ballRad >= canvas.width) {
+    if (pallo.xPos + pallo.ballRad >= canvas.width) {
       verticalVel *= bounce;
       horizontalVel *= -bounce;
-      pallo.xPos = canvas.width - ballRad;
+      pallo.xPos = canvas.width - pallo.ballRad;
     }
 
 
@@ -44,7 +44,7 @@ var bounce = 0.95;
     var dx = pallo.xPos - reika2.xPos;
     var dy = pallo.yPos - reika2.yPos;
     var dist = Math.sqrt (dx * dx + dy * dy);
-    if (dist < ballRad + reika2.reikaRad)  {
+    if (dist < pallo.ballRad + reika2.reikaRad)  {
 
       inHole = true;
       drawScore();
