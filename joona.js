@@ -194,6 +194,11 @@ function animateBalls(){
         && verticalVel < 0.1 && verticalVel > -0.1){
             clearInterval(interval);
             ballMoving = false;
+
+            if(!inHole){
+                strokes +=1;
+            }
+            
             console.log("interval cleared");
         }
     else{

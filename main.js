@@ -16,7 +16,7 @@ var dragStartPosX;
 var dragStartPosY;
 var dragEndPosX;
 var dragEndPosY;
-
+var strokes = 1;
 
 var ctx;
 var canvas;

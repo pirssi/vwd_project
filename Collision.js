@@ -55,9 +55,8 @@ var bounce = 0.95;
       gradient.addColorStop("0.72", "blue");
       gradient.addColorStop("0.8", "magenta");
       ctx.fillStyle = gradient;
-      ctx.fillText("Score!", canvas.width * 0.5, canvas.height * 0.5);
-      
-      console.log("holeInOne");
+
+      ctx.fillText("Hole in "+strokes, canvas.width * 0.4, canvas.height * 0.5);
       inHole = true;
     }
     else{

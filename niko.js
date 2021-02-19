@@ -30,6 +30,16 @@ function drawBackground() {
   ctx.lineWidth = 5;
   ctx.rect(0, 0, SIZE, SIZE);
   ctx.stroke();
+  
+  ctx.font = "54px Georgia";
+  ctx.fillStyle = "black"
+  if(!inHole){
+    ctx.fillText("Stroke "+strokes, canvas.width * 0.4, canvas.height * 0.1);
+  }
+  else{
+    ctx.fillText("",);
+  }
+   
 
   //wall test
   /*ctx.beginPath();
