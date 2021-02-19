@@ -8,6 +8,8 @@ var holeGravityY = 0;
 var suctionX = 0;
 var suctionY = 0;
 
+var velFactor = 0;
+
 function init(){
     // mouse event handling
     canvas.addEventListener('mousedown',pointerDown,false);
@@ -47,7 +49,7 @@ function animate() {
     ballHoleGravity();
     checkBounds(); // collision
     drawScene(); // niko
-    
+    HitForceUI();
     window.requestAnimationFrame(animate);
   }
   
@@ -68,8 +70,6 @@ function pointerDown(e){
     dragStartPosX = e.offsetX;
     dragStartPosY = e.offsetY;
 
-    console.log("Start X : " + dragStartPosX, " Start Y : " + dragStartPosY);
-
     dragging = true
 }
 
@@ -87,9 +87,19 @@ function pointerMove(e){
         // set linedirection for aiming line
         lineDirX = mouseX;
         lineDirY = mouseY;
+
         // draw line to aim ball direction
         DrawLineEraser(lineDirX, lineDirY);
 
+        // check dragDistance and use it to set velFactor
+        dragDistance = Math.hypot(pallo.xPos-mouseX, pallo.yPos-mouseY);
+        velFactor = Math.abs(dragDistance/10000);
+        if (velFactor > 0.05){
+            velFactor = 0.05;
+        }
+        else if (velFactor < 0.015){
+            velFactor = 0.015;
+        }
     }
 }
 
@@ -131,12 +141,16 @@ function pointerUp (e){
     dirX = dragEndPosX - pallo.xPos;
     dirY = dragEndPosY - pallo.yPos;
 
+
+
     if (dragging == true){
         dragging = false;
 
+        
+
         // use directions and additional multiplier to set dir and vel
-        horizontalVel = dirX /25;
-        verticalVel = dirY /25;
+        horizontalVel = dirX*velFactor;
+        verticalVel = dirY*velFactor;
 
         //animation
         interval = setInterval(animateBalls, 10);
@@ -233,16 +247,13 @@ function ballHoleGravity(){
 
     // distance between balls Xpos
     var sqrDistance = (pallo.xPos-reika.xPos)*(pallo.xPos-reika.xPos) + (pallo.yPos-reika.yPos)*(pallo.yPos-reika.yPos);
-    //console.log(sqrDistance);
 
     // balls radius combined
     var ballHoleRadDist = (pallo.ballRad + reika.reikaRad) * (pallo.ballRad + reika.reikaRad);
 
-
-    
     //console.log(ballHoleRadDist); 
     if (sqrDistance < ballHoleRadDist){
-        //console.log("balls are touching");
+
         ballsAreTouching = true;
 
         if (ballXPos != reika.xPos && ballYPos != reika.yPos){
@@ -250,7 +261,25 @@ function ballHoleGravity(){
             suctionY = (reika.yPos - pallo.yPos);
         }
 
-        horizontalVel += suctionX/ 25;
-        verticalVel += suctionY/ 25;
+        horizontalVel += suctionX*velFactor;
+        verticalVel += suctionY*velFactor;
+    }
+    else{
+        ballsAreTouching = false;
+    }
+}
+
+
+// creates UI for current hit force in the left upper corner
+function HitForceUI(){
+
+    var velFactorPercent = Math.round(((velFactor-0.015)/0.035)*100);
+
+    ctx.font = "25px Georgia";
+    if(velFactor <= 0.015){
+        ctx.fillText("Hit Force: Putt", canvas.width * 0.05, canvas.height * 0.05);
+    }
+    else if (velFactor > 0.015){
+        ctx.fillText("Hit Force: " + velFactorPercent, canvas.width * 0.05, canvas.height * 0.05);
     }
 }
