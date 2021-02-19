@@ -1,6 +1,9 @@
 
 var pallo;
 var interval;
+var ballsAreTouching = false;
+var holeGravityX = 0;
+var holeGravityY = 0;
 
 function init(){
     // mouse event handling
@@ -8,17 +11,18 @@ function init(){
     canvas.addEventListener('mousemove',pointerMove,false);
     canvas.addEventListener('mouseup',pointerUp,false);
 
-    pallo = new Ball(canvas.width*0.1, canvas.height*0.1, 10);
+    pallo = new Ball(canvas.width*0.1, canvas.height*0.1, 10, "white");
 
     drawBackground(ctx);//niko
     animate();
 }
 
 class Ball {
-    constructor(xPos, yPos, ballRad) {
+    constructor(xPos, yPos, ballRad, ballColor) {
       this.xPos = xPos;
       this.yPos = yPos;
       this.ballRad = ballRad;
+      this.ballColor = ballColor;
       this.moveBall = moveBall;
     }
     
@@ -27,7 +31,7 @@ class Ball {
       ctx.save();
       ctx.lineWidth = 0.4;
   
-      ctx.fillStyle = "lightgray";
+      ctx.fillStyle = this.ballColor;
       ctx.arc(this.xPos, this.yPos, pallo.ballRad, 0, 2 * Math.PI);
       ctx.fill();
       ctx.stroke();
@@ -37,6 +41,7 @@ class Ball {
 
 
 function animate() {
+    ballHoleGravity();
     checkBounds(); // collision
     drawScene(); // niko
     
@@ -46,6 +51,7 @@ function animate() {
 
 // on pointer down
 function pointerDown(e){
+
     if (ballMoving || inHole){
         return;
     }
@@ -146,6 +152,11 @@ function DistanceSqr(sX, sY, eX, eY){
 function moveBall(dirX, dirY){
     this.xPos += dirX;
     this.yPos += dirY;
+
+    if (ballsAreTouching){
+        this.xPos += dirX * holeGravityX;
+        this.yPos += dirY * holeGravityY; 
+    }
 }
 
 
@@ -180,23 +191,34 @@ function animateBalls(){
     if (inHole){
         verticalVel = 0;
         horizontalVel = 0;
-        pallo.ballRad = 9;
     }
 
+
+
+    // check is moving
     if (horizontalVel < 0.1 && horizontalVel > -0.1  
         && verticalVel < 0.1 && verticalVel > -0.1){
+            
             clearInterval(interval);
             ballMoving = false;
 
             if(!inHole){
                 strokes +=1;
-                pallo.ballRad = 10;
             }
             
             console.log("interval cleared");
         }
     else{
         ballMoving = true;
+    }
+
+
+    // if balls are touching change ball color to red
+    if (ballsAreTouching){
+        pallo.ballColor = "red";
+    }
+    else{
+        pallo.ballColor = "white";
     }
 
     pallo.moveBall(animBallX, animBallY);
@@ -206,18 +228,40 @@ function animateBalls(){
 }
 
 
+// check if balls are touching 
 function ballHoleGravity(){
 
+    // distance between balls Xpos
     var sqrDistance = (pallo.xPos-reika.xPos)*(pallo.xPos-reika.xPos) + (pallo.yPos-reika.yPos)*(pallo.yPos-reika.yPos);
-    console.log(sqrDistance);
+    //console.log(sqrDistance);
 
+    // balls radius combined
     var ballHoleRadDist = (pallo.ballRad + reika.reikaRad) * (pallo.ballRad + reika.reikaRad);
-    console.log(ballHoleRadDist); 
-    if (pallo.yPos < reika.yPos * 0.9){
-        console.log("ball y is higher than reika y");
+    //console.log(ballHoleRadDist); 
+    if (sqrDistance < ballHoleRadDist){
+        //console.log("balls are touching");
+        ballsAreTouching = true;
+
+        // check if ball is left or right of hole
+        if (pallo.xPos > reika.xPos){
+            holeGravityX -= 0.1;
+        }
+        else if (pallo.xPos < reika.xPos){
+            holeGravityX += 0.1;
+        }
+        
+        //check if ball is higher or lower than hole
+        if (pallo.yPos > reika.yPos){
+            holeGravityY -= 0.1;
+        }
+        else if (pallo.yPos < reika.yPos){
+            holeGravityY += 0.1
+        }
     }
-    if (pallo.xPos < reika.xPos * 0.9){
-        console.log("ball x is towards left from reika x");
+    else{
+        ballsAreTouching = false;
+        holeGravityX = 0;
+        holeGravityY = 0;
     }
 }
 
