@@ -45,7 +45,7 @@ function animate() {
 
 // on pointer down
 function pointerDown(e){
-    if (ballMoving){
+    if (ballMoving || inHole){
         return;
     }
     console.log("***")
@@ -64,7 +64,7 @@ function pointerDown(e){
 
 // while moving pointer 
 function pointerMove(e){
-    if (ballMoving){
+    if (ballMoving || inHole){
         return;
     }
     if (dragging == true){
@@ -100,7 +100,7 @@ function DrawLineEraser(mX, mY){
 
 // after pointer release
 function pointerUp (e){
-    if (ballMoving){
+    if (ballMoving || inHole){
         return;
     }
     console.log("pointerUp");
@@ -187,7 +187,6 @@ function animateBalls(){
         verticalVel = 0;
         horizontalVel = 0;
         ballRad = 9;
-
     }
 
     if (horizontalVel < 0.1 && horizontalVel > -0.1  

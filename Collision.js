@@ -46,21 +46,15 @@ var bounce = 0.95;
     var dist = Math.sqrt (dx * dx + dy * dy);
     if (dist < ballRad + reika2.reikaRad)  {
 
-      ctx.font = "54px Georgia";
-      var gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-      gradient.addColorStop("0.5", "red");
-      gradient.addColorStop("0.55", "orange");
-      gradient.addColorStop("0.62", "yellow");
-      gradient.addColorStop("0.68", "lightgreen");
-      gradient.addColorStop("0.72", "blue");
-      gradient.addColorStop("0.8", "magenta");
-      ctx.fillStyle = gradient;
-
-      ctx.fillText("Hole in "+strokes, canvas.width * 0.4, canvas.height * 0.5);
       inHole = true;
+      drawScore();
     }
     else{
+      if(inHole){
+        strokes +=1;
+      }
       inHole=false;
+      drawStrokes();
     }
 
     

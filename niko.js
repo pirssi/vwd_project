@@ -30,16 +30,6 @@ function drawBackground() {
   ctx.lineWidth = 5;
   ctx.rect(0, 0, SIZE, SIZE);
   ctx.stroke();
-  
-  ctx.font = "54px Georgia";
-  ctx.fillStyle = "black"
-  if(!inHole){
-    ctx.fillText("Stroke "+strokes, canvas.width * 0.4, canvas.height * 0.1);
-  }
-  else{
-    ctx.fillText("",);
-  }
-   
 
   //wall test
   /*ctx.beginPath();
@@ -61,6 +51,29 @@ function drawBackground() {
   ctx.restore();*/
 }
 
+function drawStrokes(){
+  ctx.font = "54px Georgia";
+  ctx.fillStyle = "black"
+  if(!inHole){
+    ctx.fillText("Stroke "+strokes, canvas.width * 0.4, canvas.height * 0.1);
+  }
+  else{
+    ctx.fillText("",canvas.width * 0.4, canvas.height * 0.1);
+  }
+}
+
+function drawScore(){
+  ctx.font = "54px Georgia";
+  var gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+  gradient.addColorStop("0.5", "red");
+  gradient.addColorStop("0.55", "orange");
+  gradient.addColorStop("0.62", "yellow");
+  gradient.addColorStop("0.68", "lightgreen");
+  gradient.addColorStop("0.72", "blue");
+  gradient.addColorStop("0.8", "magenta");
+  ctx.fillStyle = gradient;
+  ctx.fillText("Hole in "+strokes, canvas.width * 0.4, canvas.height * 0.5);
+}
 
 
 class Hole {
