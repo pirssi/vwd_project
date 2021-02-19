@@ -5,6 +5,9 @@ var ballsAreTouching = false;
 var holeGravityX = 0;
 var holeGravityY = 0;
 
+var suctionX = 0;
+var suctionY = 0;
+
 function init(){
     // mouse event handling
     canvas.addEventListener('mousedown',pointerDown,false);
@@ -51,6 +54,9 @@ function animate() {
 
 // on pointer down
 function pointerDown(e){
+
+    console.log(pallo.xPos, pallo.yPos);
+    console.log(reika.xPos, reika.yPos);
 
     if (ballMoving || inHole){
         return;
@@ -121,11 +127,9 @@ function pointerUp (e){
         return;
     }
 
-    // ball direction is according to dragendPosition and pallo centerposition
+    // ball direction is according to dragEndPosition and pallo centerposition
     dirX = dragEndPosX - pallo.xPos;
     dirY = dragEndPosY - pallo.yPos;
-    var mag = Math.sqrt(dirX*dirX + dirY*dirY); // I dont know 
-                                                // :D
 
     if (dragging == true){
         dragging = false;
@@ -153,10 +157,12 @@ function moveBall(dirX, dirY){
     this.xPos += dirX;
     this.yPos += dirY;
 
+    /*
     if (ballsAreTouching){
         this.xPos += dirX * holeGravityX;
         this.yPos += dirY * holeGravityY; 
     }
+    */
 }
 
 
@@ -187,12 +193,6 @@ function animateBalls(){
         else if(verticalVel>-0.01 && verticalVel<0)
         verticalVel=0;
     }
-
-    if (inHole){
-        verticalVel = 0;
-        horizontalVel = 0;
-    }
-
 
 
     // check is moving
@@ -237,32 +237,20 @@ function ballHoleGravity(){
 
     // balls radius combined
     var ballHoleRadDist = (pallo.ballRad + reika.reikaRad) * (pallo.ballRad + reika.reikaRad);
+
+
+    
     //console.log(ballHoleRadDist); 
     if (sqrDistance < ballHoleRadDist){
         //console.log("balls are touching");
         ballsAreTouching = true;
 
-        // check if ball is left or right of hole
-        if (pallo.xPos > reika.xPos){
-            holeGravityX -= 0.1;
+        if (ballXPos != reika.xPos && ballYPos != reika.yPos){
+            suctionX = (reika.xPos - pallo.xPos);
+            suctionY = (reika.yPos - pallo.yPos);
         }
-        else if (pallo.xPos < reika.xPos){
-            holeGravityX += 0.1;
-        }
-        
-        //check if ball is higher or lower than hole
-        if (pallo.yPos > reika.yPos){
-            holeGravityY -= 0.1;
-        }
-        else if (pallo.yPos < reika.yPos){
-            holeGravityY += 0.1
-        }
-    }
-    else{
-        ballsAreTouching = false;
-        holeGravityX = 0;
-        holeGravityY = 0;
+
+        horizontalVel += suctionX/ 25;
+        verticalVel += suctionY/ 25;
     }
 }
-
-

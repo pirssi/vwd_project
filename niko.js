@@ -6,13 +6,14 @@ function niko() {
   canvas.width = SIZE;
   canvas.height = SIZE;
 
-  reika = new Hole(canvas.width*0.8, canvas.height*0.8, 30);
-  reika2 = new Hole(canvas.width*0.8, canvas.height*0.8, 15)
+  reika = new Hole(canvas.width*0.8, canvas.height*0.8, 15, "black");
+  reika2 = new Hole(canvas.width*0.8, canvas.height*0.8, 5, "lightblue")
   
 }
 
 function drawScene() {
   reika.draw(ctx);
+  reika2.draw(ctx);
   pallo.draw(ctx); //joona
 }
 
@@ -77,9 +78,10 @@ function drawScore(){
 
 
 class Hole {
-  constructor(xPos,yPos, reikaRad) {
+  constructor(xPos,yPos, reikaRad, holeColor) {
     this.xPos = xPos;
     this.yPos = yPos;
+    this.holeColor = holeColor;
     this.reikaRad = reikaRad;
   }
   draw() {
@@ -88,7 +90,7 @@ class Hole {
     ctx.save();
     ctx.lineWidth = 0.4;
 
-    ctx.fillStyle = "black";
+    ctx.fillStyle = this.holeColor;
     ctx.arc(this.xPos, this.yPos, this.reikaRad, 0, 2 * Math.PI);
     ctx.fill();
     ctx.stroke();

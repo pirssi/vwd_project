@@ -45,7 +45,8 @@ var bounce = 0.95;
     var dy = pallo.yPos - reika2.yPos;
     var dist = Math.sqrt (dx * dx + dy * dy);
     if (dist < pallo.ballRad + reika2.reikaRad)  {
-
+      verticalVel = 0;
+      horizontalVel = 0;
       inHole = true;
       drawScore();
     }
@@ -56,7 +57,8 @@ var bounce = 0.95;
       inHole=false;
       drawStrokes();
     }
-
+    
+    
     
     // reset insignificant amounts to 0
     if (horizontalVel < 0.01 && horizontalVel > -0.01) {
