@@ -15,6 +15,7 @@ function drawScene() {
   reika.draw(ctx);
   reika2.draw(ctx);
   pallo.draw(ctx); //joona
+  DrawForceMeter();
 }
 
 function drawBackground() {
@@ -96,4 +97,27 @@ class Hole {
     ctx.stroke();
     ctx.restore();
   }
+}
+
+//draw forceMeter
+function DrawForceMeter(velFactorPercent){
+    
+  ctx.beginPath();
+  ctx.lineWidth = 0.2;
+  ctx.fillStyle = "black";
+  ctx.moveTo(10,10);
+  ctx.lineTo(10,130);
+  ctx.lineTo(30,130);
+  ctx.lineTo(30,10);
+  ctx.lineTo(10,10);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.fillStyle = "green";
+  ctx.moveTo(11,11);
+  ctx.lineTo(11,129);
+  ctx.lineTo(29,129);
+  ctx.lineTo(29,11);
+  ctx.lineTo(9,11);
+  ctx.fill();
 }

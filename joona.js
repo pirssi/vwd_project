@@ -275,11 +275,40 @@ function HitForceUI(){
 
     var velFactorPercent = Math.round(((velFactor-0.015)/0.035)*100);
 
-    ctx.font = "25px Georgia";
+    // fill forceMeter
     if(velFactor <= 0.015){
-        ctx.fillText("Hit Force: Putt", canvas.width * 0.05, canvas.height * 0.05);
+        ctx.font = "20px Georgia";
+        ctx.fillStyle = "White";
+        ctx.fillText("Putt", canvas.width * 0.035, canvas.height * 0.126);
+
+        ctx.beginPath();
+        ctx.fillStyle = "lightYellow";
+        ctx.moveTo(11,129);
+        ctx.lineTo(29,129);
+        ctx.lineTo(29,109);
+        ctx.lineTo(11,109);
+        ctx.lineTo(11,129);
+        ctx.fill();
     }
     else if (velFactor > 0.015){
-        ctx.fillText("Hit Force: " + velFactorPercent, canvas.width * 0.05, canvas.height * 0.05);
+        ctx.beginPath();
+        ctx.fillStyle = "lightYellow";
+        ctx.moveTo(11,129);
+        ctx.lineTo(29,129);
+        ctx.lineTo(29,109);
+        ctx.lineTo(11,109);
+        ctx.lineTo(11,129);
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.fillStyle = "red";
+        ctx.moveTo(11,109);
+        ctx.lineTo(29,109);
+        ctx.lineTo(29,111-velFactorPercent);
+        ctx.lineTo(11,111-velFactorPercent);
+        ctx.lineTo(11,109);
+        ctx.fill();
     }
 }
+
+
