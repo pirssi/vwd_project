@@ -46,29 +46,31 @@ class Ball {
 
 
 function animate() {
+    SetInnerRectCollision();
     ballHoleGravity();
     checkBounds(); // collision
     drawScene(); // niko
     HitForceUI();
+    
     window.requestAnimationFrame(animate);
   }
   
 
 // on pointer down
 function pointerDown(e){
-
-    console.log(pallo.xPos, pallo.yPos);
-    console.log(reika.xPos, reika.yPos);
-
+    
     if (ballMoving || inHole){
         return;
     }
-    console.log("***")
-    console.log("mousedown")
     
     //get the starting coordinates on MouseDown
     dragStartPosX = e.offsetX;
     dragStartPosY = e.offsetY;
+
+    for (let i = 0; i < wallCollisions.length; i++){  
+        walls[i];
+        wallCollisions[i];
+    }
 
     dragging = true
 }
@@ -83,7 +85,7 @@ function pointerMove(e){
     if (dragging == true){
         var mouseX = e.offsetX;
         var mouseY = e.offsetY;
-        
+
         // set linedirection for aiming line
         lineDirX = mouseX;
         lineDirY = mouseY;
@@ -170,13 +172,6 @@ function DistanceSqr(sX, sY, eX, eY){
 function moveBall(dirX, dirY){
     this.xPos += dirX;
     this.yPos += dirY;
-
-    /*
-    if (ballsAreTouching){
-        this.xPos += dirX * holeGravityX;
-        this.yPos += dirY * holeGravityY; 
-    }
-    */
 }
 
 
@@ -236,7 +231,7 @@ function animateBalls(){
     }
 
     pallo.moveBall(animBallX, animBallY);
-    drawBackground(ctx);
+    drawBackground(ctx); // niko
     pallo.draw(ctx);
 
 }

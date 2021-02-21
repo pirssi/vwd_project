@@ -1,21 +1,27 @@
 var xPos;
 var yPos;
 
+var walls = [];
+var wallCollisions = [];
+var wallCollisionsSet = false;
+var stages = [0,1,2,3,4];
+var stagesIndex = 0;
 
 function niko() {
   canvas.width = SIZE;
   canvas.height = SIZE;
 
-  reika = new Hole(canvas.width*0.8, canvas.height*0.8, 15, "black");
-  reika2 = new Hole(canvas.width*0.8, canvas.height*0.8, 5, "lightblue")
-  
+  setStage();
 }
 
 function drawScene() {
+  setStage();
   reika.draw(ctx);
   reika2.draw(ctx);
+  
   pallo.draw(ctx); //joona
   DrawForceMeter();
+  DrawWalls();
 }
 
 function drawBackground() {
@@ -121,3 +127,138 @@ function DrawForceMeter(velFactorPercent){
   ctx.lineTo(9,11);
   ctx.fill();
 }
+
+
+// walls
+class Wall{
+  constructor(xPos, yPos, wallWidth, wallHeight, topBotBool){
+    this.xPos = xPos;
+    this.yPos = yPos;
+    this.wallWidth = wallWidth;
+    this.wallHeight = wallHeight;
+    this.topBotBool = topBotBool
+  }
+
+  draw(){
+    ctx.beginPath();
+    ctx.fillStyle = 'rgb(95, 11, 11)';
+    ctx.rect(this.xPos, this.yPos, this.wallWidth, this.wallHeight);
+    ctx.fill();
+  }
+}
+
+// draw all walls in walls[]
+function DrawWalls(){
+  for (let i = 0; i < walls.length; i++){
+    walls[i].draw();
+  }
+}
+
+
+
+// StageChange system that sets stage depending on stageIndex
+function setStage(){
+
+  //stage1
+  if (stages[stagesIndex] == 0){
+    //remove each drawn wall at each frame before drawing new ones to avoid overloading webpage
+    while(walls.length){
+      walls.pop();
+    }
+
+    // set hole position and wall positions
+    reika = new Hole(canvas.width*0.82, canvas.height*0.9, 15, "black");
+    reika2 = new Hole(canvas.width*0.82, canvas.height*0.9, 5, "lightblue")
+    walls.push(new Wall(canvas.width*0.3, canvas.height*0, canvas.width*0.033, canvas.height*0.66));
+    walls.push(new Wall(canvas.width*0.63, canvas.height*0.338, canvas.width*0.033, canvas.height*0.66));
+    
+    // if wallCollisions = false, save  drawn walls to static array (wallCollisions)
+    // which is used to keep wall collisions up in Collision.js
+    // this is because walls are removed and redrawn on each frame
+    if (!wallCollisionsSet){
+      wallCollisionsSet = true;
+      for (let i = 0; i < walls.length; i++){
+        wallCollisions.push(walls[i]);
+      }
+    }
+  }
+
+  
+  //stage2
+  else if (stages[stagesIndex] == 1){
+    while(walls.length){
+      walls.pop();
+    }
+    reika = new Hole(canvas.width*0.9, canvas.height*0.82, 15, "black");
+    reika2 = new Hole(canvas.width*0.9, canvas.height*0.82, 5, "lightblue");
+    walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033));
+    walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033));
+    if (!wallCollisionsSet){
+      wallCollisionsSet = true;
+      for (let i = 0; i < walls.length; i++){
+        wallCollisions.push(walls[i]);
+        console.log(wallCollisions[i]);
+      }
+    }
+  }
+
+/*
+  // these are just layouts for new levels
+
+  //stage3
+  if (stages[stagesIndex] == 2){
+    while(walls.length){
+      walls.pop();
+    }
+    reika = new Hole(canvas.width*0.82, canvas.height*0.9, 15, "black");
+    reika2 = new Hole(canvas.width*0.82, canvas.height*0.9, 5, "lightblue");
+    walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033));
+    walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033));
+    if (!wallCollisionsSet){
+      wallCollisionsSet = true;
+      for (let i = 0; i < walls.length; i++){
+        wallCollisions.push(walls[i]);
+        console.log(wallCollisions[i]);
+      }
+    }
+  }
+
+  //stage4
+  if (stages[stagesIndex] == 3){
+    while(walls.length){
+      walls.pop();
+    }
+    reika = new Hole(canvas.width*0.82, canvas.height*0.9, 15, "black");
+    reika2 = new Hole(canvas.width*0.82, canvas.height*0.9, 5, "lightblue");
+    walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033));
+    walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033));
+    if (!wallCollisionsSet){
+      wallCollisionsSet = true;
+      for (let i = 0; i < walls.length; i++){
+        wallCollisions.push(walls[i]);
+        console.log(wallCollisions[i]);
+      }
+    }
+  }
+
+    //stage5
+    if (stages[stagesIndex] == 4){
+    while(walls.length){
+      walls.pop();
+    }
+    reika = new Hole(canvas.width*0.82, canvas.height*0.9, 15, "black");
+    reika2 = new Hole(canvas.width*0.82, canvas.height*0.9, 5, "lightblue");
+    walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033));
+    walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033));
+    if (!wallCollisionsSet){
+      wallCollisionsSet = true;
+      for (let i = 0; i < walls.length; i++){
+        wallCollisions.push(walls[i]);
+        console.log(wallCollisions[i]);
+      }
+    }
+  }
+
+    */
+}
+
