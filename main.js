@@ -19,6 +19,7 @@ var strokes = 1;
 var score = 0;
 lastStage = 0;
 ballHit =false;
+mapChanged=false;
 
 var ctx;
 var canvas;

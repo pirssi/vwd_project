@@ -48,7 +48,12 @@ class Ball {
 function animate() {
     if(horizontalVel == 0 && verticalVel ==0 && !inHole && ballHit==true){  
         ballHit=false;
-        strokes +=1;
+        if(!mapChanged){
+            strokes +=1;
+        }
+        else{
+            mapChanged=false;
+        }
     }
     SetInnerRectCollision();
     ballHoleGravity();

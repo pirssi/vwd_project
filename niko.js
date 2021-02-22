@@ -160,9 +160,10 @@ function DrawWalls(){
 function setStage(){
 
   if(lastStage!=stagesIndex){
+    mapChanged=true;
     horizontalVel = 0;
     verticalVel = 0;
-    strokes = 0;
+    strokes = 1;
     lastStage = stagesIndex;
     drawBackground();
     drawStrokes();
