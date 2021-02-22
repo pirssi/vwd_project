@@ -46,11 +46,16 @@ class Ball {
 
 
 function animate() {
+    if(horizontalVel == 0 && verticalVel ==0 && !inHole && ballHit==true){  
+        ballHit=false;
+        strokes +=1;
+    }
     SetInnerRectCollision();
     ballHoleGravity();
     checkBounds(); // collision
     drawScene(); // niko
     HitForceUI();
+
     
     window.requestAnimationFrame(animate);
   }
@@ -138,6 +143,9 @@ function pointerUp (e){
         dragging = false;
         return;
     }
+    else{ //!if you pointer up after ball has stopped, this counts it as a hit
+        ballHit=true;
+    }
 
     // ball direction is according to dragEndPosition and pallo centerposition
     dirX = dragEndPosX - pallo.xPos;
@@ -182,27 +190,16 @@ function animateBalls(){
     var animBallX = horizontalVel;
     var animBallY = verticalVel;
 
-    //ball friction and stopping
-    if(horizontalVel>0 ||horizontalVel<0)   
-    {
-        horizontalVel=horizontalVel/ballFriction;
-        if(horizontalVel<0.01 && horizontalVel>0)
-        horizontalVel=0;
-        
-        else if(horizontalVel>-0.01 && horizontalVel<0)
-        horizontalVel=0;
-    }
+    //ball friction
+    horizontalVel=horizontalVel/ballFriction;
+    verticalVel=verticalVel/ballFriction;
 
-    if(verticalVel>0 || verticalVel<0)
-    {
-        verticalVel=verticalVel/ballFriction;
-        if(verticalVel<0.01 && verticalVel>0)
-        verticalVel=0;
-
-        else if(verticalVel>-0.01 && verticalVel<0)
+    //ball stopping
+    if(((horizontalVel>-0.1 && horizontalVel<0 || horizontalVel==0) || (horizontalVel<0.1 && horizontalVel>0)) &&
+      ((verticalVel<0.1 && verticalVel>0) || (verticalVel>-0.1 && verticalVel<0) || verticalVel==0)){
+        horizontalVel=0;
         verticalVel=0;
     }
-
 
     // check is moving
     if (horizontalVel < 0.1 && horizontalVel > -0.1  
@@ -210,10 +207,6 @@ function animateBalls(){
             
             clearInterval(interval);
             ballMoving = false;
-
-            if(!inHole){
-                strokes +=1;
-            }
             
             console.log("interval cleared");
         }

@@ -9,6 +9,7 @@ function score() {
   ctx.fillText("Score!", canvas.width * 0.5, canvas.height * 0.5);
 }
 
+
   // the main piece of the loop
   // runs everything
 function checkBounds() {
@@ -48,32 +49,15 @@ function checkBounds() {
   if (dist < pallo.ballRad + reika2.reikaRad)  {
     verticalVel = 0;
     horizontalVel = 0;
+    score = strokes;
     inHole = true;
     drawScore();
     LoadNextStage();
   }
   else{
-    if(inHole){
-      strokes +=1;
-      
-    }
     inHole=false;
     drawStrokes();
   }
-    
-    
-    
-  // reset insignificant amounts to 0
-  if (horizontalVel < 0.01 && horizontalVel > -0.01) {
-    horizontalVel = 0
-  }
-  if (verticalVel < 0.01 && verticalVel > -0.01) {
-    verticalVel = 0
-  }
-
-
-
-
 }
 
 // a bit buggy :D
@@ -120,8 +104,4 @@ function LoadNextStage(){
 
   // set stagesIndex to next
   stagesIndex++;
-
-  // draw background and new scene according to stagesIndex settings in niko.js
-  drawBackground();
-  drawScene();
 }

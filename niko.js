@@ -80,7 +80,7 @@ function drawScore(){
   gradient.addColorStop("0.72", "blue");
   gradient.addColorStop("0.8", "magenta");
   ctx.fillStyle = gradient;
-  ctx.fillText("Hole in "+strokes, canvas.width * 0.4, canvas.height * 0.5);
+  ctx.fillText("Hole in "+score, canvas.width * 0.4, canvas.height * 0.5);
 }
 
 
@@ -159,6 +159,16 @@ function DrawWalls(){
 // StageChange system that sets stage depending on stageIndex
 function setStage(){
 
+  if(lastStage!=stagesIndex){
+    horizontalVel = 0;
+    verticalVel = 0;
+    strokes = 0;
+    lastStage = stagesIndex;
+    drawBackground();
+    drawStrokes();
+    drawScore();
+  }
+ 
   //stage1
   if (stages[stagesIndex] == 0){
     //remove each drawn wall at each frame before drawing new ones to avoid overloading webpage
@@ -189,6 +199,7 @@ function setStage(){
     while(walls.length){
       walls.pop();
     }
+    
     reika = new Hole(canvas.width*0.9, canvas.height*0.82, 15, "black");
     reika2 = new Hole(canvas.width*0.9, canvas.height*0.82, 5, "lightblue");
     walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033));

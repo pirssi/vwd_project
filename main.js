@@ -16,7 +16,9 @@ var dragStartPosY;
 var dragEndPosX;
 var dragEndPosY;
 var strokes = 1;
-var prevStroke;
+var score = 0;
+lastStage = 0;
+ballHit =false;
 
 var ctx;
 var canvas;
