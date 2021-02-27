@@ -9,6 +9,7 @@ var suctionX = 0;
 var suctionY = 0;
 
 var velFactor = 0;
+var velPercent = 0;
 
 function init(){
     // mouse event handling
@@ -19,7 +20,6 @@ function init(){
     pallo = new Ball(canvas.width*0.1, canvas.height*0.1, 10, "white");
     hitPosX = pallo.xPos;
     hitPosY = pallo.yPos;
-    console.log(hitPosX, hitPosY);
 
     drawBackground(ctx);//niko
     animate();
@@ -81,13 +81,6 @@ function pointerDown(e){
     dragStartPosX = e.offsetX;
     dragStartPosY = e.offsetY;
 
-    /*
-    for (let i = 0; i < wallCollisions.length; i++){  
-        walls[i];
-        wallCollisions[i];
-    }
-    */
-
     dragging = true
 }
 
@@ -111,7 +104,13 @@ function pointerMove(e){
 
         // check dragDistance and use it to set velFactor
         dragDistance = Math.hypot(pallo.xPos-mouseX, pallo.yPos-mouseY);
+        if (dragDistance > 725){
+            dragDistance = 725;
+        }
+
+        velPercent = dragDistance/725*100;
         velFactor = Math.abs(dragDistance/10000);
+
         if (velFactor > 0.05){
             velFactor = 0.05;
         }
@@ -140,6 +139,7 @@ function DrawLineEraser(mX, mY){
 
 // after pointer release
 function pointerUp (e){
+
     if (ballMoving || inHole){
         return;
     }
@@ -166,14 +166,25 @@ function pointerUp (e){
     if (dragging == true){
         dragging = false;
 
-    console.log("X :" +pallo.xPos, "Y :"+ pallo.yPos);
-
-    dirX*=0.6;
-    dirY*=0.6;
-
         // use directions and additional multiplier to set dir and vel
         horizontalVel = dirX*velFactor;
         verticalVel = dirY*velFactor;
+
+        if (horizontalVel > 35){
+            var decreaseFactor = 35/horizontalVel;
+            horizontalVel = 35;
+            verticalVel *= decreaseFactor;
+            console.log(decreaseFactor);
+        }
+        else if (verticalVel > 35){
+            var decreaseFactor = 35/verticalVel;
+            verticalVel = 35;
+            horizontalVel *= decreaseFactor;
+            console.log(decreaseFactor);
+        }
+
+        console.log(velPercent);
+        console.log(Math.max(verticalVel, horizontalVel));
 
         //animation
         interval = setInterval(animateBalls, 10);
@@ -278,10 +289,8 @@ function ballHoleGravity(){
 // creates UI for current hit force in the left upper corner
 function HitForceUI(){
 
-    var velFactorPercent = Math.round(((velFactor-0.015)/0.035)*100);
-
     // fill forceMeter
-    if(velFactor <= 0.015){
+    if(velPercent <= 10){
         ctx.font = "20px Georgia";
         ctx.fillStyle = "White";
         ctx.fillText("Putt", canvas.width * 0.035, canvas.height * 0.126);
@@ -295,7 +304,7 @@ function HitForceUI(){
         ctx.lineTo(11,129);
         ctx.fill();
     }
-    else if (velFactor > 0.015){
+    else if (velPercent > 10){
         ctx.beginPath();
         ctx.fillStyle = "lightYellow";
         ctx.moveTo(11,129);
@@ -309,8 +318,8 @@ function HitForceUI(){
         ctx.fillStyle = "red";
         ctx.moveTo(11,109);
         ctx.lineTo(29,109);
-        ctx.lineTo(29,111-velFactorPercent);
-        ctx.lineTo(11,111-velFactorPercent);
+        ctx.lineTo(29,118-velPercent);
+        ctx.lineTo(11,118-velPercent);
         ctx.lineTo(11,109);
         ctx.fill();
     }
