@@ -4,6 +4,11 @@ var yPos;
 var walls = [];
 var wallCollisions = [];
 var wallCollisionsSet = false;
+
+var Pools = [];
+var poolCollisions = [];
+var poolCollisionsSet = false;
+
 var stages = [0,1,2,3,4];
 var stagesIndex = 0;
 
@@ -19,9 +24,11 @@ function drawScene() {
   reika.draw(ctx);
   reika2.draw(ctx);
   
+  
   pallo.draw(ctx); //joona
   DrawForceMeter();
   DrawWalls();
+  DrawPools();
 }
 
 function drawBackground() {
@@ -84,27 +91,6 @@ function drawScore(){
 }
 
 
-class Hole {
-  constructor(xPos,yPos, reikaRad, holeColor) {
-    this.xPos = xPos;
-    this.yPos = yPos;
-    this.holeColor = holeColor;
-    this.reikaRad = reikaRad;
-  }
-  draw() {
-    ctx.beginPath();
-
-    ctx.save();
-    ctx.lineWidth = 0.4;
-
-    ctx.fillStyle = this.holeColor;
-    ctx.arc(this.xPos, this.yPos, this.reikaRad, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.stroke();
-    ctx.restore();
-  }
-}
-
 //draw forceMeter
 function DrawForceMeter(velFactorPercent){
     
@@ -129,14 +115,67 @@ function DrawForceMeter(velFactorPercent){
 }
 
 
+class Hole {
+  constructor(xPos,yPos, reikaRad, holeColor) {
+    this.xPos = xPos;
+    this.yPos = yPos;
+    this.holeColor = holeColor;
+    this.reikaRad = reikaRad;
+  }
+  draw() {
+    ctx.beginPath();
+
+    ctx.save();
+    ctx.lineWidth = 0.4;
+
+    ctx.fillStyle = this.holeColor;
+    ctx.arc(this.xPos, this.yPos, this.reikaRad, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+
+class Pool {
+  constructor(xPos,yPos, poolRadX, poolRadY, poolRotation, poolColor) {
+    this.xPos = xPos;
+    this.yPos = yPos;
+    this.poolColor = poolColor;
+    this.poolRadX = poolRadX;
+    this.poolRadY = poolRadY;
+    this.poolRotation = poolRotation;
+  }
+  draw() {
+    ctx.beginPath();
+
+    ctx.save();
+
+    ctx.fillStyle = this.poolColor;
+    ctx.ellipse(this.xPos, this.yPos, this.poolRadX, this.poolRadY, this.poolRotation, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
+}
+
+function DrawPools(){
+  for (let i = 0; i < Pools.length; i++){
+    Pools[i].draw();
+  }
+}
+
+
+
 // walls
 class Wall{
-  constructor(xPos, yPos, wallWidth, wallHeight, topBotBool){
+  constructor(xPos, yPos, wallWidth, wallHeight, topBotBool, flipped){
     this.xPos = xPos;
     this.yPos = yPos;
     this.wallWidth = wallWidth;
     this.wallHeight = wallHeight;
     this.topBotBool = topBotBool
+    this.flipped = flipped;
   }
 
   draw(){
@@ -176,13 +215,20 @@ function setStage(){
     while(walls.length){
       walls.pop();
     }
+    while(Pools.length){
+      Pools.pop();
+    }
 
     // set hole position and wall positions
     reika = new Hole(canvas.width*0.82, canvas.height*0.9, 15, "black");
     reika2 = new Hole(canvas.width*0.82, canvas.height*0.9, 5, "lightblue")
-    walls.push(new Wall(canvas.width*0.3, canvas.height*0, canvas.width*0.033, canvas.height*0.66));
-    walls.push(new Wall(canvas.width*0.63, canvas.height*0.338, canvas.width*0.033, canvas.height*0.66));
+    walls.push(new Wall(canvas.width*0.3, canvas.height*0, canvas.width*0.033, canvas.height*0.66, false, false));
+    walls.push(new Wall(canvas.width*0.6, canvas.height*0.33, canvas.width*0.033, canvas.height*0.66, false, false));
+
+    // set pool position
+    Pools.push(new Pool(canvas.width*0.5, canvas.height*0.5, 50, 25, 0, "aqua"));
     
+
     // if wallCollisions = false, save  drawn walls to static array (wallCollisions)
     // which is used to keep wall collisions up in Collision.js
     // this is because walls are removed and redrawn on each frame
@@ -190,6 +236,14 @@ function setStage(){
       wallCollisionsSet = true;
       for (let i = 0; i < walls.length; i++){
         wallCollisions.push(walls[i]);
+      }
+    }
+
+    // same for pools
+    if (!poolCollisionsSet){
+      poolCollisionsSet = true;
+      for (let i = 0; i < Pools.length; i++){
+        poolCollisions.push(Pools[i]);
       }
     }
   }
@@ -203,8 +257,8 @@ function setStage(){
     
     reika = new Hole(canvas.width*0.9, canvas.height*0.82, 15, "black");
     reika2 = new Hole(canvas.width*0.9, canvas.height*0.82, 5, "lightblue");
-    walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033));
-    walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033));
+    walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033, false, false));
+    walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033, false, false));
     if (!wallCollisionsSet){
       wallCollisionsSet = true;
       for (let i = 0; i < walls.length; i++){

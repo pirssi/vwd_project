@@ -60,10 +60,31 @@ function checkBounds() {
   }
 }
 
+
+// set PoolCollisions
+function SetPoolsCollision(){
+  
+  for (let i = 0; i < poolCollisions.length; i++){
+
+    // if ball center is inside pool, move ball back to last hitPosition
+    if (((pallo.xPos-poolCollisions[i].xPos)**2 / poolCollisions[i].poolRadX**2) + ((pallo.yPos-poolCollisions[i].yPos)**2 / poolCollisions[i].poolRadY**2) <= 1){
+      horizontalVel = 0;
+      verticalVel = 0;
+      pallo.xPos = hitPosX;
+      pallo.yPos = hitPosY;
+      console.log(hitPosX, hitPosY);
+      
+    }
+  }
+  
+}
+
 // a bit buggy :D
+// UPDATE: maybe fixed now :DD
+// using timer to prevent ball from changing direction multiple times when hitting wall
 function SetInnerRectCollision(){
-  for (let i = 0; i < wallCollisions.length; i++){    
-    
+  for (let i = 0; i < wallCollisions.length; i++){
+
     var distX = Math.abs(pallo.xPos - wallCollisions[i].xPos-wallCollisions[i].wallWidth/2);
     var distY = Math.abs(pallo.yPos - wallCollisions[i].yPos-wallCollisions[i].wallHeight/2);
 
@@ -76,16 +97,31 @@ function SetInnerRectCollision(){
       continue; 
     }
   
-    if (distX <= (wallCollisions[i].wallWidth)  && wallCollisions[i].topBotBool == false) {
+    
+    if (distX <= (wallCollisions[i].wallWidth)  
+    && wallCollisions[i].topBotBool == false 
+    && wallCollisions[i].flipped == false) {
+      FlippedTimer(wallCollisions[i]);
+      wallCollisions[i].flipped = true;
       console.log("topBot false");
       horizontalVel = -horizontalVel;
     } 
-    if (distY <= (wallCollisions[i].wallHeight) && wallCollisions[i].topBotBool == true) {
-      console.log(topBottom = true);
+    if (distY <= (wallCollisions[i].wallHeight) 
+    && wallCollisions[i].topBotBool == true 
+    && wallCollisions[i].flipped == false) {
+      FlippedTimer(wallCollisions[i]);
+      wallCollisions[i].flipped = true;
+      console.log("topBottom true");
       verticalVel = -verticalVel
     }
-    
+      
   }
+}
+
+
+// timer function for flipped bools
+function FlippedTimer(f){
+  setTimeout(function() {f.flipped = false;}, 120);
 }
 
 

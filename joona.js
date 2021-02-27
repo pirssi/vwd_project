@@ -17,6 +17,9 @@ function init(){
     canvas.addEventListener('mouseup',pointerUp,false);
 
     pallo = new Ball(canvas.width*0.1, canvas.height*0.1, 10, "white");
+    hitPosX = pallo.xPos;
+    hitPosY = pallo.yPos;
+    console.log(hitPosX, hitPosY);
 
     drawBackground(ctx);//niko
     animate();
@@ -56,6 +59,7 @@ function animate() {
         }
     }
     SetInnerRectCollision();
+    SetPoolsCollision();
     ballHoleGravity();
     checkBounds(); // collision
     drawScene(); // niko
@@ -77,10 +81,12 @@ function pointerDown(e){
     dragStartPosX = e.offsetX;
     dragStartPosY = e.offsetY;
 
+    /*
     for (let i = 0; i < wallCollisions.length; i++){  
         walls[i];
         wallCollisions[i];
     }
+    */
 
     dragging = true
 }
@@ -137,7 +143,6 @@ function pointerUp (e){
     if (ballMoving || inHole){
         return;
     }
-    console.log("pointerUp");
 
     // get the end coordinates on mouseUp
     dragEndPosX = e.offsetX;
@@ -161,7 +166,10 @@ function pointerUp (e){
     if (dragging == true){
         dragging = false;
 
-        
+    console.log("X :" +pallo.xPos, "Y :"+ pallo.yPos);
+
+    dirX*=0.6;
+    dirY*=0.6;
 
         // use directions and additional multiplier to set dir and vel
         horizontalVel = dirX*velFactor;
@@ -199,11 +207,15 @@ function animateBalls(){
     horizontalVel=horizontalVel/ballFriction;
     verticalVel=verticalVel/ballFriction;
 
-    //ball stopping
+    //ball stopping AND hitPosition set
     if(((horizontalVel>-0.1 && horizontalVel<0 || horizontalVel==0) || (horizontalVel<0.1 && horizontalVel>0)) &&
       ((verticalVel<0.1 && verticalVel>0) || (verticalVel>-0.1 && verticalVel<0) || verticalVel==0)){
         horizontalVel=0;
         verticalVel=0;
+
+        hitPosX = pallo.xPos;
+        hitPosY = pallo.yPos;
+        console.log("Hitpositions set. X : ", hitPosX, "|| Y : ", hitPosY);
     }
 
     // check is moving
