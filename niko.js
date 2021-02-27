@@ -226,7 +226,8 @@ function setStage(){
     walls.push(new Wall(canvas.width*0.6, canvas.height*0.33, canvas.width*0.033, canvas.height*0.66, false, false));
 
     // set pool position
-    Pools.push(new Pool(canvas.width*0.5, canvas.height*0.5, 50, 25, 0, "aqua"));
+    Pools.push(new Pool(canvas.width*0.1, canvas.height*0.9, 50, 25, 0, "aqua"));
+    Pools.push(new Pool(canvas.width*0.9, canvas.height*0.1, 50, 25, 0, "aqua"));
     
 
     // if wallCollisions = false, save  drawn walls to static array (wallCollisions)
@@ -254,16 +255,27 @@ function setStage(){
     while(walls.length){
       walls.pop();
     }
+    while(Pools.length){
+      Pools.pop();
+    }
     
     reika = new Hole(canvas.width*0.9, canvas.height*0.82, 15, "black");
     reika2 = new Hole(canvas.width*0.9, canvas.height*0.82, 5, "lightblue");
     walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033, false, false));
     walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033, false, false));
+    Pools.push(new Pool(canvas.width*0.8, canvas.height*0.25, 85, 35, 0, "aqua"));
+    Pools.push(new Pool(canvas.width*0.25, canvas.height*0.8, 40, 70, 0, "aqua"));
     if (!wallCollisionsSet){
       wallCollisionsSet = true;
       for (let i = 0; i < walls.length; i++){
         wallCollisions.push(walls[i]);
         console.log(wallCollisions[i]);
+      }
+    }
+    if (!poolCollisionsSet){
+      poolCollisionsSet = true;
+      for (let i = 0; i < Pools.length; i++){
+        poolCollisions.push(Pools[i]);
       }
     }
   }

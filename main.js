@@ -2,6 +2,8 @@ const SIZE = 1000;
 
 var horizontalVel;
 var verticalVel;
+var ballYPos = 500;
+var ballXPos = 500;
 let wallColor = "rgba(20,20,20,1)";
 var ballFriction = 1.013;
 var ballMoving = false;

@@ -133,6 +133,7 @@ function LoadNextStage(){
     wallCollisions.pop();
   }
   wallCollisionsSet = false;
+  poolCollisionsSet = false;
 
   // set ball position to start 
   pallo.xPos = canvas.width*0.1;
