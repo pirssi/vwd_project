@@ -13,6 +13,7 @@ var inHole = false;
 var stagePar = 0;
 var prevPar;
 var scoreTime;
+var stageNumber = 1;
 
 var dragStartPosX;
 var dragStartPosY;

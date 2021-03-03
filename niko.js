@@ -84,6 +84,12 @@ function drawPar(){
   ctx.fillText("Par: "+stagePar, canvas.width * 0.6, canvas.height * 0.043);
 }
 
+function drawStageNumber(){
+  ctx.font = "30px Georgia";
+  ctx.fillStyle = "black";
+  ctx.fillText("Stage: "+ stageNumber, canvas.width * 0.1, canvas.height * 0.043);
+}
+
 function drawScore(){
 
   ctx.font = "54px Georgia";
@@ -100,18 +106,18 @@ function drawScore(){
       
   }
   else if(score==1){
-    ctx.fillText("Hole in one!", canvas.width * 0.4, canvas.height * 0.5);
+    ctx.fillText("Hole in one!", canvas.width * 0.38, canvas.height * 0.5);
   }
   else if(score==prevPar){
-    ctx.fillText("Par!"+ " ("+score+" strokes)", canvas.width * 0.4, canvas.height * 0.5);
+    ctx.fillText("Par!"+ " ("+score+" strokes)", canvas.width * 0.34, canvas.height * 0.5);
   }
   else if(score<prevPar){
     var score1=(score-prevPar)*-1;
-    ctx.fillText(score1+" under par!"+ " ("+score+" strokes)", canvas.width * 0.4, canvas.height * 0.5);
+    ctx.fillText(score1+" under par!"+ " ("+score+" strokes)", canvas.width * 0.24, canvas.height * 0.5);
   }
   else if(score>prevPar){
     var score1=score-prevPar;
-    ctx.fillText(score1+" over par"+ " ("+score+" strokes)", canvas.width * 0.4, canvas.height * 0.5);
+    ctx.fillText(score1+" over par"+ " ("+score+" strokes)", canvas.width * 0.25, canvas.height * 0.5);
   }
 }
 
@@ -228,9 +234,11 @@ function setStage(){
     horizontalVel = 0;
     verticalVel = 0;
     strokes = 1;
+    stageNumber+=1;
     lastStage = stagesIndex;
     drawBackground();
     drawStrokes();
+    drawStageNumber()
     drawScore();
     scoreTime = Date.now()+5000;
     prevPar = stagePar;
