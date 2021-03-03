@@ -57,6 +57,7 @@ function checkBounds() {
   else{
     inHole=false;
     drawStrokes();
+    drawPar();
   }
 }
 

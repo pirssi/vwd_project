@@ -318,8 +318,8 @@ function HitForceUI(){
         ctx.fillStyle = "red";
         ctx.moveTo(11,109);
         ctx.lineTo(29,109);
-        ctx.lineTo(29,118-velPercent);
-        ctx.lineTo(11,118-velPercent);
+        ctx.lineTo(29,111-velPercent);
+        ctx.lineTo(11,111-velPercent);
         ctx.lineTo(11,109);
         ctx.fill();
     }

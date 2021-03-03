@@ -29,6 +29,7 @@ function drawScene() {
   DrawForceMeter();
   DrawWalls();
   DrawPools();
+  drawScore();
 }
 
 function drawBackground() {
@@ -67,17 +68,24 @@ function drawBackground() {
 }
 
 function drawStrokes(){
-  ctx.font = "54px Georgia";
-  ctx.fillStyle = "black"
+  ctx.font = "30px Georgia";
+  ctx.fillStyle = "black";
   if(!inHole){
-    ctx.fillText("Stroke "+strokes, canvas.width * 0.4, canvas.height * 0.1);
+    ctx.fillText("Stroke: "+strokes, canvas.width * 0.42, canvas.height * 0.043);
   }
   else{
     ctx.fillText("",canvas.width * 0.4, canvas.height * 0.1);
   }
 }
 
+function drawPar(){
+  ctx.font = "30px Georgia";
+  ctx.fillStyle = "black";
+  ctx.fillText("Par: "+stagePar, canvas.width * 0.6, canvas.height * 0.043);
+}
+
 function drawScore(){
+
   ctx.font = "54px Georgia";
   var gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
   gradient.addColorStop("0.5", "red");
@@ -87,7 +95,24 @@ function drawScore(){
   gradient.addColorStop("0.72", "blue");
   gradient.addColorStop("0.8", "magenta");
   ctx.fillStyle = gradient;
-  ctx.fillText("Hole in "+score, canvas.width * 0.4, canvas.height * 0.5);
+
+  if(scoreTime < Date.now()){
+      
+  }
+  else if(score==1){
+    ctx.fillText("Hole in one!", canvas.width * 0.4, canvas.height * 0.5);
+  }
+  else if(score==prevPar){
+    ctx.fillText("Par!"+ " ("+score+" strokes)", canvas.width * 0.4, canvas.height * 0.5);
+  }
+  else if(score<prevPar){
+    var score1=(score-prevPar)*-1;
+    ctx.fillText(score1+" under par!"+ " ("+score+" strokes)", canvas.width * 0.4, canvas.height * 0.5);
+  }
+  else if(score>prevPar){
+    var score1=score-prevPar;
+    ctx.fillText(score1+" over par"+ " ("+score+" strokes)", canvas.width * 0.4, canvas.height * 0.5);
+  }
 }
 
 
@@ -207,6 +232,9 @@ function setStage(){
     drawBackground();
     drawStrokes();
     drawScore();
+    scoreTime = Date.now()+5000;
+    prevPar = stagePar;
+    drawPar();
   }
  
   //stage1
@@ -219,11 +247,12 @@ function setStage(){
       Pools.pop();
     }
 
+    stagePar=2;
     // set hole position and wall positions
     reika = new Hole(canvas.width*0.82, canvas.height*0.9, 15, "black");
     reika2 = new Hole(canvas.width*0.82, canvas.height*0.9, 5, "lightblue")
     walls.push(new Wall(canvas.width*0.3, canvas.height*0, canvas.width*0.033, canvas.height*0.66, false, false));
-    walls.push(new Wall(canvas.width*0.6, canvas.height*0.33, canvas.width*0.033, canvas.height*0.66, false, false));
+    walls.push(new Wall(canvas.width*0.6, canvas.height*0.338, canvas.width*0.033, canvas.height*0.66, false, false));
 
     // set pool position
     Pools.push(new Pool(canvas.width*0.1, canvas.height*0.9, 50, 25, 0, "aqua"));
@@ -258,6 +287,8 @@ function setStage(){
     while(Pools.length){
       Pools.pop();
     }
+
+    stagePar=3;
     
     reika = new Hole(canvas.width*0.9, canvas.height*0.82, 15, "black");
     reika2 = new Hole(canvas.width*0.9, canvas.height*0.82, 5, "lightblue");

@@ -10,6 +10,9 @@ var ballMoving = false;
 
 var reikaRad;
 var inHole = false;
+var stagePar = 0;
+var prevPar;
+var scoreTime;
 
 var dragStartPosX;
 var dragStartPosY;
