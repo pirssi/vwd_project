@@ -78,7 +78,19 @@ function SetPoolsCollision(){
       
     }
   }
+}
+
+// set sandPitCollisions
+function SetSandPitCollision(){
   
+  for (let i = 0; i < sandPitCollisions.length; i++){
+
+    // if ball center is inside sandPit, decrease velocity
+    if (((pallo.xPos-sandPitCollisions[i].xPos)**2 / sandPitCollisions[i].sandPitRadX**2) + ((pallo.yPos-sandPitCollisions[i].yPos)**2 / sandPitCollisions[i].sandPitRadY**2) <= 1){
+      horizontalVel *= 0.85;
+      verticalVel *= 0.85;
+    }
+  }
 }
 
 // a bit buggy :D

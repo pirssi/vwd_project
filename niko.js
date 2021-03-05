@@ -5,9 +5,13 @@ var walls = [];
 var wallCollisions = [];
 var wallCollisionsSet = false;
 
-var Pools = [];
+var pools = [];
 var poolCollisions = [];
 var poolCollisionsSet = false;
+
+var sandPits = [];
+var sandPitCollisions =[];
+var sandPitCollisionsSet = false;
 
 var stages = [0,1,2,3,4];
 var stagesIndex = 0;
@@ -21,6 +25,7 @@ function niko() {
 
 function drawScene() {
   setStage();
+  DrawSandPits();
   reika.draw(ctx);
   reika2.draw(ctx);
   
@@ -191,8 +196,36 @@ class Pool {
 }
 
 function DrawPools(){
-  for (let i = 0; i < Pools.length; i++){
-    Pools[i].draw();
+  for (let i = 0; i < pools.length; i++){
+    pools[i].draw();
+  }
+}
+
+// sandPits
+class SandPit {
+  constructor(xPos,yPos, sandPitRadX, sandPitRadY, sandPitRotation, sandPitColor) {
+    this.xPos = xPos;
+    this.yPos = yPos;
+    this.sandPitColor = sandPitColor;
+    this.sandPitRadX = sandPitRadX;
+    this.sandPitRadY = sandPitRadY;
+    this.sandPitRotation = sandPitRotation;
+  }
+  draw() {
+    ctx.beginPath();
+
+    ctx.save();
+
+    ctx.fillStyle = this.sandPitColor;
+    ctx.ellipse(this.xPos, this.yPos, this.sandPitRadX, this.sandPitRadY, this.sandPitRotation, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+function DrawSandPits(){
+  for (let i = 0; i < sandPits.length; i++){
+    sandPits[i].draw();
   }
 }
 
@@ -251,9 +284,13 @@ function setStage(){
     while(walls.length){
       walls.pop();
     }
-    while(Pools.length){
-      Pools.pop();
+    while(pools.length){
+      pools.pop();
     }
+    while(sandPits.length){
+      sandPits.pop();
+    }
+    
 
     stagePar=2;
     // set hole position and wall positions
@@ -263,8 +300,10 @@ function setStage(){
     walls.push(new Wall(canvas.width*0.6, canvas.height*0.338, canvas.width*0.033, canvas.height*0.66, false, false));
 
     // set pool position
-    Pools.push(new Pool(canvas.width*0.1, canvas.height*0.9, 50, 25, 0, "aqua"));
-    Pools.push(new Pool(canvas.width*0.9, canvas.height*0.1, 50, 25, 0, "aqua"));
+    pools.push(new Pool(canvas.width*0.1, canvas.height*0.9, 50, 25, 0, "aqua"));
+    pools.push(new Pool(canvas.width*0.9, canvas.height*0.1, 50, 25, 0, "aqua"));
+
+    sandPits.push(new SandPit(canvas.width*0.5, canvas.height*0.5, 100, 70, 0, "khaki"));
     
 
     // if wallCollisions = false, save  drawn walls to static array (wallCollisions)
@@ -280,8 +319,16 @@ function setStage(){
     // same for pools
     if (!poolCollisionsSet){
       poolCollisionsSet = true;
-      for (let i = 0; i < Pools.length; i++){
-        poolCollisions.push(Pools[i]);
+      for (let i = 0; i < pools.length; i++){
+        poolCollisions.push(pools[i]);
+      }
+    }
+
+    // same for sandPits
+    if (!sandPitCollisionsSet){
+      sandPitCollisionsSet = true;
+      for (let i = 0; i < sandPits.length; i++){
+        sandPitCollisions.push(sandPits[i]);
       }
     }
   }
@@ -292,8 +339,8 @@ function setStage(){
     while(walls.length){
       walls.pop();
     }
-    while(Pools.length){
-      Pools.pop();
+    while(pools.length){
+      pools.pop();
     }
 
     stagePar=3;
@@ -302,8 +349,8 @@ function setStage(){
     reika2 = new Hole(canvas.width*0.9, canvas.height*0.82, 5, "lightblue");
     walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033, false, false));
     walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033, false, false));
-    Pools.push(new Pool(canvas.width*0.8, canvas.height*0.25, 85, 35, 0, "aqua"));
-    Pools.push(new Pool(canvas.width*0.25, canvas.height*0.8, 40, 70, 0, "aqua"));
+    pools.push(new Pool(canvas.width*0.8, canvas.height*0.25, 85, 35, 0, "aqua"));
+    pools.push(new Pool(canvas.width*0.25, canvas.height*0.8, 40, 70, 0, "aqua"));
     if (!wallCollisionsSet){
       wallCollisionsSet = true;
       for (let i = 0; i < walls.length; i++){
@@ -313,8 +360,8 @@ function setStage(){
     }
     if (!poolCollisionsSet){
       poolCollisionsSet = true;
-      for (let i = 0; i < Pools.length; i++){
-        poolCollisions.push(Pools[i]);
+      for (let i = 0; i < pools.length; i++){
+        poolCollisions.push(pools[i]);
       }
     }
   }

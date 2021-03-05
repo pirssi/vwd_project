@@ -60,6 +60,7 @@ function animate() {
     }
     SetInnerRectCollision();
     SetPoolsCollision();
+    SetSandPitCollision();
     ballHoleGravity();
     checkBounds(); // collision
     drawScene(); // niko
