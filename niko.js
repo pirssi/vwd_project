@@ -263,7 +263,7 @@ function DrawWalls(){
 function setStage(){
 
   if(lastStage!=stagesIndex){
-    mapChanged=true;
+    stageChanged=true;
     horizontalVel = 0;
     verticalVel = 0;
     strokes = 1;

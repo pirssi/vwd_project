@@ -1,12 +1,24 @@
 const SIZE = 1000;
 
+// ref to last position where ball was hit
+// set it every time ball stops
+var hitPosX;
+var hitPosY;
+
 var horizontalVel;
 var verticalVel;
 var ballYPos = 500;
 var ballXPos = 500;
-let wallColor = "rgba(20,20,20,1)";
 var ballFriction = 1.013;
 var ballMoving = false;
+var ballHit = false;
+var allowClick = true;
+
+var dragging = false;
+var dragStartPosX;
+var dragStartPosY;
+var dragEndPosX;
+var dragEndPosY;
 
 var reikaRad;
 var inHole = false;
@@ -14,25 +26,13 @@ var stagePar = 0;
 var prevPar;
 var scoreTime;
 var stageNumber = 1;
-
-var dragStartPosX;
-var dragStartPosY;
-var dragEndPosX;
-var dragEndPosY;
+var lastStage = 0;
+var stageChanged = false;
 var strokes = 1;
 var score = 0;
-lastStage = 0;
-ballHit =false;
-mapChanged=false;
-
-// ref to last position where ball was hit
-// set it every time ball stops
-var hitPosX;
-var hitPosY;
 
 var ctx;
 var canvas;
-var dragging = false;
 
 function main() {
 

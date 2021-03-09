@@ -4,12 +4,6 @@ var topBottom = false;
 
 var bounce = 0.95;
 
-function score() {
-  ctx.font = "20px Georgia";
-  ctx.fillText("Score!", canvas.width * 0.5, canvas.height * 0.5);
-}
-
-
   // the main piece of the loop
   // runs everything
 function checkBounds() {

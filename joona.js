@@ -51,11 +51,11 @@ class Ball {
 function animate() {
     if(horizontalVel == 0 && verticalVel ==0 && !inHole && ballHit==true){  
         ballHit=false;
-        if(!mapChanged){
+        if(!stageChanged){
             strokes +=1;
         }
         else{
-            mapChanged=false;
+            stageChanged=false;
         }
     }
     SetInnerRectCollision();
@@ -75,7 +75,11 @@ function animate() {
 function pointerDown(e){
     
     if (ballMoving || inHole){
+        allowClick=false;
         return;
+    }
+    else{
+        allowClick=true;
     }
     
     //get the starting coordinates on MouseDown
@@ -154,7 +158,8 @@ function pointerUp (e){
         dragging = false;
         return;
     }
-    else{ //!if you pointer up after ball has stopped, this counts it as a hit
+    // if dragLength was long enough and ball isnt moving or in hole (allowClick is true) ball gets shot
+    else if (allowClick){ 
         ballHit=true;
     }
 
