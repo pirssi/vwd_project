@@ -74,6 +74,12 @@ function SetPoolsCollision(){
   }
 }
 
+function RemovePoolsCollision(){
+  for (let i = 0; i <= poolCollisions.length; i++){
+    poolCollisions.pop();
+  }
+}
+
 // set sandPitCollisions
 function SetSandPitCollision(){
   

@@ -276,6 +276,7 @@ function setStage(){
     scoreTime = Date.now()+5000;
     prevPar = stagePar;
     drawPar();
+    RemovePoolsCollision();
   }
  
   //stage1
