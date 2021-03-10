@@ -24,19 +24,7 @@ function niko() {
 }
 
 function drawScene() {
-  setStage();
-  DrawSandPits();
-  reika.draw(ctx);
-  reika2.draw(ctx);
-  
-  pallo.draw(ctx); //joona
-  DrawForceMeter();
-  DrawWalls();
-  DrawPools();
-  drawScore();
-}
 
-function drawBackground() {
   //background
   ctx.beginPath();
   ctx.fillStyle = "rgba(0,150,0,1)";
@@ -51,24 +39,19 @@ function drawBackground() {
   ctx.rect(0, 0, SIZE, SIZE);
   ctx.stroke();
 
-  //wall test
-  /*ctx.beginPath();
-  ctx.fillStyle = "black";
-  ctx.lineWidth = 5;
-  ctx.moveTo(200, 0);
-  ctx.lineTo(200, 800);
-  ctx.stroke();
+  DrawSandPits();
+  reika.draw(ctx);
+  reika2.draw(ctx);
+  pallo.draw(ctx); //joona
 
-  //triangle test
-  ctx.beginPath();
-  ctx.fillStyle = "black";
-  ctx.moveTo(0, SIZE);
-  ctx.lineTo(100, SIZE);
-  ctx.lineTo(0, 900);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.fill();
-  ctx.restore();*/
+  setStage();
+  DrawForceMeter();
+  DrawWalls();
+  DrawPools();
+  drawScore();
+  drawStrokes();
+  drawStageNumber();
+  drawPar();
 }
 
 function drawStrokes(){

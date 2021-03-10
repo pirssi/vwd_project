@@ -21,11 +21,7 @@ function init(){
     hitPosX = pallo.xPos;
     hitPosY = pallo.yPos;
 
-    drawBackground(ctx);//niko
     drawScene(); // niko
-    drawStrokes();
-    drawStageNumber();
-    drawPar();
     animate();
 }
 
@@ -57,6 +53,7 @@ function animate() {
         ballHit=false;
         if(!stageChanged){
             strokes +=1;
+            drawScene(); // niko
         }
         else{
             stageChanged=false;
@@ -140,11 +137,7 @@ function DrawLine(mX, mY){
 
 function DrawLineEraser(mX, mY){
     ctx.clearRect(0,0,SIZE, SIZE);
-    drawBackground(ctx);//niko
     drawScene(); // niko
-    drawStrokes();
-    drawStageNumber();
-    drawPar();
     checkBounds(); // collision
     DrawLine(mX, mY);
 }
@@ -266,11 +259,7 @@ function animateBalls(){
     }
 
     pallo.moveBall(animBallX, animBallY);
-    drawBackground(ctx); // niko
     drawScene(); // niko
-    drawStrokes();
-    drawStageNumber();
-    drawPar();
     pallo.draw(ctx);
 }
 
