@@ -29,7 +29,6 @@ function drawScene() {
   reika.draw(ctx);
   reika2.draw(ctx);
   
-  
   pallo.draw(ctx); //joona
   DrawForceMeter();
   DrawWalls();
@@ -75,12 +74,7 @@ function drawBackground() {
 function drawStrokes(){
   ctx.font = "30px Georgia";
   ctx.fillStyle = "black";
-  if(!inHole){
-    ctx.fillText("Stroke: "+strokes, canvas.width * 0.42, canvas.height * 0.043);
-  }
-  else{
-    ctx.fillText("",canvas.width * 0.4, canvas.height * 0.1);
-  }
+  ctx.fillText("Stroke: "+strokes, canvas.width * 0.42, canvas.height * 0.043);
 }
 
 function drawPar(){
@@ -258,7 +252,6 @@ function DrawWalls(){
 }
 
 
-
 // StageChange system that sets stage depending on stageIndex
 function setStage(){
 
@@ -269,13 +262,8 @@ function setStage(){
     strokes = 1;
     stageNumber+=1;
     lastStage = stagesIndex;
-    drawBackground();
-    drawStrokes();
-    drawStageNumber()
-    drawScore();
-    scoreTime = Date.now()+5000;
     prevPar = stagePar;
-    drawPar();
+    scoreTime = Date.now()+5000;
     RemovePoolsCollision();
   }
  

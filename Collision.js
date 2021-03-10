@@ -50,9 +50,6 @@ function checkBounds() {
   }
   else{
     inHole=false;
-    drawStrokes();
-    drawStageNumber();
-    drawPar();
   }
 }
 
