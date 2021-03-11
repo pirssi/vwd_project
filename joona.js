@@ -63,11 +63,7 @@ function animate() {
     SetPoolsCollision();
     SetSandPitCollision();
     ballHoleGravity();
-    checkBounds(); // collision
-    
-    HitForceUI();
-
-    
+    checkBounds(); // collision  
     window.requestAnimationFrame(animate);
   }
   
@@ -130,7 +126,7 @@ function DrawLine(mX, mY){
     ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(pallo.xPos, pallo.yPos);
-    ctx.lineTo(mX, mY);
+    ctx.lineTo(mX, mY);  //mX-(pallo.xPos-mX), mY-(pallo.yPos-mY)
     ctx.stroke();
     ctx.restore();
 }
@@ -161,6 +157,7 @@ function pointerUp (e){
     }
     // if dragLength was long enough and ball isnt moving or in hole (allowClick is true) ball gets shot
     else if (allowClick){ 
+        hitAudio.play();
         ballHit=true;
     }
 

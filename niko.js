@@ -40,18 +40,19 @@ function drawScene() {
   ctx.stroke();
 
   DrawSandPits();
-  reika.draw(ctx);
-  reika2.draw(ctx);
-  pallo.draw(ctx); //joona
-
   setStage();
   DrawForceMeter();
+  HitForceUI();
   DrawWalls();
   DrawPools();
   drawScore();
   drawStrokes();
   drawStageNumber();
   drawPar();
+
+  reika.draw(ctx);
+  reika2.draw(ctx);
+  pallo.draw(ctx); //joona
 }
 
 function drawStrokes(){

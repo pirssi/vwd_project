@@ -41,6 +41,7 @@ function checkBounds() {
   var dy = pallo.yPos - reika2.yPos;
   var dist = Math.sqrt (dx * dx + dy * dy);
   if (dist < pallo.ballRad + reika2.reikaRad)  {
+    holeAudio.play();
     verticalVel = 0;
     horizontalVel = 0;
     score = strokes;
@@ -61,6 +62,7 @@ function SetPoolsCollision(){
 
     // if ball center is inside pool, move ball back to last hitPosition
     if (((pallo.xPos-poolCollisions[i].xPos)**2 / poolCollisions[i].poolRadX**2) + ((pallo.yPos-poolCollisions[i].yPos)**2 / poolCollisions[i].poolRadY**2) <= 1){
+      waterAudio.play();
       horizontalVel = 0;
       verticalVel = 0;
       pallo.xPos = hitPosX;
