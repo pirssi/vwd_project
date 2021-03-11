@@ -11,12 +11,14 @@ function checkBounds() {
 
   // bottom bound / floor
   if (pallo.yPos + pallo.ballRad >= canvas.height) {
+    bounceAudio.cloneNode(true).play();
     horizontalVel *= bounce;
     verticalVel *= -bounce;
     pallo.yPos = canvas.height - pallo.ballRad;
   }
   // top bound / ceiling
   if (pallo.yPos - pallo.ballRad <= 0) {
+    bounceAudio.cloneNode(true).play();
     horizontalVel *= bounce;
     verticalVel *= -bounce;
     pallo.yPos = pallo.ballRad;
@@ -24,12 +26,14 @@ function checkBounds() {
 
   // left bound
   if (pallo.xPos - pallo.ballRad <= 0) {
+    bounceAudio.cloneNode(true).play();
     verticalVel *= bounce;
     horizontalVel *= -bounce;
     pallo.xPos = pallo.ballRad;
   }
   // right bound
   if (pallo.xPos + pallo.ballRad >= canvas.width) {
+    bounceAudio.cloneNode(true).play();
     verticalVel *= bounce;
     horizontalVel *= -bounce;
     pallo.xPos = canvas.width - pallo.ballRad;
@@ -41,7 +45,10 @@ function checkBounds() {
   var dy = pallo.yPos - reika2.yPos;
   var dist = Math.sqrt (dx * dx + dy * dy);
   if (dist < pallo.ballRad + reika2.reikaRad)  {
-    holeAudio.play();
+    holeAudio.cloneNode(true).play();
+    if(stagePar>=strokes){
+      cheerAudio.cloneNode(true).play();
+    }
     verticalVel = 0;
     horizontalVel = 0;
     score = strokes;
@@ -62,7 +69,7 @@ function SetPoolsCollision(){
 
     // if ball center is inside pool, move ball back to last hitPosition
     if (((pallo.xPos-poolCollisions[i].xPos)**2 / poolCollisions[i].poolRadX**2) + ((pallo.yPos-poolCollisions[i].yPos)**2 / poolCollisions[i].poolRadY**2) <= 1){
-      waterAudio.play();
+      waterAudio.cloneNode(true).play();
       horizontalVel = 0;
       verticalVel = 0;
       pallo.xPos = hitPosX;
@@ -114,6 +121,7 @@ function SetInnerRectCollision(){
     if (distX <= (wallCollisions[i].wallWidth)  
     && wallCollisions[i].topBotBool == false 
     && wallCollisions[i].flipped == false) {
+      bounceAudio.cloneNode(true).play();
       FlippedTimer(wallCollisions[i]);
       wallCollisions[i].flipped = true;
       console.log("topBot false");
@@ -122,6 +130,7 @@ function SetInnerRectCollision(){
     if (distY <= (wallCollisions[i].wallHeight) 
     && wallCollisions[i].topBotBool == true 
     && wallCollisions[i].flipped == false) {
+      bounceAudio.cloneNode(true).play();
       FlippedTimer(wallCollisions[i]);
       wallCollisions[i].flipped = true;
       console.log("topBottom true");
