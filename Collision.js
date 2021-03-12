@@ -11,14 +11,21 @@ function checkBounds() {
 
   // bottom bound / floor
   if (pallo.yPos + pallo.ballRad >= canvas.height) {
-    bounceAudio.cloneNode(true).play();
+    if(bounceAudioCD<Date.now()){
+      bounceAudio.cloneNode(true).play();
+      bounceAudioCD=Date.now()+20;
+    }
+    
     horizontalVel *= bounce;
     verticalVel *= -bounce;
     pallo.yPos = canvas.height - pallo.ballRad;
   }
   // top bound / ceiling
   if (pallo.yPos - pallo.ballRad <= 0) {
-    bounceAudio.cloneNode(true).play();
+    if(bounceAudioCD<Date.now()){
+      bounceAudio.cloneNode(true).play();
+      bounceAudioCD=Date.now()+20;
+    }
     horizontalVel *= bounce;
     verticalVel *= -bounce;
     pallo.yPos = pallo.ballRad;
@@ -26,14 +33,20 @@ function checkBounds() {
 
   // left bound
   if (pallo.xPos - pallo.ballRad <= 0) {
-    bounceAudio.cloneNode(true).play();
+    if(bounceAudioCD<Date.now()){
+      bounceAudio.cloneNode(true).play();
+      bounceAudioCD=Date.now()+20;
+    }
     verticalVel *= bounce;
     horizontalVel *= -bounce;
     pallo.xPos = pallo.ballRad;
   }
   // right bound
   if (pallo.xPos + pallo.ballRad >= canvas.width) {
-    bounceAudio.cloneNode(true).play();
+    if(bounceAudioCD<Date.now()){
+      bounceAudio.cloneNode(true).play();
+      bounceAudioCD=Date.now()+20;
+    }
     verticalVel *= bounce;
     horizontalVel *= -bounce;
     pallo.xPos = canvas.width - pallo.ballRad;
