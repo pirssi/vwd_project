@@ -12,7 +12,7 @@ var waterAudio = new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sou
 waterAudio.volume = 0.3; //doesnt change the volume for some reason
 var bounceAudio = new Audio('https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-35448/zapsplat_sport_basketball_single_light_bounce_001_35731.mp3?_=1');
 var cheerAudio = new Audio('https://freesound.org/data/previews/245/245639_591423-lq.mp3');
-var bounceAudioCD = 1;
+var bounceCD = 1;
 
 var horizontalVel;
 var verticalVel;

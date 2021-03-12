@@ -11,45 +11,46 @@ function checkBounds() {
 
   // bottom bound / floor
   if (pallo.yPos + pallo.ballRad >= canvas.height) {
-    if(bounceAudioCD<Date.now()){
+    if(bounceCD<Date.now()){
       bounceAudio.cloneNode(true).play();
-      bounceAudioCD=Date.now()+20;
+      bounceCD=Date.now()+20;
+      horizontalVel *= bounce;
+      verticalVel *= -bounce;
+      pallo.yPos = canvas.height - pallo.ballRad;
     }
-    
-    horizontalVel *= bounce;
-    verticalVel *= -bounce;
-    pallo.yPos = canvas.height - pallo.ballRad;
   }
+  
   // top bound / ceiling
   if (pallo.yPos - pallo.ballRad <= 0) {
-    if(bounceAudioCD<Date.now()){
+    if(bounceCD<Date.now()){
       bounceAudio.cloneNode(true).play();
-      bounceAudioCD=Date.now()+20;
+      bounceCD=Date.now()+20;
+      horizontalVel *= bounce;
+      verticalVel *= -bounce;
+      pallo.yPos = pallo.ballRad;
     }
-    horizontalVel *= bounce;
-    verticalVel *= -bounce;
-    pallo.yPos = pallo.ballRad;
   }
 
   // left bound
   if (pallo.xPos - pallo.ballRad <= 0) {
-    if(bounceAudioCD<Date.now()){
+    if(bounceCD<Date.now()){
       bounceAudio.cloneNode(true).play();
-      bounceAudioCD=Date.now()+20;
+      bounceCD=Date.now()+20;
+      verticalVel *= bounce;
+      horizontalVel *= -bounce;
+      pallo.xPos = pallo.ballRad;
     }
-    verticalVel *= bounce;
-    horizontalVel *= -bounce;
-    pallo.xPos = pallo.ballRad;
   }
+
   // right bound
   if (pallo.xPos + pallo.ballRad >= canvas.width) {
-    if(bounceAudioCD<Date.now()){
+    if(bounceCD<Date.now()){
       bounceAudio.cloneNode(true).play();
-      bounceAudioCD=Date.now()+20;
+      bounceCD=Date.now()+20;
+      verticalVel *= bounce;
+      horizontalVel *= -bounce;
+      pallo.xPos = canvas.width - pallo.ballRad;
     }
-    verticalVel *= bounce;
-    horizontalVel *= -bounce;
-    pallo.xPos = canvas.width - pallo.ballRad;
   }
 
 
