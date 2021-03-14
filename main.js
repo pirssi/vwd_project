@@ -5,11 +5,14 @@ const SIZE = 1000;
 var hitPosX;
 var hitPosY;
 var hitAudio = new Audio(
-  "http://sfxcontent.s3.amazonaws.com/soundfx/GolfSwing.mp3"
+  "https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-adam-a-johnson/aaj_0384_Golf_Driver_04.mp3?_=1"
 );
 hitAudio.volume = 0.3;
+var puttAudio = new Audio(
+  "https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-adam-a-johnson/aaj_0373_Golf_Putt_02.mp3?_=1"
+);
 var holeAudio = new Audio(
-  "https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-31172/zapsplat_sport_golf_crazy_ball_drop_into_hole_006_31530.mp3?_=1"
+  "https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-adam-a-johnson/aaj_0380_Golf_Ball_In_Hole1.mp3?_=1"
 );
 var waterAudio = new Audio(
   "https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-one/water_splash_hand_slap.mp3?_=1"
@@ -21,6 +24,7 @@ var bounceAudio = new Audio(
 var cheerAudio = new Audio(
   "https://freesound.org/data/previews/245/245639_591423-lq.mp3"
 );
+var bounceCD = 1;
 
 var horizontalVel;
 var verticalVel;

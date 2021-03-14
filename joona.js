@@ -157,7 +157,12 @@ function pointerUp (e){
     }
     // if dragLength was long enough and ball isnt moving or in hole (allowClick is true) ball gets shot
     else if (allowClick){ 
-        hitAudio.play();
+        if(velPercent<=10){
+            puttAudio.cloneNode(true).play();
+        }
+        else{
+            hitAudio.cloneNode(true).play();
+        }
         ballHit=true;
     }
 
