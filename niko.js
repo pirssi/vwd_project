@@ -338,16 +338,28 @@ function setStage() {
     // );
 
     // set pool position
-    pools.push(
-      new Pool(canvas.width * 0.1, canvas.height * 0.9, 50, 25, 0, "aqua")
-    );
-    pools.push(
-      new Pool(canvas.width * 0.9, canvas.height * 0.1, 50, 25, 0, "aqua")
-    );
+    // pools.push(
+    //   new Pool(canvas.width * 0.1, canvas.height * 0.9, 50, 25, 0, "aqua")
+    // );
+    // pools.push(
+    //   new Pool(canvas.width * 0.9, canvas.height * 0.1, 50, 25, 0, "aqua")
+    // );
+    pools = generatePoolPos();
 
-    sandPits.push(
-      new SandPit(canvas.width * 0.5, canvas.height * 0.5, 100, 70, 0, "khaki")
-    );
+    // let sandpitPos = generateSandpitPos();
+    // sandPits = sandpitPos;
+    sandPits = generateSandpitPos();
+    // sandPits.push(
+    //   //new SandPit(canvas.width * 0.5, canvas.height * 0.5, 100, 70, 45, "khaki")
+    //   new SandPit(
+    //     (canvas.width / 3) * Math.floor(Math.random() * 4),
+    //     (canvas.height / 3) * Math.floor(Math.random() * 4),
+    //     80 + Math.random() * 40,
+    //     70 + Math.random() * 40,
+    //     Math.random() * 45,
+    //     "khaki"
+    //   )
+    // );
 
     // if wallCollisions = false, save  drawn walls to static array (wallCollisions)
     // which is used to keep wall collisions up in Collision.js
