@@ -6,47 +6,96 @@ var gridPosInUse = [];
 function jani() {
   drawObstacles();
 }
-function generateWallPos() {
-  const WALL_MAXCOUNT = 5;
-  const WALL_WIDTH = 0.033;
+// function generateWallPos() {
+//   const WALL_MAXCOUNT = 5;
+//   const WALL_WIDTH = 0.033;
 
-  var wallPos = [];
+//   var wallPos = [];
 
-  var wallCount = Math.floor(Math.random() * WALL_MAXCOUNT) + 1;
-  console.log("wallcount: " + wallCount);
+//   var wallCount = Math.floor(Math.random() * WALL_MAXCOUNT) + 1;
+//   console.log("wallcount: " + wallCount);
+
+//   var i;
+//   for (i = 0; i < wallCount; i++) {
+//     var wallType = Math.round(Math.random());
+//     if (wallType == 0) {
+//       console.log("hor");
+//       //horizontal wall
+//       wallPos.push(
+//         new Wall(
+//           (canvas.width / GRIDSIZEX) * 0,
+//           (canvas.height / GRIDSIZEY) * 0,
+//           (canvas.width / GRIDSIZEX) * 6,
+//           canvas.height * WALL_WIDTH,
+//           false,
+//           false
+//         )
+//       );
+//     } else {
+//       console.log("ver");
+//       //vertical wall
+//       wallPos.push(
+//         new Wall(
+//           canvas.width * (Math.random() * (1 - WALL_WIDTH)) + WALL_WIDTH,
+//           canvas.height * Math.random() * 0.8,
+//           canvas.width * WALL_WIDTH,
+//           canvas.height * (Math.random() * 0.8 + 0.2),
+//           false,
+//           false
+//         )
+//       );
+//     }
+//   }
+//   return wallPos;
+// }
+function generateBlockPos() {
+  const MAXCOUNT = 5;
+  const BLOCKSIZE = 0.05;
+
+  var blockPos = [];
+
+  var blockCount = Math.floor(Math.random() * MAXCOUNT) + 1;
+
+  var pos = [];
 
   var i;
-  for (i = 0; i < wallCount; i++) {
-    var wallType = Math.round(Math.random());
-    if (wallType == 0) {
-      console.log("hor");
-      //horizontal wall
-      wallPos.push(
-        new Wall(
-          (canvas.width / GRIDSIZEX) * 0,
-          (canvas.height / GRIDSIZEY) * 0,
-          (canvas.width / GRIDSIZEX) * 6,
-          canvas.height * WALL_WIDTH,
-          false,
-          false
-        )
-      );
-    } else {
-      console.log("ver");
-      //vertical wall
-      wallPos.push(
-        new Wall(
-          canvas.width * (Math.random() * (1 - WALL_WIDTH)) + WALL_WIDTH,
-          canvas.height * Math.random() * 0.8,
-          canvas.width * WALL_WIDTH,
-          canvas.height * (Math.random() * 0.8 + 0.2),
-          false,
-          false
-        )
-      );
+  for (i = 0; i < blockCount; i++) {
+    let isValid = false;
+
+    while (!isValid) {
+      pos = [
+        Math.floor(Math.random() * (GRIDSIZEX + 1)),
+        Math.floor(Math.random() * (GRIDSIZEY + 1)),
+      ];
+
+      if (valid(pos)) {
+        gridPosInUse.push(pos);
+        isValid = true;
+      } else {
+        pos = [
+          Math.floor(Math.random() * (GRIDSIZEX + 1)),
+          Math.floor(Math.random() * (GRIDSIZEY + 1)),
+        ];
+      }
     }
+
+    //console.log(i + ": " + pos);
+
+    blockPos.push(
+      new Wall(
+        (canvas.width / GRIDSIZEX) * pos[0],
+        (canvas.height / GRIDSIZEY) * pos[1],
+        BLOCKSIZE,
+        BLOCKSIZE,
+        false,
+        false
+      )
+    );
   }
-  return wallPos;
+
+  console.log(gridPosInUse);
+
+  return blockPos;
 }
 function generateSandpitPos() {
   const MAXCOUNT = 5;
@@ -206,6 +255,5 @@ function valid(pos) {
 //   }
 // }
 
-//!level generation
 //!ball hit mouse drag -> mouse down
 //!remove reika2

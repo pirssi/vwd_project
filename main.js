@@ -62,5 +62,5 @@ function main() {
   niko();
   init();
   checkBounds();
-  drawObstacles();
+  //drawObstacles();
 }

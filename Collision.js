@@ -1,30 +1,29 @@
-
 let reika;
 var topBottom = false;
 
 var bounce = 0.95;
 
-  // the main piece of the loop
-  // runs everything
+// the main piece of the loop
+// runs everything
 function checkBounds() {
   // logic goes here
 
   // bottom bound / floor
   if (pallo.yPos + pallo.ballRad >= canvas.height) {
-    if(bounceCD<Date.now()){
+    if (bounceCD < Date.now()) {
       bounceAudio.cloneNode(true).play();
-      bounceCD=Date.now()+20;
+      bounceCD = Date.now() + 20;
       horizontalVel *= bounce;
       verticalVel *= -bounce;
       pallo.yPos = canvas.height - pallo.ballRad;
     }
   }
-  
+
   // top bound / ceiling
   if (pallo.yPos - pallo.ballRad <= 0) {
-    if(bounceCD<Date.now()){
+    if (bounceCD < Date.now()) {
       bounceAudio.cloneNode(true).play();
-      bounceCD=Date.now()+20;
+      bounceCD = Date.now() + 20;
       horizontalVel *= bounce;
       verticalVel *= -bounce;
       pallo.yPos = pallo.ballRad;
@@ -33,9 +32,9 @@ function checkBounds() {
 
   // left bound
   if (pallo.xPos - pallo.ballRad <= 0) {
-    if(bounceCD<Date.now()){
+    if (bounceCD < Date.now()) {
       bounceAudio.cloneNode(true).play();
-      bounceCD=Date.now()+20;
+      bounceCD = Date.now() + 20;
       verticalVel *= bounce;
       horizontalVel *= -bounce;
       pallo.xPos = pallo.ballRad;
@@ -44,23 +43,22 @@ function checkBounds() {
 
   // right bound
   if (pallo.xPos + pallo.ballRad >= canvas.width) {
-    if(bounceCD<Date.now()){
+    if (bounceCD < Date.now()) {
       bounceAudio.cloneNode(true).play();
-      bounceCD=Date.now()+20;
+      bounceCD = Date.now() + 20;
       verticalVel *= bounce;
       horizontalVel *= -bounce;
       pallo.xPos = canvas.width - pallo.ballRad;
     }
   }
 
-
   //if pallo goes in the hole
   var dx = pallo.xPos - reika2.xPos;
   var dy = pallo.yPos - reika2.yPos;
-  var dist = Math.sqrt (dx * dx + dy * dy);
-  if (dist < pallo.ballRad + reika2.reikaRad)  {
+  var dist = Math.sqrt(dx * dx + dy * dy);
+  if (dist < pallo.ballRad + reika2.reikaRad) {
     holeAudio.cloneNode(true).play();
-    if(stagePar>=strokes){
+    if (stagePar >= strokes) {
       cheerAudio.cloneNode(true).play();
     }
     verticalVel = 0;
@@ -69,111 +67,133 @@ function checkBounds() {
     inHole = true;
     drawScore();
     LoadNextStage();
-  }
-  else{
-    inHole=false;
+  } else {
+    inHole = false;
   }
 }
 
-
 // set PoolCollisions
-function SetPoolsCollision(){
-  
-  for (let i = 0; i < poolCollisions.length; i++){
-
+function SetPoolsCollision() {
+  for (let i = 0; i < poolCollisions.length; i++) {
     // if ball center is inside pool, move ball back to last hitPosition
-    if (((pallo.xPos-poolCollisions[i].xPos)**2 / poolCollisions[i].poolRadX**2) + ((pallo.yPos-poolCollisions[i].yPos)**2 / poolCollisions[i].poolRadY**2) <= 1){
+    if (
+      (pallo.xPos - poolCollisions[i].xPos) ** 2 /
+        poolCollisions[i].poolRadX ** 2 +
+        (pallo.yPos - poolCollisions[i].yPos) ** 2 /
+          poolCollisions[i].poolRadY ** 2 <=
+      1
+    ) {
       waterAudio.cloneNode(true).play();
       horizontalVel = 0;
       verticalVel = 0;
       pallo.xPos = hitPosX;
       pallo.yPos = hitPosY;
       console.log(hitPosX, hitPosY);
-      
     }
   }
 }
 
-function RemovePoolsCollision(){
-  for (let i = 0; i <= poolCollisions.length; i++){
+function RemovePoolsCollision() {
+  for (let i = 0; i <= poolCollisions.length; i++) {
     poolCollisions.pop();
   }
 }
 
 // set sandPitCollisions
-function SetSandPitCollision(){
-  
-  for (let i = 0; i < sandPitCollisions.length; i++){
-
+function SetSandPitCollision() {
+  for (let i = 0; i < sandPitCollisions.length; i++) {
     // if ball center is inside sandPit, decrease velocity
-    if (((pallo.xPos-sandPitCollisions[i].xPos)**2 / sandPitCollisions[i].sandPitRadX**2) + ((pallo.yPos-sandPitCollisions[i].yPos)**2 / sandPitCollisions[i].sandPitRadY**2) <= 1){
+    if (
+      (pallo.xPos - sandPitCollisions[i].xPos) ** 2 /
+        sandPitCollisions[i].sandPitRadX ** 2 +
+        (pallo.yPos - sandPitCollisions[i].yPos) ** 2 /
+          sandPitCollisions[i].sandPitRadY ** 2 <=
+      1
+    ) {
       horizontalVel *= 0.85;
       verticalVel *= 0.85;
     }
+  }
+}
+function RemoveSandPitsCollision() {
+  for (let i = 0; i <= sandPitCollisions.length; i++) {
+    sandPitCollisions.pop();
   }
 }
 
 // a bit buggy :D
 // UPDATE: maybe fixed now :DD
 // using timer to prevent ball from changing direction multiple times when hitting wall
-function SetInnerRectCollision(){
-  for (let i = 0; i < wallCollisions.length; i++){
+function SetInnerRectCollision() {
+  for (let i = 0; i < wallCollisions.length; i++) {
+    var distX = Math.abs(
+      pallo.xPos - wallCollisions[i].xPos - wallCollisions[i].wallWidth / 2
+    );
+    var distY = Math.abs(
+      pallo.yPos - wallCollisions[i].yPos - wallCollisions[i].wallHeight / 2
+    );
 
-    var distX = Math.abs(pallo.xPos - wallCollisions[i].xPos-wallCollisions[i].wallWidth/2);
-    var distY = Math.abs(pallo.yPos - wallCollisions[i].yPos-wallCollisions[i].wallHeight/2);
-
-    if (distX > (wallCollisions[i].wallWidth/2 + pallo.ballRad)) {
+    if (distX > wallCollisions[i].wallWidth / 2 + pallo.ballRad) {
       wallCollisions[i].topBotBool = false;
-      continue; 
+      continue;
     }
-    if (distY > (wallCollisions[i].wallHeight/2 + pallo.ballRad)) {
+    if (distY > wallCollisions[i].wallHeight / 2 + pallo.ballRad) {
       wallCollisions[i].topBotBool = true;
-      continue; 
+      continue;
     }
-  
-    
-    if (distX <= (wallCollisions[i].wallWidth)  
-    && wallCollisions[i].topBotBool == false 
-    && wallCollisions[i].flipped == false) {
+
+    if (
+      distX <= wallCollisions[i].wallWidth &&
+      wallCollisions[i].topBotBool == false &&
+      wallCollisions[i].flipped == false
+    ) {
       bounceAudio.cloneNode(true).play();
       FlippedTimer(wallCollisions[i]);
       wallCollisions[i].flipped = true;
       console.log("topBot false");
       horizontalVel = -horizontalVel;
-    } 
-    if (distY <= (wallCollisions[i].wallHeight) 
-    && wallCollisions[i].topBotBool == true 
-    && wallCollisions[i].flipped == false) {
+    }
+    if (
+      distY <= wallCollisions[i].wallHeight &&
+      wallCollisions[i].topBotBool == true &&
+      wallCollisions[i].flipped == false
+    ) {
       bounceAudio.cloneNode(true).play();
       FlippedTimer(wallCollisions[i]);
       wallCollisions[i].flipped = true;
       console.log("topBottom true");
-      verticalVel = -verticalVel
+      verticalVel = -verticalVel;
     }
-      
   }
 }
-
 
 // timer function for flipped bools
-function FlippedTimer(f){
-  setTimeout(function() {f.flipped = false;}, 120);
+function FlippedTimer(f) {
+  setTimeout(function () {
+    f.flipped = false;
+  }, 120);
 }
 
-
 //function that loads next stage
-function LoadNextStage(){
-
+function LoadNextStage() {
   // remove collisions from inside the canvas and ballCollisionsSet to false, so new collisions will be set
-  while(wallCollisions.length){
+  while (wallCollisions.length) {
     wallCollisions.pop();
   }
+  while (poolCollisions.length) {
+    poolCollisions.pop();
+  }
+  while (sandPitCollisions.length) {
+    sandPitCollisions.pop();
+  }
+
   wallCollisionsSet = false;
   poolCollisionsSet = false;
+  sandPitCollisionsSet = false;
 
-  // set ball position to start 
-  pallo.xPos = canvas.width*0.1;
-  pallo.yPos = canvas.height*0.1;
+  // set ball position to start
+  pallo.xPos = canvas.width * 0.1;
+  pallo.yPos = canvas.height * 0.1;
 
   // set stagesIndex to next
   stagesIndex++;

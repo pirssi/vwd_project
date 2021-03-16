@@ -14,7 +14,7 @@ var sandPitCollisions = [];
 var sandPitCollisionsSet = false;
 
 var stages = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-var stagesIndex = 9;
+var stagesIndex = 0;
 
 const GRIDWIDTH = 6;
 const GRIDHEIGHT = 6;
@@ -41,13 +41,14 @@ function drawScene() {
   ctx.rect(0, 0, SIZE, SIZE);
   ctx.stroke();
 
-  DrawSandPits();
   //setStage();
   checkStageChange();
   DrawForceMeter();
   HitForceUI();
-  DrawWalls();
+  DrawSandPits();
   DrawPools();
+  DrawWalls();
+
   drawScore();
   drawStrokes();
   drawStageNumber();
@@ -282,6 +283,7 @@ class Stage {
 // StageChange system that sets stage depending on stageIndex
 function setStage() {
   //level 1
+
   if (stages[stagesIndex] == 0) {
     //Level 1
     //Start of level 1
@@ -291,6 +293,13 @@ function setStage() {
     while (pools.length) {
       pools.pop();
     }
+    while (sandPits.length) {
+      sandPits.pop();
+    }
+
+    sandPits = generateSandpitPos();
+    pools = generatePoolPos();
+
     stagePar = 1;
 
     pallo = new Ball(
@@ -352,29 +361,23 @@ function setStage() {
       )
     );
 
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
     //End of level 1
   } else if (stages[stagesIndex] == 1) {
     //Level 2
     //start of level 2
+
     while (walls.length) {
       walls.pop();
     }
     while (pools.length) {
       pools.pop();
     }
+    while (sandPits.length) {
+      sandPits.pop();
+    }
+
+    sandPits = generateSandpitPos();
+    pools = generatePoolPos();
 
     stagePar = 2;
 
@@ -420,19 +423,7 @@ function setStage() {
         false
       )
     );
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
+    //checkCollisionSets();
     //End of level 2
   } else if (stages[stagesIndex] == 2) {
     //Level 3
@@ -443,6 +434,12 @@ function setStage() {
     while (pools.length) {
       pools.pop();
     }
+    while (sandPits.length) {
+      sandPits.pop();
+    }
+
+    sandPits = generateSandpitPos();
+    pools = generatePoolPos();
 
     stagePar = 2;
 
@@ -488,19 +485,7 @@ function setStage() {
         false
       )
     );
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
+    checkCollisionSets();
     //End of level 3
   } else if (stages[stagesIndex] == 3) {
     //Level 4
@@ -511,6 +496,12 @@ function setStage() {
     while (pools.length) {
       pools.pop();
     }
+    while (sandPits.length) {
+      sandPits.pop();
+    }
+
+    sandPits = generateSandpitPos();
+    pools = generatePoolPos();
 
     stagePar = 1;
 
@@ -536,19 +527,7 @@ function setStage() {
         false
       )
     );
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
+    checkCollisionSets();
     //End of level 4
   } else if (stages[stagesIndex] == 4) {
     //Level 5
@@ -559,6 +538,12 @@ function setStage() {
     while (pools.length) {
       pools.pop();
     }
+    while (sandPits.length) {
+      sandPits.pop();
+    }
+
+    sandPits = generateSandpitPos();
+    pools = generatePoolPos();
 
     stagePar = 1;
 
@@ -634,19 +619,7 @@ function setStage() {
         false
       )
     );
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
+    checkCollisionSets();
     //End of level 5
   } else if (stages[stagesIndex] == 5) {
     //Level 6
@@ -657,6 +630,12 @@ function setStage() {
     while (pools.length) {
       pools.pop();
     }
+    while (sandPits.length) {
+      sandPits.pop();
+    }
+
+    sandPits = generateSandpitPos();
+    pools = generatePoolPos();
 
     stagePar = 1;
     pallo = new Ball(
@@ -777,19 +756,7 @@ function setStage() {
         false
       )
     );
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
+    checkCollisionSets();
     //End of level 6
   } else if (stages[stagesIndex] == 6) {
     //Level 7
@@ -800,6 +767,12 @@ function setStage() {
     while (pools.length) {
       pools.pop();
     }
+    while (sandPits.length) {
+      sandPits.pop();
+    }
+
+    sandPits = generateSandpitPos();
+    pools = generatePoolPos();
 
     stagePar = 1;
     pallo = new Ball(
@@ -920,19 +893,7 @@ function setStage() {
         false
       )
     );
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
+    checkCollisionSets();
     //End of level 7
   } else if (stages[stagesIndex] == 7) {
     //Level 8
@@ -943,6 +904,12 @@ function setStage() {
     while (pools.length) {
       pools.pop();
     }
+    while (sandPits.length) {
+      sandPits.pop();
+    }
+
+    sandPits = generateSandpitPos();
+    pools = generatePoolPos();
 
     stagePar = 1;
     pallo = new Ball(
@@ -1033,19 +1000,7 @@ function setStage() {
         false
       )
     );
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
+    checkCollisionSets();
     //End of level 8
   } else if (stages[stagesIndex] == 8) {
     //Level 9
@@ -1056,6 +1011,12 @@ function setStage() {
     while (pools.length) {
       pools.pop();
     }
+    while (sandPits.length) {
+      sandPits.pop();
+    }
+
+    sandPits = generateSandpitPos();
+    pools = generatePoolPos();
 
     stagePar = 1;
     pallo = new Ball(
@@ -1267,19 +1228,7 @@ function setStage() {
         false
       )
     );
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
+    checkCollisionSets();
     //End of level 9
   } else if (stages[stagesIndex] == 9) {
     //Level 10
@@ -1290,6 +1239,12 @@ function setStage() {
     while (pools.length) {
       pools.pop();
     }
+    while (sandPits.length) {
+      sandPits.pop();
+    }
+
+    sandPits = generateSandpitPos();
+    pools = generatePoolPos();
 
     stagePar = 1;
     pallo = new Ball(
@@ -1401,246 +1356,11 @@ function setStage() {
         false
       )
     );
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
+    checkCollisionSets();
     //End of level 10
     //The final level!!!
   }
-  /*
-  //stage1
-  if (stages[stagesIndex] == 0) {
-    //remove each drawn wall at each frame before drawing new ones to avoid overloading webpage
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
-
-    stagePar = 2;
-    while(walls.length){
-      walls.pop();
-    }
-    while(pools.length){
-      pools.pop();
-    }
-
-    stagePar=3;
-
-    reika = new Hole(canvas.width*0.9, canvas.height*0.82, 15, "black");
-    reika2 = new Hole(canvas.width*0.9, canvas.height*0.82, 5, "lightblue");
-    walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033, false, false));
-    walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033, false, false));
-    pools.push(new Pool(canvas.width*0.8, canvas.height*0.25, 85, 35, 0, "aqua"));
-    pools.push(new Pool(canvas.width*0.25, canvas.height*0.8, 40, 70, 0, "aqua"));
-
-    if (!wallCollisionsSet){
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++){
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-    if (!poolCollisionsSet){
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++){
-        poolCollisions.push(pools[i]);
-      }
-    }
-
-    //let wallPos = generateWallPos();
-    walls = wallPos;
-
-   
-    //pools = generatePoolPos();
-
-    //sandPits = generateSandpitPos();
-
-
-    // if wallCollisions = false, save  drawn walls to static array (wallCollisions)
-    // which is used to keep wall collisions up in Collision.js
-    // this is because walls are removed and redrawn on each frame
-    if (!wallCollisionsSet) {
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++) {
-        wallCollisions.push(walls[i]);
-      }
-    }
-
-    // same for pools
-    if (!poolCollisionsSet) {
-      poolCollisionsSet = true;
-      for (let i = 0; i < pools.length; i++) {
-        poolCollisions.push(pools[i]);
-      }
-    }
-
-    // same for sandPits
-    if (!sandPitCollisionsSet) {
-      sandPitCollisionsSet = true;
-      for (let i = 0; i < sandPits.length; i++) {
-        sandPitCollisions.push(sandPits[i]);
-      }
-    }
-
-    
-  }
-  // if (stages[stagesIndex] == 0){
-  //   //remove each drawn wall at each frame before drawing new ones to avoid overloading webpage
-  //   while(walls.length){
-  //     walls.pop();
-  //   }
-  //   while(pools.length){
-  //     pools.pop();
-  //   }
-  //   while(sandPits.length){
-  //     sandPits.pop();
-  //   }
-
-  //   stagePar=2;
-  //   // set hole position and wall positions
-  //   reika = new Hole(canvas.width*0.82, canvas.height*0.9, 15, "black");
-  //   reika2 = new Hole(canvas.width*0.82, canvas.height*0.9, 5, "lightblue")
-  //   walls.push(new Wall(canvas.width*0.3, canvas.height*0, canvas.width*0.033, canvas.height*0.66, false, false));
-  //   walls.push(new Wall(canvas.width*0.6, canvas.height*0.338, canvas.width*0.033, canvas.height*0.66, false, false));
-
-  //   // set pool position
-  //   pools.push(new Pool(canvas.width*0.1, canvas.height*0.9, 50, 25, 0, "aqua"));
-  //   pools.push(new Pool(canvas.width*0.9, canvas.height*0.1, 50, 25, 0, "aqua"));
-
-  //   sandPits.push(new SandPit(canvas.width*0.5, canvas.height*0.5, 100, 70, 0, "khaki"));
-
-  //   // if wallCollisions = false, save  drawn walls to static array (wallCollisions)
-  //   // which is used to keep wall collisions up in Collision.js
-  //   // this is because walls are removed and redrawn on each frame
-  //   if (!wallCollisionsSet){
-  //     wallCollisionsSet = true;
-  //     for (let i = 0; i < walls.length; i++){
-  //       wallCollisions.push(walls[i]);
-  //     }
-  //   }
-
-  //   // same for pools
-  //   if (!poolCollisionsSet){
-  //     poolCollisionsSet = true;
-  //     for (let i = 0; i < pools.length; i++){
-  //       poolCollisions.push(pools[i]);
-  //     }
-  //   }
-
-  //   // same for sandPits
-  //   if (!sandPitCollisionsSet){
-  //     sandPitCollisionsSet = true;
-  //     for (let i = 0; i < sandPits.length; i++){
-  //       sandPitCollisions.push(sandPits[i]);
-  //     }
-  //   }
-  // }
-
-  // //stage2
-  // else if (stages[stagesIndex] == 1){
-  //   while(walls.length){
-  //     walls.pop();
-  //   }
-  //   while(pools.length){
-  //     pools.pop();
-  //   }
-
-  //   stagePar=3;
-
-  //   reika = new Hole(canvas.width*0.9, canvas.height*0.82, 15, "black");
-  //   reika2 = new Hole(canvas.width*0.9, canvas.height*0.82, 5, "lightblue");
-  //   walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033, false, false));
-  //   walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033, false, false));
-  //   pools.push(new Pool(canvas.width*0.8, canvas.height*0.25, 85, 35, 0, "aqua"));
-  //   pools.push(new Pool(canvas.width*0.25, canvas.height*0.8, 40, 70, 0, "aqua"));
-  //   if (!wallCollisionsSet){
-  //     wallCollisionsSet = true;
-  //     for (let i = 0; i < walls.length; i++){
-  //       wallCollisions.push(walls[i]);
-  //       console.log(wallCollisions[i]);
-  //     }
-  //   }
-  //   if (!poolCollisionsSet){
-  //     poolCollisionsSet = true;
-  //     for (let i = 0; i < pools.length; i++){
-  //       poolCollisions.push(pools[i]);
-  //     }
-  //   }
-  // }
-
-  /*
-  // these are just layouts for new levels
-
-  //stage3
-  if (stages[stagesIndex] == 2){
-    while(walls.length){
-      walls.pop();
-    }
-    reika = new Hole(canvas.width*0.82, canvas.height*0.9, 15, "black");
-    reika2 = new Hole(canvas.width*0.82, canvas.height*0.9, 5, "lightblue");
-    walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033));
-    walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033));
-    if (!wallCollisionsSet){
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++){
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-  }
-
-  //stage4
-  if (stages[stagesIndex] == 3){
-    while(walls.length){
-      walls.pop();
-    }
-    reika = new Hole(canvas.width*0.82, canvas.height*0.9, 15, "black");
-    reika2 = new Hole(canvas.width*0.82, canvas.height*0.9, 5, "lightblue");
-    walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033));
-    walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033));
-    if (!wallCollisionsSet){
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++){
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-  }
-
-    //stage5
-    if (stages[stagesIndex] == 4){
-    while(walls.length){
-      walls.pop();
-    }
-    reika = new Hole(canvas.width*0.82, canvas.height*0.9, 15, "black");
-    reika2 = new Hole(canvas.width*0.82, canvas.height*0.9, 5, "lightblue");
-    walls.push(new Wall(canvas.width*0, canvas.height*0.3, canvas.width*0.66, canvas.height*0.033));
-    walls.push(new Wall(canvas.width*0.338, canvas.height*0.63, canvas.width*0.66, canvas.height*0.033));
-    if (!wallCollisionsSet){
-      wallCollisionsSet = true;
-      for (let i = 0; i < walls.length; i++){
-        wallCollisions.push(walls[i]);
-        console.log(wallCollisions[i]);
-      }
-    }
-  }
-
-    */
+  checkCollisionSets();
 }
 function checkStageChange() {
   if (lastStage != stagesIndex) {
@@ -1653,6 +1373,28 @@ function checkStageChange() {
     prevPar = stagePar;
     scoreTime = Date.now() + 5000;
     RemovePoolsCollision();
+    RemoveSandPitsCollision();
     setStage();
+  }
+}
+function checkCollisionSets() {
+  if (!wallCollisionsSet) {
+    wallCollisionsSet = true;
+    for (let i = 0; i < walls.length; i++) {
+      wallCollisions.push(walls[i]);
+      console.log(wallCollisions[i]);
+    }
+  }
+  if (!poolCollisionsSet) {
+    poolCollisionsSet = true;
+    for (let i = 0; i < pools.length; i++) {
+      poolCollisions.push(pools[i]);
+    }
+  }
+  if (!sandPitCollisionsSet) {
+    sandPitCollisionsSet = true;
+    for (let i = 0; i < sandPits.length; i++) {
+      sandPitCollisions.push(sandPits[i]);
+    }
   }
 }
