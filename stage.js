@@ -837,18 +837,10 @@ function setStage() {
     hitPosX = pallo.xPos;
     hitPosY = pallo.yPos;
 
-    reika = new Hole(
-      (canvas.width / GRIDWIDTH) * 0.5,
-      (canvas.height / GRIDHEIGHT) * 1.5,
-      15,
-      "black"
-    );
-    reika2 = new Hole(
-      (canvas.width / GRIDWIDTH) * 0.5,
-      (canvas.height / GRIDWIDTH) * 1.5,
-      5,
-      "lightblue"
-    );
+    reika.xPos = (canvas.width / GRIDWIDTH) * 0.5;
+    reika.yPos = (canvas.height / GRIDHEIGHT) * 1.5;
+    reika2.xPos = (canvas.width / GRIDWIDTH) * 0.5;
+    reika2.yPos = (canvas.width / GRIDHEIGHT) * 1.5;
 
     walls.push(
       new Wall(
