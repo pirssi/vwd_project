@@ -110,8 +110,8 @@ function SetSandPitCollision() {
           sandPitCollisions[i].sandPitRadY ** 2 <=
       1
     ) {
-      horizontalVel *= 0.85;
-      verticalVel *= 0.85;
+      horizontalVel *= 0.9;
+      verticalVel *= 0.9;
     }
   }
 }
@@ -171,7 +171,7 @@ function SetInnerRectCollision() {
 function FlippedTimer(f) {
   setTimeout(function () {
     f.flipped = false;
-  }, 120);
+  }, 30);
 }
 
 //function that loads next stage

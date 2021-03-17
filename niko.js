@@ -34,6 +34,12 @@ function drawScene() {
   ctx.fill();
   ctx.stroke();
 
+  //setStage();
+  checkStageChange();
+  DrawSandPits();
+  DrawPools();
+  DrawWalls();
+
   //borders of the map
   ctx.beginPath();
   ctx.fillStyle = "black";
@@ -41,14 +47,8 @@ function drawScene() {
   ctx.rect(0, 0, SIZE, SIZE);
   ctx.stroke();
 
-  //setStage();
-  checkStageChange();
   DrawForceMeter();
   HitForceUI();
-  DrawSandPits();
-  DrawPools();
-  DrawWalls();
-
   drawScore();
   drawStrokes();
   drawStageNumber();
@@ -190,7 +190,6 @@ class Pool {
       2 * Math.PI
     );
     ctx.fill();
-    ctx.stroke();
     ctx.restore();
   }
 }
@@ -379,7 +378,7 @@ function setStage() {
     sandPits = generateSandpitPos();
     pools = generatePoolPos();
 
-    stagePar = 2;
+    stagePar = 3;
 
     reika = new Hole(
       (canvas.width / GRIDWIDTH) * 5.5,
@@ -503,7 +502,7 @@ function setStage() {
     sandPits = generateSandpitPos();
     pools = generatePoolPos();
 
-    stagePar = 1;
+    stagePar = 2;
 
     reika = new Hole(
       (canvas.width / GRIDWIDTH) * 5.5,
@@ -545,7 +544,7 @@ function setStage() {
     sandPits = generateSandpitPos();
     pools = generatePoolPos();
 
-    stagePar = 1;
+    stagePar = 6;
 
     reika = new Hole(
       (canvas.width / GRIDWIDTH) * 2,
@@ -637,7 +636,7 @@ function setStage() {
     sandPits = generateSandpitPos();
     pools = generatePoolPos();
 
-    stagePar = 1;
+    stagePar = 3;
     pallo = new Ball(
       (canvas.width / GRIDWIDTH) * 0.5,
       (canvas.height / GRIDHEIGHT) * 0.5,
@@ -774,7 +773,7 @@ function setStage() {
     sandPits = generateSandpitPos();
     pools = generatePoolPos();
 
-    stagePar = 1;
+    stagePar = 2;
     pallo = new Ball(
       (canvas.width / GRIDWIDTH) * 1.5,
       (canvas.height / GRIDHEIGHT) * 0.5,
@@ -911,7 +910,7 @@ function setStage() {
     sandPits = generateSandpitPos();
     pools = generatePoolPos();
 
-    stagePar = 1;
+    stagePar = 3;
     pallo = new Ball(
       (canvas.width / GRIDWIDTH) * 0.5,
       (canvas.height / GRIDHEIGHT) * 5.6,
@@ -1018,7 +1017,7 @@ function setStage() {
     sandPits = generateSandpitPos();
     pools = generatePoolPos();
 
-    stagePar = 1;
+    stagePar = 2;
     pallo = new Ball(
       (canvas.width / GRIDWIDTH) * 3,
       (canvas.height / GRIDHEIGHT) * 5.7,
