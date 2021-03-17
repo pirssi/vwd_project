@@ -10,9 +10,9 @@ function boundsCollision() {
 
   // bottom bound / floor
   if (pallo.yPos + pallo.ballRad >= canvas.height) {
-    if (bounceCD < Date.now()) {
+    if (cooldownTime < Date.now()) {
       bounceAudio.cloneNode(true).play();
-      bounceCD = Date.now() + 20;
+      cooldownTime = Date.now() + 20;
       horizontalVel *= bounce;
       verticalVel *= -bounce;
       pallo.yPos = canvas.height - pallo.ballRad;
@@ -21,9 +21,9 @@ function boundsCollision() {
 
   // top bound / ceiling
   if (pallo.yPos - pallo.ballRad <= 0) {
-    if (bounceCD < Date.now()) {
+    if (cooldownTime < Date.now()) {
       bounceAudio.cloneNode(true).play();
-      bounceCD = Date.now() + 20;
+      cooldownTime = Date.now() + 20;
       horizontalVel *= bounce;
       verticalVel *= -bounce;
       pallo.yPos = pallo.ballRad;
@@ -32,9 +32,9 @@ function boundsCollision() {
 
   // left bound
   if (pallo.xPos - pallo.ballRad <= 0) {
-    if (bounceCD < Date.now()) {
+    if (cooldownTime < Date.now()) {
       bounceAudio.cloneNode(true).play();
-      bounceCD = Date.now() + 20;
+      cooldownTime = Date.now() + 20;
       verticalVel *= bounce;
       horizontalVel *= -bounce;
       pallo.xPos = pallo.ballRad;
@@ -43,9 +43,9 @@ function boundsCollision() {
 
   // right bound
   if (pallo.xPos + pallo.ballRad >= canvas.width) {
-    if (bounceCD < Date.now()) {
+    if (cooldownTime < Date.now()) {
       bounceAudio.cloneNode(true).play();
-      bounceCD = Date.now() + 20;
+      cooldownTime = Date.now() + 20;
       verticalVel *= bounce;
       horizontalVel *= -bounce;
       pallo.xPos = canvas.width - pallo.ballRad;
@@ -58,17 +58,21 @@ function holeCollision() {
   var dy = pallo.yPos - reika2.yPos;
   var dist = Math.sqrt(dx * dx + dy * dy);
   if (dist < pallo.ballRad + reika2.reikaRad) {
-    holeAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
-    if (stagePar >= strokes) {
-      cheerAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
+    if (cooldownTime < Date.now()) {
+      holeAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
+      if (stagePar >= strokes) {
+        cheerAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
+      }
+      verticalVel = 0;
+      horizontalVel = 0;
+      score = strokes;
+      inHole = true;
+      drawScore();
+      //LoadNextStage();
+      stagesIndex++;
+      console.log("stagesIndex: " + stagesIndex);
+      cooldownTime = Date.now() + 20;
     }
-    verticalVel = 0;
-    horizontalVel = 0;
-    score = strokes;
-    inHole = true;
-    drawScore();
-    //LoadNextStage();
-    stagesIndex++;
   } else {
     inHole = false;
   }
@@ -88,7 +92,7 @@ function poolsCollision() {
       verticalVel = 0;
       pallo.xPos = hitPosX;
       pallo.yPos = hitPosY;
-      console.log(hitPosX, hitPosY);
+      //console.log(hitPosX, hitPosY);
     }
   }
 }
@@ -132,7 +136,7 @@ function wallCollision() {
       bounceAudio.cloneNode(true).play();
       flippedTimer(walls[i]);
       walls[i].flipped = true;
-      console.log("topBot false");
+      //console.log("topBot false");
       horizontalVel = -horizontalVel;
     }
     if (
@@ -143,7 +147,7 @@ function wallCollision() {
       bounceAudio.cloneNode(true).play();
       flippedTimer(walls[i]);
       walls[i].flipped = true;
-      console.log("topBottom true");
+      //console.log("topBottom true");
       verticalVel = -verticalVel;
     }
   }

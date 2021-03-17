@@ -12,7 +12,7 @@ var waterAudio = new Audio("audio/splash.mp3");
 waterAudio.volume = 0.3; //doesnt change the volume for some reason
 var bounceAudio = new Audio("audio/bounce.mp3");
 var cheerAudio = new Audio("audio/cheer.mp3");
-var bounceCD = 1;
+var cooldownTime = 1;
 var stageSet = false;
 
 var horizontalVel;
@@ -48,9 +48,18 @@ function main() {
   canvas = document.getElementById("myCanvas");
   ctx = canvas.getContext("2d");
 
-  niko();
+  draw();
   init();
   //boundsCollision();
   //holeCollision();
   //drawObstacles();
+
+  // document.addEventListener("keyup", (e) => {
+  //   if (e.keyCode === 82) {
+  //     console.log("r painettu 😎");
+  //     setStage();
+  //   }
+
+  //   // do something
+  // });
 }

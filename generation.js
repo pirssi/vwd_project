@@ -13,13 +13,13 @@ function jani() {
 //   var wallPos = [];
 
 //   var wallCount = Math.floor(Math.random() * WALL_MAXCOUNT) + 1;
-//   console.log("wallcount: " + wallCount);
+//   //console.log("wallcount: " + wallCount);
 
 //   var i;
 //   for (i = 0; i < wallCount; i++) {
 //     var wallType = Math.round(Math.random());
 //     if (wallType == 0) {
-//       console.log("hor");
+//       //console.log("hor");
 //       //horizontal wall
 //       wallPos.push(
 //         new Wall(
@@ -32,7 +32,7 @@ function jani() {
 //         )
 //       );
 //     } else {
-//       console.log("ver");
+//       //console.log("ver");
 //       //vertical wall
 //       wallPos.push(
 //         new Wall(
@@ -79,7 +79,7 @@ function generateBlockPos() {
       }
     }
 
-    //console.log(i + ": " + pos);
+    ////console.log(i + ": " + pos);
 
     blockPos.push(
       new Wall(
@@ -93,7 +93,7 @@ function generateBlockPos() {
     );
   }
 
-  console.log(gridPosInUse);
+  //console.log(gridPosInUse);
 
   return blockPos;
 }
@@ -111,7 +111,7 @@ function generateSandpitPos() {
 
   var pos = [];
 
-  //console.log("sandpit:");
+  ////console.log("sandpit:");
 
   var i;
   for (i = 0; i < sandCount; i++) {
@@ -134,7 +134,7 @@ function generateSandpitPos() {
       }
     }
 
-    //console.log(i + ": " + pos);
+    ////console.log(i + ": " + pos);
 
     var radx = MINRADX + Math.random() * (MAXRADX - MINRADX);
     var rady = radx * (0.75 + Math.random() * 0.5);
@@ -151,7 +151,7 @@ function generateSandpitPos() {
     );
   }
 
-  console.log(gridPosInUse);
+  //console.log(gridPosInUse);
 
   return sandPos;
 }
@@ -169,7 +169,7 @@ function generatePoolPos() {
 
   var pos = [];
 
-  //console.log("pool:");
+  ////console.log("pool:");
   var i;
   for (i = 0; i < poolCount; i++) {
     let isValid = false;
@@ -204,56 +204,23 @@ function generatePoolPos() {
       )
     );
   }
-  console.log(gridPosInUse);
+  //console.log(gridPosInUse);
   return poolPos;
 }
 
 //checks for the generated position (pos) in the gridInUse array
 function valid(pos) {
   let i;
-  console.log("length: " + gridPosInUse.length);
+  //console.log("length: " + gridPosInUse.length);
   for (i = 0; i < gridPosInUse.length; i++) {
     if (JSON.stringify(gridPosInUse[i]) === JSON.stringify(pos)) {
-      console.log("haha blocked same values 😎 EZ");
+      //console.log("haha blocked same values 😎 EZ");
       return false;
     }
   }
-  console.log("eipä ollu 😳");
+  //console.log("eipä ollu 😳");
   return true;
 }
-
-// function drawObstacles() {
-//   var obstaclePositions = randomizePos();
-//   console.log(obstaclePositions);
-
-//   //var i;
-
-//   // for (i = 0; i < obstaclePositions.length; i++) {
-//   //   // console.log(
-//   //   //   "x: " + obstaclePositions[i][0] + ", y: " + obstaclePositions[i][1]
-//   //   // );
-//   //   //TODO: actual drawing
-//   //   /*
-//   //   varsinainen sijainti canvaksella: canvaswidth / gridsizeX * x-koordinaatti
-//   //   */
-//   // }
-
-//   function randomizePos() {
-//     var posArray = new Array(); //array that has OBSTACLECOUNT amount of x and y coordinates
-
-//     //while (posArray.length < OBSTACLECOUNT)
-//     var i;
-//     for (i = 0; i < OBSTACLECOUNT; i++) {
-//       //generate the position as an array
-//       var pos = [
-//         Math.floor(Math.random() * GRIDSIZEX), //generate random x coordinate
-//         Math.floor(Math.random() * GRIDSIZEY), //generate random y coordinate
-//       ];
-//       posArray.push(pos); //push the array of a single position to the array with all the coordinates (nested arrays)
-//     }
-//     return posArray;
-//   }
-// }
 
 //!ball hit mouse drag -> mouse down
 //!remove reika2
