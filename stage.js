@@ -26,15 +26,21 @@ function initializeStage() {
   }
 
   //remove previous walls, pools and sandpits
-  while (walls.length) {
-    walls.pop();
-  }
-  while (pools.length) {
-    pools.pop();
-  }
-  while (sandPits.length) {
-    sandPits.pop();
-  }
+  // while (walls.length) {
+  //   walls.pop();
+  // }
+  // while (pools.length) {
+  //   pools.pop();
+  // }
+  // while (sandPits.length) {
+  //   sandPits.pop();
+  // }
+  walls.splice(0, walls.length);
+  pools.splice(0, pools.length);
+  sandPits.splice(0, sandPits.length);
+  gridPosInUse.splice(0, gridPosInUse.length);
+
+  console.log(gridPosInUse);
 
   //generate new pseudorandom sandpits and pools
   sandPits = generateSandpitPos();

@@ -92,12 +92,12 @@ function main() {
   //holeCollision();
   //drawObstacles();
 
-  // document.addEventListener("keyup", (e) => {
-  //   if (e.keyCode === 82) {
-  //     console.log("r painettu 😎");
-  //     setStage();
-  //   }
+  document.addEventListener("keyup", (e) => {
+    if (e.code === "KeyR") {
+      console.log("r painettu 😎");
+      setStage();
+    }
 
-  //   // do something
-  // });
+    // do something
+  });
 }
