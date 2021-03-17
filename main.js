@@ -1,7 +1,5 @@
 const SIZE = 1000;
 
-// ref to last position where ball was hit
-// set it every time ball stops
 var hitPosX;
 var hitPosY;
 var hitAudio = new Audio("audio/driver.mp3");
@@ -40,6 +38,46 @@ var lastStage = 0;
 var stageChanged = false;
 var strokes = 1;
 var score = 0;
+
+var interval;
+var ballsAreTouching = false;
+var holeGravityX = 0;
+var holeGravityY = 0;
+
+var suctionX = 0;
+var suctionY = 0;
+
+var velFactor = 0;
+var velPercent = 0;
+
+var xPos;
+var yPos;
+
+var walls = [];
+var wallCollisions = [];
+var wallCollisionsSet = false;
+
+var pools = [];
+var poolCollisions = [];
+var poolCollisionsSet = false;
+
+var sandPits = [];
+var sandPitCollisions = [];
+var sandPitCollisionsSet = false;
+
+var stages = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+var stagesIndex = 0;
+
+let reika;
+var topBottom = false;
+
+var bounce = 0.95;
+
+const OBSTACLECOUNT = 5;
+var gridPosInUse = [];
+
+const GRIDWIDTH = 6;
+const GRIDHEIGHT = 6;
 
 var ctx;
 var canvas;

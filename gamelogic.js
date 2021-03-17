@@ -1,14 +1,3 @@
-var interval;
-var ballsAreTouching = false;
-var holeGravityX = 0;
-var holeGravityY = 0;
-
-var suctionX = 0;
-var suctionY = 0;
-
-var velFactor = 0;
-var velPercent = 0;
-
 function init() {
   // mouse event handling
   canvas.addEventListener("mousedown", pointerDown, false);

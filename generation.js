@@ -1,8 +1,3 @@
-const GRIDSIZEX = 6;
-const GRIDSIZEY = 6;
-const OBSTACLECOUNT = 5;
-var gridPosInUse = [];
-
 function jani() {
   drawObstacles();
 }
@@ -23,9 +18,9 @@ function jani() {
 //       //horizontal wall
 //       wallPos.push(
 //         new Wall(
-//           (canvas.width / GRIDSIZEX) * 0,
-//           (canvas.height / GRIDSIZEY) * 0,
-//           (canvas.width / GRIDSIZEX) * 6,
+//           (canvas.width / GRIDWIDTH) * 0,
+//           (canvas.height / GRIDHEIGHT) * 0,
+//           (canvas.width / GRIDWIDTH) * 6,
 //           canvas.height * WALL_WIDTH,
 //           false,
 //           false
@@ -64,8 +59,8 @@ function generateBlockPos() {
 
     while (!isValid) {
       pos = [
-        Math.floor(Math.random() * (GRIDSIZEX + 1)),
-        Math.floor(Math.random() * (GRIDSIZEY + 1)),
+        Math.floor(Math.random() * (GRIDWIDTH + 1)),
+        Math.floor(Math.random() * (GRIDHEIGHT + 1)),
       ];
 
       if (valid(pos)) {
@@ -73,8 +68,8 @@ function generateBlockPos() {
         isValid = true;
       } else {
         pos = [
-          Math.floor(Math.random() * (GRIDSIZEX + 1)),
-          Math.floor(Math.random() * (GRIDSIZEY + 1)),
+          Math.floor(Math.random() * (GRIDWIDTH + 1)),
+          Math.floor(Math.random() * (GRIDHEIGHT + 1)),
         ];
       }
     }
@@ -83,8 +78,8 @@ function generateBlockPos() {
 
     blockPos.push(
       new Wall(
-        (canvas.width / GRIDSIZEX) * pos[0],
-        (canvas.height / GRIDSIZEY) * pos[1],
+        (canvas.width / GRIDWIDTH) * pos[0],
+        (canvas.height / GRIDHEIGHT) * pos[1],
         BLOCKSIZE,
         BLOCKSIZE,
         false,
@@ -119,8 +114,8 @@ function generateSandpitPos() {
 
     while (!isValid) {
       pos = [
-        Math.floor(Math.random() * (GRIDSIZEX + 1)),
-        Math.floor(Math.random() * (GRIDSIZEY + 1)),
+        Math.floor(Math.random() * (GRIDWIDTH + 1)),
+        Math.floor(Math.random() * (GRIDHEIGHT + 1)),
       ];
 
       if (valid(pos)) {
@@ -128,8 +123,8 @@ function generateSandpitPos() {
         isValid = true;
       } else {
         pos = [
-          Math.floor(Math.random() * (GRIDSIZEX + 1)),
-          Math.floor(Math.random() * (GRIDSIZEY + 1)),
+          Math.floor(Math.random() * (GRIDWIDTH + 1)),
+          Math.floor(Math.random() * (GRIDHEIGHT + 1)),
         ];
       }
     }
@@ -141,8 +136,8 @@ function generateSandpitPos() {
 
     sandPos.push(
       new SandPit(
-        (canvas.width / GRIDSIZEX) * pos[0],
-        (canvas.height / GRIDSIZEY) * pos[1],
+        (canvas.width / GRIDWIDTH) * pos[0],
+        (canvas.height / GRIDHEIGHT) * pos[1],
         radx,
         rady,
         Math.random() * MAXANGLE,
@@ -175,8 +170,8 @@ function generatePoolPos() {
     let isValid = false;
     while (!isValid) {
       pos = [
-        Math.floor(Math.random() * (GRIDSIZEX + 1)),
-        Math.floor(Math.random() * (GRIDSIZEY + 1)),
+        Math.floor(Math.random() * (GRIDWIDTH + 1)),
+        Math.floor(Math.random() * (GRIDHEIGHT + 1)),
       ];
 
       if (valid(pos)) {
@@ -184,8 +179,8 @@ function generatePoolPos() {
         isValid = true;
       } else {
         pos = [
-          Math.floor(Math.random() * (GRIDSIZEX + 1)),
-          Math.floor(Math.random() * (GRIDSIZEY + 1)),
+          Math.floor(Math.random() * (GRIDWIDTH + 1)),
+          Math.floor(Math.random() * (GRIDHEIGHT + 1)),
         ];
       }
     }
@@ -195,8 +190,8 @@ function generatePoolPos() {
 
     poolPos.push(
       new Pool(
-        (canvas.width / GRIDSIZEX) * pos[0],
-        (canvas.height / GRIDSIZEY) * pos[1],
+        (canvas.width / GRIDWIDTH) * pos[0],
+        (canvas.height / GRIDHEIGHT) * pos[1],
         radx,
         rady,
         Math.random() * MAXANGLE,

@@ -1,24 +1,3 @@
-var xPos;
-var yPos;
-
-var walls = [];
-var wallCollisions = [];
-var wallCollisionsSet = false;
-
-var pools = [];
-var poolCollisions = [];
-var poolCollisionsSet = false;
-
-var sandPits = [];
-var sandPitCollisions = [];
-var sandPitCollisionsSet = false;
-
-var stages = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-var stagesIndex = 0;
-
-const GRIDWIDTH = 6;
-const GRIDHEIGHT = 6;
-
 function initializeStage() {
   //if setting the first stage, initialize ball, hole and hole "hitbox"
   if (stageSet == false) {

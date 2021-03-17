@@ -1,8 +1,3 @@
-let reika;
-var topBottom = false;
-
-var bounce = 0.95;
-
 // the main piece of the loop
 // runs everything
 function boundsCollision() {
