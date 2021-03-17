@@ -5,7 +5,7 @@ var bounce = 0.95;
 
 // the main piece of the loop
 // runs everything
-function checkBounds() {
+function boundsCollision() {
   // logic goes here
 
   // bottom bound / floor
@@ -51,36 +51,36 @@ function checkBounds() {
       pallo.xPos = canvas.width - pallo.ballRad;
     }
   }
-
+}
+function holeCollision() {
   //if pallo goes in the hole
   var dx = pallo.xPos - reika2.xPos;
   var dy = pallo.yPos - reika2.yPos;
   var dist = Math.sqrt(dx * dx + dy * dy);
   if (dist < pallo.ballRad + reika2.reikaRad) {
-    holeAudio.cloneNode(true).play();
+    holeAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
     if (stagePar >= strokes) {
-      cheerAudio.cloneNode(true).play();
+      cheerAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
     }
     verticalVel = 0;
     horizontalVel = 0;
     score = strokes;
     inHole = true;
     drawScore();
-    LoadNextStage();
+    //LoadNextStage();
+    stagesIndex++;
   } else {
     inHole = false;
   }
 }
 
-// set PoolCollisions
-function SetPoolsCollision() {
-  for (let i = 0; i < poolCollisions.length; i++) {
+// set pools
+function poolsCollision() {
+  for (let i = 0; i < pools.length; i++) {
     // if ball center is inside pool, move ball back to last hitPosition
     if (
-      (pallo.xPos - poolCollisions[i].xPos) ** 2 /
-        poolCollisions[i].poolRadX ** 2 +
-        (pallo.yPos - poolCollisions[i].yPos) ** 2 /
-          poolCollisions[i].poolRadY ** 2 <=
+      (pallo.xPos - pools[i].xPos) ** 2 / pools[i].poolRadX ** 2 +
+        (pallo.yPos - pools[i].yPos) ** 2 / pools[i].poolRadY ** 2 <=
       1
     ) {
       waterAudio.cloneNode(true).play();
@@ -93,21 +93,13 @@ function SetPoolsCollision() {
   }
 }
 
-function RemovePoolsCollision() {
-  for (let i = 0; i <= poolCollisions.length; i++) {
-    poolCollisions.pop();
-  }
-}
-
-// set sandPitCollisions
-function SetSandPitCollision() {
-  for (let i = 0; i < sandPitCollisions.length; i++) {
+// set sandPits
+function sandPitCollision() {
+  for (let i = 0; i < sandPits.length; i++) {
     // if ball center is inside sandPit, decrease velocity
     if (
-      (pallo.xPos - sandPitCollisions[i].xPos) ** 2 /
-        sandPitCollisions[i].sandPitRadX ** 2 +
-        (pallo.yPos - sandPitCollisions[i].yPos) ** 2 /
-          sandPitCollisions[i].sandPitRadY ** 2 <=
+      (pallo.xPos - sandPits[i].xPos) ** 2 / sandPits[i].sandPitRadX ** 2 +
+        (pallo.yPos - sandPits[i].yPos) ** 2 / sandPits[i].sandPitRadY ** 2 <=
       1
     ) {
       horizontalVel *= 0.9;
@@ -115,52 +107,42 @@ function SetSandPitCollision() {
     }
   }
 }
-function RemoveSandPitsCollision() {
-  for (let i = 0; i <= sandPitCollisions.length; i++) {
-    sandPitCollisions.pop();
-  }
-}
-
 // a bit buggy :D
 // UPDATE: maybe fixed now :DD
 // using timer to prevent ball from changing direction multiple times when hitting wall
-function SetInnerRectCollision() {
-  for (let i = 0; i < wallCollisions.length; i++) {
-    var distX = Math.abs(
-      pallo.xPos - wallCollisions[i].xPos - wallCollisions[i].wallWidth / 2
-    );
-    var distY = Math.abs(
-      pallo.yPos - wallCollisions[i].yPos - wallCollisions[i].wallHeight / 2
-    );
+function wallCollision() {
+  for (let i = 0; i < walls.length; i++) {
+    var distX = Math.abs(pallo.xPos - walls[i].xPos - walls[i].wallWidth / 2);
+    var distY = Math.abs(pallo.yPos - walls[i].yPos - walls[i].wallHeight / 2);
 
-    if (distX > wallCollisions[i].wallWidth / 2 + pallo.ballRad) {
-      wallCollisions[i].topBotBool = false;
+    if (distX > walls[i].wallWidth / 2 + pallo.ballRad) {
+      walls[i].topBotBool = false;
       continue;
     }
-    if (distY > wallCollisions[i].wallHeight / 2 + pallo.ballRad) {
-      wallCollisions[i].topBotBool = true;
+    if (distY > walls[i].wallHeight / 2 + pallo.ballRad) {
+      walls[i].topBotBool = true;
       continue;
     }
 
     if (
-      distX <= wallCollisions[i].wallWidth &&
-      wallCollisions[i].topBotBool == false &&
-      wallCollisions[i].flipped == false
+      distX <= walls[i].wallWidth &&
+      walls[i].topBotBool == false &&
+      walls[i].flipped == false
     ) {
       bounceAudio.cloneNode(true).play();
-      FlippedTimer(wallCollisions[i]);
-      wallCollisions[i].flipped = true;
+      flippedTimer(walls[i]);
+      walls[i].flipped = true;
       console.log("topBot false");
       horizontalVel = -horizontalVel;
     }
     if (
-      distY <= wallCollisions[i].wallHeight &&
-      wallCollisions[i].topBotBool == true &&
-      wallCollisions[i].flipped == false
+      distY <= walls[i].wallHeight &&
+      walls[i].topBotBool == true &&
+      walls[i].flipped == false
     ) {
       bounceAudio.cloneNode(true).play();
-      FlippedTimer(wallCollisions[i]);
-      wallCollisions[i].flipped = true;
+      flippedTimer(walls[i]);
+      walls[i].flipped = true;
       console.log("topBottom true");
       verticalVel = -verticalVel;
     }
@@ -168,33 +150,8 @@ function SetInnerRectCollision() {
 }
 
 // timer function for flipped bools
-function FlippedTimer(f) {
+function flippedTimer(f) {
   setTimeout(function () {
     f.flipped = false;
   }, 30);
-}
-
-//function that loads next stage
-function LoadNextStage() {
-  // remove collisions from inside the canvas and ballCollisionsSet to false, so new collisions will be set
-  while (wallCollisions.length) {
-    wallCollisions.pop();
-  }
-  while (poolCollisions.length) {
-    poolCollisions.pop();
-  }
-  while (sandPitCollisions.length) {
-    sandPitCollisions.pop();
-  }
-
-  wallCollisionsSet = false;
-  poolCollisionsSet = false;
-  sandPitCollisionsSet = false;
-
-  // set ball position to start
-  pallo.xPos = canvas.width * 0.1;
-  pallo.yPos = canvas.height * 0.1;
-
-  // set stagesIndex to next
-  stagesIndex++;
 }

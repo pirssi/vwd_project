@@ -36,9 +36,9 @@ function drawScene() {
 
   //setStage();
   checkStageChange();
-  DrawSandPits();
-  DrawPools();
-  DrawWalls();
+  drawSandPits();
+  drawPools();
+  drawWalls();
 
   //borders of the map
   ctx.beginPath();
@@ -47,7 +47,7 @@ function drawScene() {
   ctx.rect(0, 0, SIZE, SIZE);
   ctx.stroke();
 
-  DrawForceMeter();
+  drawForceMeter();
   HitForceUI();
   drawScore();
   drawStrokes();
@@ -123,7 +123,7 @@ function drawScore() {
 }
 
 //draw forceMeter
-function DrawForceMeter(velFactorPercent) {
+function drawForceMeter(velFactorPercent) {
   ctx.beginPath();
   ctx.lineWidth = 0.2;
   ctx.fillStyle = "black";
@@ -194,7 +194,7 @@ class Pool {
   }
 }
 
-function DrawPools() {
+function drawPools() {
   for (let i = 0; i < pools.length; i++) {
     pools[i].draw();
   }
@@ -237,7 +237,7 @@ class SandPit {
   }
 }
 
-function DrawSandPits() {
+function drawSandPits() {
   for (let i = 0; i < sandPits.length; i++) {
     sandPits[i].draw();
   }
@@ -263,7 +263,7 @@ class Wall {
 }
 
 // draw all walls in walls[]
-function DrawWalls() {
+function drawWalls() {
   for (let i = 0; i < walls.length; i++) {
     walls[i].draw();
   }
@@ -278,55 +278,66 @@ class Stage {
     this.walls = walls;
   }
 }
-
-// StageChange system that sets stage depending on stageIndex
-function setStage() {
-
-  //on first setStage create ball and hole
-  if(stageSet==false){
+function initializeStage() {
+  //if setting the first stage, initialize ball, hole and hole "hitbox"
+  if (stageSet == false) {
     pallo = new Ball(
       (canvas.width / GRIDWIDTH) * 1,
       (canvas.height / GRIDHEIGHT) * 1,
       10,
       "white"
     );
-    hitPosX = pallo.xPos;
-    hitPosY = pallo.yPos;
-    
+
     reika = new Hole(
       (canvas.width / GRIDWIDTH) * 5,
       (canvas.height / GRIDHEIGHT) * 5,
       15,
       "black"
     );
-    
+
     reika2 = new Hole(
       (canvas.width / GRIDWIDTH) * 5,
       (canvas.height / GRIDHEIGHT) * 5,
       5,
-      "lightblue"
+      "black"
     );
-    stageSet=true;
+    stageSet = true;
   }
 
+  //remove previous walls, pools and sandpits
+  while (walls.length) {
+    walls.pop();
+  }
+  while (pools.length) {
+    pools.pop();
+  }
+  while (sandPits.length) {
+    sandPits.pop();
+  }
+
+  //generate new pseudorandom sandpits and pools
+  sandPits = generateSandpitPos();
+  pools = generatePoolPos();
+
+  // default position for the ball
+  pallo.xPos = canvas.width * 0.1;
+  pallo.yPos = canvas.height * 0.1;
+
+  //reset hitpositions to ball spawn location
+  hitPosX = pallo.xPos;
+  hitPosY = pallo.yPos;
+}
+
+// StageChange system that sets stage depending on stageIndex
+function setStage() {
   if (stages[stagesIndex] == 0) {
     //Level 1
     //Start of level 1
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
 
-    sandPits = generateSandpitPos();
-    pools = generatePoolPos();
+    initializeStage();
 
-    stagePar = 1
-   
+    stagePar = 1;
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 2.3,
@@ -373,18 +384,7 @@ function setStage() {
     //Level 2
     //start of level 2
 
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
-
-    sandPits = generateSandpitPos();
-    pools = generatePoolPos();
+    initializeStage();
 
     stagePar = 3;
 
@@ -392,7 +392,7 @@ function setStage() {
     reika.yPos = (canvas.height / GRIDHEIGHT) * 5.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 5.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.5;
- 
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 0,
@@ -423,23 +423,12 @@ function setStage() {
         false
       )
     );
-    //checkCollisionSets();
+    ////checkCollisionSets();
     //End of level 2
   } else if (stages[stagesIndex] == 2) {
     //Level 3
     //start of level 3
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
-
-    sandPits = generateSandpitPos();
-    pools = generatePoolPos();
+    initializeStage();
 
     stagePar = 2;
 
@@ -447,7 +436,7 @@ function setStage() {
     reika.yPos = (canvas.height / GRIDHEIGHT) * 5.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 0.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.5;
-  
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 0,
@@ -478,32 +467,20 @@ function setStage() {
         false
       )
     );
-    checkCollisionSets();
+    //checkCollisionSets();
     //End of level 3
   } else if (stages[stagesIndex] == 3) {
     //Level 4
     //start of level 4
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
-
-    sandPits = generateSandpitPos();
-    pools = generatePoolPos();
+    initializeStage();
 
     stagePar = 2;
-
 
     reika.xPos = (canvas.width / GRIDWIDTH) * 5.5;
     reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 5.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 0.5;
- 
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 3,
@@ -514,23 +491,12 @@ function setStage() {
         false
       )
     );
-    checkCollisionSets();
+    //checkCollisionSets();
     //End of level 4
   } else if (stages[stagesIndex] == 4) {
     //Level 5
     //start of level 5
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
-
-    sandPits = generateSandpitPos();
-    pools = generatePoolPos();
+    initializeStage();
 
     stagePar = 6;
 
@@ -538,7 +504,7 @@ function setStage() {
     reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 2;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 0.5;
- 
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 1,
@@ -599,30 +565,19 @@ function setStage() {
         false
       )
     );
-    checkCollisionSets();
+    //checkCollisionSets();
     //End of level 5
   } else if (stages[stagesIndex] == 5) {
     //Level 6
     //start of level 6
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
-
-    sandPits = generateSandpitPos();
-    pools = generatePoolPos();
+    initializeStage();
 
     stagePar = 3;
-    pallo.xPos=(canvas.width / GRIDWIDTH) * 0.5;
-    pallo.yPos=(canvas.height / GRIDHEIGHT) * 0.5;
+    pallo.xPos = (canvas.width / GRIDWIDTH) * 0.5;
+    pallo.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     hitPosX = pallo.xPos;
     hitPosY = pallo.yPos;
-      
+
     reika.xPos = (canvas.width / GRIDWIDTH) * 5.5;
     reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 5.5;
@@ -728,35 +683,24 @@ function setStage() {
         false
       )
     );
-    checkCollisionSets();
+    //checkCollisionSets();
     //End of level 6
   } else if (stages[stagesIndex] == 6) {
     //Level 7
     //start of level 7
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
-
-    sandPits = generateSandpitPos();
-    pools = generatePoolPos();
+    initializeStage();
 
     stagePar = 2;
-    pallo.xPos=(canvas.width / GRIDWIDTH) * 1.5;
-    pallo.yPos=(canvas.height / GRIDHEIGHT) * 0.5;
+    pallo.xPos = (canvas.width / GRIDWIDTH) * 1.5;
+    pallo.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     hitPosX = pallo.xPos;
     hitPosY = pallo.yPos;
- 
+
     reika.xPos = (canvas.width / GRIDWIDTH) * 4.5;
     reika.yPos = (canvas.height / GRIDHEIGHT) * 5.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 4.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.5;
- 
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 1,
@@ -857,30 +801,19 @@ function setStage() {
         false
       )
     );
-    checkCollisionSets();
+    //checkCollisionSets();
     //End of level 7
   } else if (stages[stagesIndex] == 7) {
     //Level 8
     //start of level 8
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
-
-    sandPits = generateSandpitPos();
-    pools = generatePoolPos();
+    initializeStage();
 
     stagePar = 3;
-    pallo.xPos=(canvas.width / GRIDWIDTH) * 0.5;
-    pallo.yPos=(canvas.height / GRIDHEIGHT) * 5.6;
+    pallo.xPos = (canvas.width / GRIDWIDTH) * 0.5;
+    pallo.yPos = (canvas.height / GRIDHEIGHT) * 5.6;
     hitPosX = pallo.xPos;
     hitPosY = pallo.yPos;
- 
+
     reika.xPos = (canvas.width / GRIDWIDTH) * 3.5;
     reika.yPos = (canvas.height / GRIDHEIGHT) * 5.6;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 3.5;
@@ -956,27 +889,16 @@ function setStage() {
         false
       )
     );
-    checkCollisionSets();
+    //checkCollisionSets();
     //End of level 8
   } else if (stages[stagesIndex] == 8) {
     //Level 9
     //start of level 9
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
-
-    sandPits = generateSandpitPos();
-    pools = generatePoolPos();
+    initializeStage();
 
     stagePar = 2;
-    pallo.xPos=(canvas.width / GRIDWIDTH) * 3;
-    pallo.yPos=(canvas.height / GRIDHEIGHT) * 5.7;
+    pallo.xPos = (canvas.width / GRIDWIDTH) * 3;
+    pallo.yPos = (canvas.height / GRIDHEIGHT) * 5.7;
     hitPosX = pallo.xPos;
     hitPosY = pallo.yPos;
 
@@ -1175,30 +1097,19 @@ function setStage() {
         false
       )
     );
-    checkCollisionSets();
+    //checkCollisionSets();
     //End of level 9
   } else if (stages[stagesIndex] == 9) {
     //Level 10
     //start of level 10
-    while (walls.length) {
-      walls.pop();
-    }
-    while (pools.length) {
-      pools.pop();
-    }
-    while (sandPits.length) {
-      sandPits.pop();
-    }
-
-    sandPits = generateSandpitPos();
-    pools = generatePoolPos();
+    initializeStage();
 
     stagePar = 2;
-    pallo.xPos=(canvas.width / GRIDWIDTH) * 3;
-    pallo.yPos=(canvas.height / GRIDHEIGHT) * 0.5;
+    pallo.xPos = (canvas.width / GRIDWIDTH) * 3;
+    pallo.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     hitPosX = pallo.xPos;
     hitPosY = pallo.yPos;
- 
+
     reika = new Hole(
       (canvas.width / GRIDWIDTH) * 0.5,
       (canvas.height / GRIDHEIGHT) * 1.5,
@@ -1302,11 +1213,11 @@ function setStage() {
         false
       )
     );
-    checkCollisionSets();
+    //checkCollisionSets();
     //End of level 10
     //The final level!!!
   }
-  checkCollisionSets();
+  //checkCollisionSets();
 }
 function checkStageChange() {
   if (lastStage != stagesIndex) {
@@ -1318,29 +1229,29 @@ function checkStageChange() {
     lastStage = stagesIndex;
     prevPar = stagePar;
     scoreTime = Date.now() + 5000;
-    RemovePoolsCollision();
-    RemoveSandPitsCollision();
+    //removePoolsCollision();
+    //removeSandPitsCollision();
     setStage();
   }
 }
-function checkCollisionSets() {
-  if (!wallCollisionsSet) {
-    wallCollisionsSet = true;
-    for (let i = 0; i < walls.length; i++) {
-      wallCollisions.push(walls[i]);
-      console.log(wallCollisions[i]);
-    }
-  }
-  if (!poolCollisionsSet) {
-    poolCollisionsSet = true;
-    for (let i = 0; i < pools.length; i++) {
-      poolCollisions.push(pools[i]);
-    }
-  }
-  if (!sandPitCollisionsSet) {
-    sandPitCollisionsSet = true;
-    for (let i = 0; i < sandPits.length; i++) {
-      sandPitCollisions.push(sandPits[i]);
-    }
-  }
-}
+// function checkCollisionSets() {
+//   if (!wallCollisionsSet) {
+//     wallCollisionsSet = true;
+//     for (let i = 0; i < walls.length; i++) {
+//       wallCollisions.push(walls[i]);
+//       console.log(wallCollisions[i]);
+//     }
+//   }
+//   if (!poolCollisionsSet) {
+//     poolCollisionsSet = true;
+//     for (let i = 0; i < pools.length; i++) {
+//       poolCollisions.push(pools[i]);
+//     }
+//   }
+//   if (!sandPitCollisionsSet) {
+//     sandPitCollisionsSet = true;
+//     for (let i = 0; i < sandPits.length; i++) {
+//       sandPitCollisions.push(sandPits[i]);
+//     }
+//   }
+// }

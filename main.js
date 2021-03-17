@@ -50,6 +50,7 @@ function main() {
 
   niko();
   init();
-  checkBounds();
+  //boundsCollision();
+  //holeCollision();
   //drawObstacles();
 }
