@@ -55,7 +55,7 @@ function holeCollision() {
   if (dist < pallo.ballRad + reika2.reikaRad) {
     if (cooldownTime < Date.now()) {
       inHole = true;
-      scoreAsd();
+      scoreFunction();
       cooldownTime = Date.now() + 20;
     }
   } else {

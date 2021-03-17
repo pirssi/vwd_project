@@ -178,8 +178,8 @@ function animateBalls() {
   var animBallY = verticalVel;
 
   //ball friction
-  horizontalVel = horizontalVel / ballFriction;
-  verticalVel = verticalVel / ballFriction;
+  horizontalVel *= ballFriction;
+  verticalVel *= ballFriction;
 
   //ball stopping AND hitPosition set
   if (
@@ -251,7 +251,7 @@ function ballHoleGravity() {
     ballsAreTouching = false;
   }
 }
-function scoreAsd() {
+function scoreFunction() {
   holeAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
   if (stagePar >= strokes) {
     cheerAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing

@@ -17,7 +17,7 @@ var horizontalVel;
 var verticalVel;
 var ballYPos = 500;
 var ballXPos = 500;
-var ballFriction = 1.013;
+var ballFriction = 0.97;
 var ballMoving = false;
 var ballHit = false;
 var allowClick = true;
