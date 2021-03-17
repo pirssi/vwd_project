@@ -96,6 +96,7 @@ function main() {
     if (e.code === "KeyR") {
       console.log("r painettu 😎");
       setStage();
+      redraw();
     }
 
     // do something
