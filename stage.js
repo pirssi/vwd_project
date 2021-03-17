@@ -35,16 +35,6 @@ function initializeStage() {
   // while (sandPits.length) {
   //   sandPits.pop();
   // }
-  walls.splice(0, walls.length);
-  pools.splice(0, pools.length);
-  sandPits.splice(0, sandPits.length);
-  gridPosInUse.splice(0, gridPosInUse.length);
-
-  console.log(gridPosInUse);
-
-  //generate new pseudorandom sandpits and pools
-  sandPits = generateSandpitPos();
-  pools = generatePoolPos();
 
   // default position for the ball
   pallo.xPos = canvas.width * 0.1;
@@ -53,6 +43,42 @@ function initializeStage() {
   //reset hitpositions to ball spawn location
   hitPosX = pallo.xPos;
   hitPosY = pallo.yPos;
+}
+function initializeObstacles() {
+  walls.splice(0, walls.length);
+  pools.splice(0, pools.length);
+  sandPits.splice(0, sandPits.length);
+  gridPosInUse.splice(0, gridPosInUse.length);
+
+  //console.log(gridPosInUse);
+
+  //generate new pseudorandom sandpits and pools
+  // console.log(
+  //   "pallo: " +
+  //     Math.floor(pallo.xPos / (canvas.width / GRIDWIDTH)) +
+  //     "," +
+  //     Math.floor(pallo.yPos / (canvas.height / GRIDHEIGHT))
+  // );
+  // console.log(
+  //   "reika: " +
+  //     Math.floor(reika.xPos / (canvas.width / GRIDWIDTH)) +
+  //     "," +
+  //     Math.floor(reika.yPos / (canvas.height / GRIDHEIGHT))
+  // );
+
+  gridPosInUse.push(
+    [
+      Math.floor(pallo.xPos / (canvas.width / GRIDWIDTH)),
+      Math.floor(pallo.yPos / (canvas.height / GRIDHEIGHT)),
+    ],
+    [
+      Math.floor(reika.xPos / (canvas.width / GRIDWIDTH)),
+      Math.floor(reika.yPos / (canvas.height / GRIDHEIGHT)),
+    ]
+  );
+  console.log(gridPosInUse);
+  sandPits = generateSandpitPos();
+  pools = generatePoolPos();
 }
 
 // StageChange system that sets stage depending on stageIndex
@@ -64,6 +90,8 @@ function setStage() {
     initializeStage();
 
     stagePar = 1;
+
+    initializeObstacles();
 
     walls.push(
       new Wall(
@@ -120,6 +148,8 @@ function setStage() {
     reika2.xPos = (canvas.width / GRIDWIDTH) * 5.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.5;
 
+    initializeObstacles();
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 0,
@@ -163,6 +193,8 @@ function setStage() {
     reika.yPos = (canvas.height / GRIDHEIGHT) * 5.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 0.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.5;
+
+    initializeObstacles();
 
     walls.push(
       new Wall(
@@ -208,6 +240,8 @@ function setStage() {
     reika2.xPos = (canvas.width / GRIDWIDTH) * 5.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 0.5;
 
+    initializeObstacles();
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 3,
@@ -231,6 +265,8 @@ function setStage() {
     reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 2;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 0.5;
+
+    initializeObstacles();
 
     walls.push(
       new Wall(
@@ -309,6 +345,8 @@ function setStage() {
     reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 5.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 0.5;
+
+    initializeObstacles();
 
     walls.push(
       new Wall(
@@ -428,6 +466,8 @@ function setStage() {
     reika2.xPos = (canvas.width / GRIDWIDTH) * 4.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.5;
 
+    initializeObstacles();
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 1,
@@ -546,6 +586,8 @@ function setStage() {
     reika2.xPos = (canvas.width / GRIDWIDTH) * 3.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.6;
 
+    initializeObstacles();
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 3,
@@ -633,6 +675,8 @@ function setStage() {
     reika.yPos = (canvas.height / GRIDHEIGHT) * 3;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 3;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 3;
+
+    initializeObstacles();
 
     walls.push(
       new Wall(
@@ -841,6 +885,8 @@ function setStage() {
     reika.yPos = (canvas.height / GRIDHEIGHT) * 1.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 0.5;
     reika2.yPos = (canvas.width / GRIDHEIGHT) * 1.5;
+
+    initializeObstacles();
 
     walls.push(
       new Wall(
