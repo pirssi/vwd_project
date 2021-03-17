@@ -14,7 +14,7 @@ function drawScene() {
   ctx.stroke();
 
   //setStage();
-  checkStageChange();
+  //checkStageChange();
   drawSandPits();
   drawPools();
   drawWalls();

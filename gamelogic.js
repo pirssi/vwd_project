@@ -251,3 +251,33 @@ function ballHoleGravity() {
     ballsAreTouching = false;
   }
 }
+function scoreAsd() {
+  holeAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
+  if (stagePar >= strokes) {
+    cheerAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
+  }
+  drawScore();
+  score = strokes;
+
+  nextStage();
+}
+function nextStage() {
+  verticalVel = 0;
+  horizontalVel = 0;
+
+  //inHole = true;
+
+  stagesIndex++;
+  console.log("stagesIndex: " + stagesIndex);
+
+  stageChanged = true;
+  horizontalVel = 0;
+  verticalVel = 0;
+  strokes = 1;
+  stageNumber += 1;
+  lastStage = stagesIndex;
+  prevPar = stagePar;
+  scoreTime = Date.now() + 5000;
+
+  setStage();
+}

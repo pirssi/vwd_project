@@ -54,18 +54,8 @@ function holeCollision() {
   var dist = Math.sqrt(dx * dx + dy * dy);
   if (dist < pallo.ballRad + reika2.reikaRad) {
     if (cooldownTime < Date.now()) {
-      holeAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
-      if (stagePar >= strokes) {
-        cheerAudio.play(); //use .play() instead .cloneNode(true).play() so there won't be multiple instances of the sound playing
-      }
-      verticalVel = 0;
-      horizontalVel = 0;
-      score = strokes;
       inHole = true;
-      drawScore();
-      //LoadNextStage();
-      stagesIndex++;
-      console.log("stagesIndex: " + stagesIndex);
+      scoreAsd();
       cooldownTime = Date.now() + 20;
     }
   } else {
