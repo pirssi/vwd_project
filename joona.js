@@ -1,5 +1,4 @@
 
-var pallo;
 var interval;
 var ballsAreTouching = false;
 var holeGravityX = 0;
@@ -16,10 +15,6 @@ function init(){
     canvas.addEventListener('mousedown',pointerDown,false);
     canvas.addEventListener('mousemove',pointerMove,false);
     canvas.addEventListener('mouseup',pointerUp,false);
-
-    pallo = new Ball(canvas.width*0.1, canvas.height*0.1, 10, "white");
-    hitPosX = pallo.xPos;
-    hitPosY = pallo.yPos;
 
     drawScene(); // niko
     animate();

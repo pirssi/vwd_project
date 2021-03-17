@@ -13,6 +13,7 @@ waterAudio.volume = 0.3; //doesnt change the volume for some reason
 var bounceAudio = new Audio("audio/bounce.mp3");
 var cheerAudio = new Audio("audio/cheer.mp3");
 var bounceCD = 1;
+var stageSet = false;
 
 var horizontalVel;
 var verticalVel;

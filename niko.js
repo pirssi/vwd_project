@@ -281,7 +281,33 @@ class Stage {
 
 // StageChange system that sets stage depending on stageIndex
 function setStage() {
-  //level 1
+
+  //on first setStage create ball and hole
+  if(stageSet==false){
+    pallo = new Ball(
+      (canvas.width / GRIDWIDTH) * 1,
+      (canvas.height / GRIDHEIGHT) * 1,
+      10,
+      "white"
+    );
+    hitPosX = pallo.xPos;
+    hitPosY = pallo.yPos;
+    
+    reika = new Hole(
+      (canvas.width / GRIDWIDTH) * 5,
+      (canvas.height / GRIDHEIGHT) * 5,
+      15,
+      "black"
+    );
+    
+    reika2 = new Hole(
+      (canvas.width / GRIDWIDTH) * 5,
+      (canvas.height / GRIDHEIGHT) * 5,
+      5,
+      "lightblue"
+    );
+    stageSet=true;
+  }
 
   if (stages[stagesIndex] == 0) {
     //Level 1
@@ -299,26 +325,8 @@ function setStage() {
     sandPits = generateSandpitPos();
     pools = generatePoolPos();
 
-    stagePar = 1;
-
-    pallo = new Ball(
-      (canvas.width / GRIDWIDTH) * 1,
-      (canvas.height / GRIDHEIGHT) * 1,
-      50,
-      "green"
-    );
-    reika = new Hole(
-      (canvas.width / GRIDWIDTH) * 5,
-      (canvas.height / GRIDHEIGHT) * 5,
-      15,
-      "black"
-    );
-    reika2 = new Hole(
-      (canvas.width / GRIDWIDTH) * 5,
-      (canvas.height / GRIDHEIGHT) * 5,
-      5,
-      "lightblue"
-    );
+    stagePar = 1
+   
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 2.3,
@@ -380,18 +388,11 @@ function setStage() {
 
     stagePar = 3;
 
-    reika = new Hole(
-      (canvas.width / GRIDWIDTH) * 5.5,
-      (canvas.height / GRIDHEIGHT) * 5.5,
-      15,
-      "black"
-    );
-    reika2 = new Hole(
-      (canvas.width / GRIDWIDTH) * 5.5,
-      (canvas.height / GRIDWIDTH) * 5.5,
-      5,
-      "lightblue"
-    );
+    reika.xPos = (canvas.width / GRIDWIDTH) * 5.5;
+    reika.yPos = (canvas.height / GRIDHEIGHT) * 5.5;
+    reika2.xPos = (canvas.width / GRIDWIDTH) * 5.5;
+    reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.5;
+ 
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 0,
@@ -442,18 +443,11 @@ function setStage() {
 
     stagePar = 2;
 
-    reika = new Hole(
-      (canvas.width / GRIDWIDTH) * 0.5,
-      (canvas.height / GRIDHEIGHT) * 5.5,
-      15,
-      "black"
-    );
-    reika2 = new Hole(
-      (canvas.width / GRIDWIDTH) * 0.5,
-      (canvas.height / GRIDWIDTH) * 5.5,
-      5,
-      "lightblue"
-    );
+    reika.xPos = (canvas.width / GRIDWIDTH) * 0.5;
+    reika.yPos = (canvas.height / GRIDHEIGHT) * 5.5;
+    reika2.xPos = (canvas.width / GRIDWIDTH) * 0.5;
+    reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.5;
+  
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 0,
@@ -504,18 +498,12 @@ function setStage() {
 
     stagePar = 2;
 
-    reika = new Hole(
-      (canvas.width / GRIDWIDTH) * 5.5,
-      (canvas.height / GRIDHEIGHT) * 0.5,
-      15,
-      "black"
-    );
-    reika2 = new Hole(
-      (canvas.width / GRIDWIDTH) * 5.5,
-      (canvas.height / GRIDWIDTH) * 0.5,
-      5,
-      "lightblue"
-    );
+
+    reika.xPos = (canvas.width / GRIDWIDTH) * 5.5;
+    reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
+    reika2.xPos = (canvas.width / GRIDWIDTH) * 5.5;
+    reika2.yPos = (canvas.width / GRIDHEIGHT) * 0.5;
+ 
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 3,
@@ -546,18 +534,11 @@ function setStage() {
 
     stagePar = 6;
 
-    reika = new Hole(
-      (canvas.width / GRIDWIDTH) * 2,
-      (canvas.height / GRIDHEIGHT) * 0.5,
-      15,
-      "black"
-    );
-    reika2 = new Hole(
-      (canvas.width / GRIDWIDTH) * 2,
-      (canvas.height / GRIDWIDTH) * 0.5,
-      5,
-      "lightblue"
-    );
+    reika.xPos = (canvas.width / GRIDWIDTH) * 2;
+    reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
+    reika2.xPos = (canvas.width / GRIDWIDTH) * 2;
+    reika2.yPos = (canvas.width / GRIDHEIGHT) * 0.5;
+ 
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 1,
@@ -637,24 +618,16 @@ function setStage() {
     pools = generatePoolPos();
 
     stagePar = 3;
-    pallo = new Ball(
-      (canvas.width / GRIDWIDTH) * 0.5,
-      (canvas.height / GRIDHEIGHT) * 0.5,
-      10,
-      "white"
-    );
-    reika = new Hole(
-      (canvas.width / GRIDWIDTH) * 5.5,
-      (canvas.height / GRIDHEIGHT) * 0.5,
-      15,
-      "black"
-    );
-    reika2 = new Hole(
-      (canvas.width / GRIDWIDTH) * 5.5,
-      (canvas.height / GRIDWIDTH) * 0.5,
-      5,
-      "lightblue"
-    );
+    pallo.xPos=(canvas.width / GRIDWIDTH) * 0.5;
+    pallo.yPos=(canvas.height / GRIDHEIGHT) * 0.5;
+    hitPosX = pallo.xPos;
+    hitPosY = pallo.yPos;
+      
+    reika.xPos = (canvas.width / GRIDWIDTH) * 5.5;
+    reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
+    reika2.xPos = (canvas.width / GRIDWIDTH) * 5.5;
+    reika2.yPos = (canvas.width / GRIDHEIGHT) * 0.5;
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 2.5,
@@ -774,24 +747,16 @@ function setStage() {
     pools = generatePoolPos();
 
     stagePar = 2;
-    pallo = new Ball(
-      (canvas.width / GRIDWIDTH) * 1.5,
-      (canvas.height / GRIDHEIGHT) * 0.5,
-      10,
-      "white"
-    );
-    reika = new Hole(
-      (canvas.width / GRIDWIDTH) * 4.5,
-      (canvas.height / GRIDHEIGHT) * 5.5,
-      15,
-      "black"
-    );
-    reika2 = new Hole(
-      (canvas.width / GRIDWIDTH) * 4.5,
-      (canvas.height / GRIDWIDTH) * 5.5,
-      5,
-      "lightblue"
-    );
+    pallo.xPos=(canvas.width / GRIDWIDTH) * 1.5;
+    pallo.yPos=(canvas.height / GRIDHEIGHT) * 0.5;
+    hitPosX = pallo.xPos;
+    hitPosY = pallo.yPos;
+ 
+    reika.xPos = (canvas.width / GRIDWIDTH) * 4.5;
+    reika.yPos = (canvas.height / GRIDHEIGHT) * 5.5;
+    reika2.xPos = (canvas.width / GRIDWIDTH) * 4.5;
+    reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.5;
+ 
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 1,
@@ -911,24 +876,16 @@ function setStage() {
     pools = generatePoolPos();
 
     stagePar = 3;
-    pallo = new Ball(
-      (canvas.width / GRIDWIDTH) * 0.5,
-      (canvas.height / GRIDHEIGHT) * 5.6,
-      10,
-      "white"
-    );
-    reika = new Hole(
-      (canvas.width / GRIDWIDTH) * 3.5,
-      (canvas.height / GRIDHEIGHT) * 5.6,
-      15,
-      "black"
-    );
-    reika2 = new Hole(
-      (canvas.width / GRIDWIDTH) * 3.5,
-      (canvas.height / GRIDWIDTH) * 5.6,
-      5,
-      "lightblue"
-    );
+    pallo.xPos=(canvas.width / GRIDWIDTH) * 0.5;
+    pallo.yPos=(canvas.height / GRIDHEIGHT) * 5.6;
+    hitPosX = pallo.xPos;
+    hitPosY = pallo.yPos;
+ 
+    reika.xPos = (canvas.width / GRIDWIDTH) * 3.5;
+    reika.yPos = (canvas.height / GRIDHEIGHT) * 5.6;
+    reika2.xPos = (canvas.width / GRIDWIDTH) * 3.5;
+    reika2.yPos = (canvas.width / GRIDHEIGHT) * 5.6;
+
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 3,
@@ -1018,24 +975,15 @@ function setStage() {
     pools = generatePoolPos();
 
     stagePar = 2;
-    pallo = new Ball(
-      (canvas.width / GRIDWIDTH) * 3,
-      (canvas.height / GRIDHEIGHT) * 5.7,
-      10,
-      "white"
-    );
-    reika = new Hole(
-      (canvas.width / GRIDWIDTH) * 3,
-      (canvas.height / GRIDHEIGHT) * 3,
-      15,
-      "black"
-    );
-    reika2 = new Hole(
-      (canvas.width / GRIDWIDTH) * 3,
-      (canvas.height / GRIDWIDTH) * 3,
-      5,
-      "lightblue"
-    );
+    pallo.xPos=(canvas.width / GRIDWIDTH) * 3;
+    pallo.yPos=(canvas.height / GRIDHEIGHT) * 5.7;
+    hitPosX = pallo.xPos;
+    hitPosY = pallo.yPos;
+
+    reika.xPos = (canvas.width / GRIDWIDTH) * 3;
+    reika.yPos = (canvas.height / GRIDHEIGHT) * 3;
+    reika2.xPos = (canvas.width / GRIDWIDTH) * 3;
+    reika2.yPos = (canvas.width / GRIDHEIGHT) * 3;
 
     walls.push(
       new Wall(
@@ -1245,13 +1193,12 @@ function setStage() {
     sandPits = generateSandpitPos();
     pools = generatePoolPos();
 
-    stagePar = 1;
-    pallo = new Ball(
-      (canvas.width / GRIDWIDTH) * 3,
-      (canvas.height / GRIDHEIGHT) * 0.5,
-      10,
-      "white"
-    );
+    stagePar = 2;
+    pallo.xPos=(canvas.width / GRIDWIDTH) * 3;
+    pallo.yPos=(canvas.height / GRIDHEIGHT) * 0.5;
+    hitPosX = pallo.xPos;
+    hitPosY = pallo.yPos;
+ 
     reika = new Hole(
       (canvas.width / GRIDWIDTH) * 0.5,
       (canvas.height / GRIDHEIGHT) * 1.5,
