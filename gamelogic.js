@@ -36,14 +36,23 @@ function pointerDown(e) {
     allowClick = true;
   }
 
-  //get the starting coordinates on MouseDown
-  dragStartPosX = e.offsetX;
-  dragStartPosY = e.offsetY;
-
-  dragging = true;
-
   var mouseX = e.offsetX;
   var mouseY = e.offsetY;
+
+  // check ballToPointerDistance and use it to set velFactor
+  ballToPointerDistance = Math.hypot(pallo.xPos - mouseX, pallo.yPos - mouseY);
+  if (ballToPointerDistance > 725) {
+    ballToPointerDistance = 725;
+  }
+
+  velPercent = (ballToPointerDistance / 725) * 100;
+  velFactor = Math.abs(ballToPointerDistance / 10000);
+
+  if (velFactor > 0.05) {
+    velFactor = 0.05;
+  } else if (velFactor < 0.015) {
+    velFactor = 0.015;
+  }
 
   // set linedirection for aiming line
   lineDirX = mouseX;
@@ -58,7 +67,7 @@ function pointerMove(e) {
   if (ballMoving || inHole) {
     return;
   }
-  if (dragging == true) {
+  else {
     var mouseX = e.offsetX;
     var mouseY = e.offsetY;
 
@@ -69,14 +78,14 @@ function pointerMove(e) {
     // draw line to aim ball direction
     drawAimLine(lineDirX, lineDirY);
 
-    // check dragDistance and use it to set velFactor
-    dragDistance = Math.hypot(pallo.xPos - mouseX, pallo.yPos - mouseY);
-    if (dragDistance > 725) {
-      dragDistance = 725;
+    // check ballToPointerDistance and use it to set velFactor
+    ballToPointerDistance = Math.hypot(pallo.xPos - mouseX, pallo.yPos - mouseY);
+    if (ballToPointerDistance > 725) {
+      ballToPointerDistance = 725;
     }
 
-    velPercent = (dragDistance / 725) * 100;
-    velFactor = Math.abs(dragDistance / 10000);
+    velPercent = (ballToPointerDistance / 725) * 100;
+    velFactor = Math.abs(ballToPointerDistance / 10000);
 
     if (velFactor > 0.05) {
       velFactor = 0.05;
@@ -104,65 +113,47 @@ function redraw() {
 function pointerUp(e) {
   redraw();
 
-  if (ballMoving || inHole) {
+  if (!allowClick) {
     return;
   }
 
-  // get the end coordinates on mouseUp
-  dragEndPosX = e.offsetX;
-  dragEndPosY = e.offsetY;
+  // get the coordinates on mouseUp
+  mouseUpPosX = e.offsetX;
+  mouseUpPosY = e.offsetY;
 
-  // check if dragLenght was too short
-  if (
-    checkDragLength(dragStartPosX, dragStartPosY, dragEndPosX, dragEndPosY) < 1
-  ) {
-    dragging = false;
-    return;
+  // if ball isnt moving or in hole (allowClick is true) ball gets shot
+  if (velPercent <= 10) {
+    puttAudio.cloneNode(true).play();
+  } else {
+    hitAudio.cloneNode(true).play();
   }
-  // if dragLength was long enough and ball isnt moving or in hole (allowClick is true) ball gets shot
-  else if (allowClick) {
-    if (velPercent <= 10) {
-      puttAudio.cloneNode(true).play();
-    } else {
-      hitAudio.cloneNode(true).play();
-    }
-    ballHit = true;
+  ballHit = true;
+  
+  // ball direction is according to mouseUpPositions and pallo centerposition
+  dirX = mouseUpPosX - pallo.xPos;
+  dirY = mouseUpPosY - pallo.yPos;
+
+  // use directions and additional multiplier to set dir and vel
+  horizontalVel = dirX * velFactor;
+  verticalVel = dirY * velFactor;
+
+  if (horizontalVel > 35) {
+    var decreaseFactor = 35 / horizontalVel;
+    horizontalVel = 35;
+    verticalVel *= decreaseFactor;
+    //console.log(decreaseFactor);
+  } else if (verticalVel > 35) {
+    var decreaseFactor = 35 / verticalVel;
+    verticalVel = 35;
+    horizontalVel *= decreaseFactor;
+    //console.log(decreaseFactor);
   }
 
-  // ball direction is according to dragEndPosition and pallo centerposition
-  dirX = dragEndPosX - pallo.xPos;
-  dirY = dragEndPosY - pallo.yPos;
+  //console.log(velPercent);
+  //console.log(Math.max(verticalVel, horizontalVel));
 
-  if (dragging == true) {
-    dragging = false;
-
-    // use directions and additional multiplier to set dir and vel
-    horizontalVel = dirX * velFactor;
-    verticalVel = dirY * velFactor;
-
-    if (horizontalVel > 35) {
-      var decreaseFactor = 35 / horizontalVel;
-      horizontalVel = 35;
-      verticalVel *= decreaseFactor;
-      //console.log(decreaseFactor);
-    } else if (verticalVel > 35) {
-      var decreaseFactor = 35 / verticalVel;
-      verticalVel = 35;
-      horizontalVel *= decreaseFactor;
-      //console.log(decreaseFactor);
-    }
-
-    //console.log(velPercent);
-    //console.log(Math.max(verticalVel, horizontalVel));
-
-    //animation
-    interval = setInterval(animateBalls, 10);
-  }
-}
-
-// calculates distance between mouseDown and mouseUp points
-function checkDragLength(sX, sY, eX, eY) {
-  return (sX - eX) * (sX - eX) + (sY - eY) * (sY - eY);
+  //animation
+  interval = setInterval(animateBalls, 10);
 }
 
 // moving ball

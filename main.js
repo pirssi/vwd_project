@@ -17,16 +17,14 @@ var horizontalVel;
 var verticalVel;
 var ballYPos = 500;
 var ballXPos = 500;
-var ballFriction = 0.97;
+var ballFriction = 0.975;
 var ballMoving = false;
 var ballHit = false;
 var allowClick = true;
+var ballToPointerDistance;
 
-var dragging = false;
-var dragStartPosX;
-var dragStartPosY;
-var dragEndPosX;
-var dragEndPosY;
+var mouseUpPosX;
+var mouseUpPosY;
 
 var reikaRad;
 var inHole = false;

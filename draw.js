@@ -129,7 +129,7 @@ function drawHitForceUI() {
   if (velPercent <= 10) {
     ctx.font = "20px Georgia";
     ctx.fillStyle = "White";
-    ctx.fillText("Putt", canvas.width * 0.035, canvas.height * 0.126);
+    ctx.fillText("Force: "+ Math.round(velPercent)+"%", canvas.width * 0.035, canvas.height * 0.126);
 
     ctx.beginPath();
     ctx.fillStyle = "lightYellow";
@@ -140,6 +140,10 @@ function drawHitForceUI() {
     ctx.lineTo(11, 129);
     ctx.fill();
   } else if (velPercent > 10) {
+    ctx.font = "20px Georgia";
+    ctx.fillStyle = "White";
+    ctx.fillText("Force: "+ Math.round(velPercent)+"%", canvas.width * 0.035, canvas.height * 0.126);
+
     ctx.beginPath();
     ctx.fillStyle = "lightYellow";
     ctx.moveTo(11, 129);
