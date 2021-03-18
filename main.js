@@ -96,6 +96,8 @@ function main() {
   document.addEventListener("keyup", (e) => {
     if (e.code === "KeyR") {
       console.log("r painettu 😎");
+      verticalVel = 0;
+      horizontalVel = 0;
       setStage();
       redraw();
     }
