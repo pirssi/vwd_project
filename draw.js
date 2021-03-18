@@ -197,3 +197,149 @@ function drawBlocks() {
     blocks[i].draw();
   }
 }
+function drawVictory() {
+  //window.cancelAnimationFrame(animate);
+  // pallo.xPos=canvas.width*0.45;
+  // pallo.yPos=canvas.height*0.45;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.beginPath();
+  ctx.arc(
+    (canvas.width / GRIDWIDTH) * 3,
+    (canvas.height / GRIDHEIGHT) * 3,
+    canvas.height * 0.5,
+    0,
+    Math.PI * 2
+  );
+  ctx.stroke();
+  ctx.fillStyle = "gold";
+  ctx.fill();
+  ctx.beginPath();
+  //top of trophy
+  ctx.moveTo((canvas.width / GRIDWIDTH) * 2, (canvas.height / GRIDHEIGHT) * 2);
+  ctx.bezierCurveTo(
+    (canvas.width / GRIDWIDTH) * 2,
+    (canvas.height / GRIDHEIGHT) * 1.8,
+    (canvas.width / GRIDWIDTH) * 4,
+    (canvas.height / GRIDHEIGHT) * 1.8,
+    (canvas.width / GRIDWIDTH) * 4,
+    (canvas.height / GRIDHEIGHT) * 2
+  );
+  ctx.stroke();
+  //left side of trophy
+  ctx.moveTo((canvas.width / GRIDWIDTH) * 4, (canvas.height / GRIDHEIGHT) * 2);
+  ctx.quadraticCurveTo(
+    (canvas.width / GRIDWIDTH) * 4,
+    (canvas.height / GRIDHEIGHT) * 3.8,
+    (canvas.width / GRIDWIDTH) * 3.2,
+    (canvas.height / GRIDHEIGHT) * 4
+  );
+  ctx.stroke();
+  //right side of trophy
+  ctx.moveTo((canvas.width / GRIDWIDTH) * 2.8, (canvas.height / GRIDHEIGHT) * 4);
+  ctx.quadraticCurveTo(
+    (canvas.width / GRIDWIDTH) * 2,
+    (canvas.height / GRIDHEIGHT) * 3.8,
+    (canvas.width / GRIDWIDTH) * 2,
+    (canvas.height / GRIDHEIGHT) * 2
+  );
+  ctx.stroke();
+  //left side of base
+  ctx.moveTo((canvas.width / GRIDWIDTH) * 2.8, (canvas.height / GRIDHEIGHT) * 4);
+  ctx.quadraticCurveTo(
+    (canvas.width / GRIDWIDTH) * 2.9,
+    (canvas.height / GRIDHEIGHT) * 4.5,
+    (canvas.width / GRIDWIDTH) * 2.5,
+    (canvas.height / GRIDHEIGHT) * 5
+  );
+  ctx.stroke();
+  //right side of base
+  ctx.moveTo((canvas.width / GRIDWIDTH) * 3.2, (canvas.height / GRIDHEIGHT) * 4);
+  ctx.quadraticCurveTo(
+    (canvas.width / GRIDWIDTH) * 3.1,
+    (canvas.height / GRIDHEIGHT) * 4.5,
+    (canvas.width / GRIDWIDTH) * 3.5,
+    (canvas.height / GRIDHEIGHT) * 5
+  );
+  ctx.stroke();
+  //bottom line of gold part
+  ctx.lineTo((canvas.width / GRIDWIDTH) * 2.5, (canvas.height / GRIDHEIGHT) * 5);
+  ctx.stroke();
+  //left handle outer line
+  ctx.moveTo((canvas.width / GRIDWIDTH) * 2.25, (canvas.height / GRIDHEIGHT) * 3.5);
+  ctx.bezierCurveTo(
+    (canvas.width / GRIDWIDTH) * 0.2,
+    (canvas.height / GRIDHEIGHT) * 1.9,
+    (canvas.width / GRIDWIDTH) * 1.5,
+    (canvas.height / GRIDHEIGHT) * 1.5,
+    (canvas.width / GRIDWIDTH) * 2,
+    (canvas.height / GRIDHEIGHT) * 2
+  );
+  ctx.stroke();
+  //left handle inner line
+  ctx.moveTo((canvas.width / GRIDWIDTH) * 2.19, (canvas.height / GRIDHEIGHT) * 3.35);
+  ctx.bezierCurveTo(
+    (canvas.width / GRIDWIDTH) * 0.8,
+    (canvas.height / GRIDHEIGHT) * 2.2,
+    (canvas.width / GRIDWIDTH) * 1.2,
+    (canvas.height / GRIDHEIGHT) * 1.55,
+    (canvas.width / GRIDWIDTH) * 2.01,
+    (canvas.height / GRIDHEIGHT) * 2.15
+  );
+  ctx.stroke();
+  //right handle outer line
+  ctx.moveTo((canvas.width / GRIDWIDTH) * 3.75, (canvas.height / GRIDHEIGHT) * 3.5);
+  ctx.bezierCurveTo(
+    (canvas.width / GRIDWIDTH) * 5.8,
+    (canvas.height / GRIDHEIGHT) * 1.9,
+    (canvas.width / GRIDWIDTH) * 4.5,
+    (canvas.height / GRIDHEIGHT) * 1.5,
+    (canvas.width / GRIDWIDTH) * 4,
+    (canvas.height / GRIDHEIGHT) * 2
+  );
+  ctx.stroke();
+  //right handle inner line
+  ctx.moveTo((canvas.width / GRIDWIDTH) * 3.81, (canvas.height / GRIDHEIGHT) * 3.35);
+  ctx.bezierCurveTo(
+    (canvas.width / GRIDWIDTH) * 5.2,
+    (canvas.height / GRIDHEIGHT) * 2.2,
+    (canvas.width / GRIDWIDTH) * 4.8,
+    (canvas.height / GRIDHEIGHT) * 1.55,
+    (canvas.width / GRIDWIDTH) * 3.99,
+    (canvas.height / GRIDHEIGHT) * 2.15
+  );
+  ctx.stroke();
+  ctx.fillStyle = "saddlebrown";
+  ctx.fillRect(
+    (canvas.width / GRIDWIDTH) * 2.2,
+    (canvas.height / GRIDHEIGHT) * 5,
+    (canvas.width / GRIDWIDTH) * 1.6,
+    (canvas.height / GRIDHEIGHT) * 0.5
+  );
+  ctx.stroke();
+  ctx.fillRect(
+    (canvas.width / GRIDWIDTH) * 2,
+    (canvas.height / GRIDHEIGHT) * 5.5,
+    (canvas.width / GRIDWIDTH) * 2,
+    (canvas.height / GRIDHEIGHT) * 0.1
+  );
+  ctx.stroke();
+
+  ctx.font = "102px Verdana";
+  // Create gradient
+  var gradient = ctx.createLinearGradient(
+    (canvas.width / GRIDWIDTH) * 1,
+    (canvas.height / GRIDHEIGHT) * 1,
+    (canvas.width / GRIDWIDTH) * 3,
+    (canvas.height / GRIDHEIGHT) * 3
+  );
+  gradient.addColorStop("0", "darkorange");
+  gradient.addColorStop("0.5", "yellow");
+  gradient.addColorStop("1.0", "darkorange");
+  // Fill with gradient
+  ctx.fillStyle = gradient;
+  ctx.fillText(
+    "YOU'RE WINNER!",
+    (canvas.width / GRIDWIDTH) * 0.4,
+    (canvas.height / GRIDHEIGHT) * 1
+  );
+}
