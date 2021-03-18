@@ -161,7 +161,10 @@ function setStage() {
     initializeStage();
 
     stagePar = 3;
-
+    pallo.xPos = (canvas.width / GRIDWIDTH) * 0.5;
+    pallo.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
+    hitPosX = pallo.xPos;
+    hitPosY = pallo.yPos;
     reika.xPos = (canvas.width / GRIDWIDTH) * 5.5;
     reika.yPos = (canvas.height / GRIDHEIGHT) * 5.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 5.5;
@@ -206,7 +209,7 @@ function setStage() {
     //start of level 3
     initializeStage();
 
-    stagePar = 2;
+    stagePar = 1;
 
     reika.xPos = (canvas.width / GRIDWIDTH) * 0.5;
     reika.yPos = (canvas.height / GRIDHEIGHT) * 5.5;
@@ -252,7 +255,7 @@ function setStage() {
     //start of level 4
     initializeStage();
 
-    stagePar = 2;
+    stagePar = 1;
 
     reika.xPos = (canvas.width / GRIDWIDTH) * 5.5;
     reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
@@ -279,7 +282,10 @@ function setStage() {
     initializeStage();
 
     stagePar = 6;
-
+    pallo.xPos = (canvas.width / GRIDWIDTH) * 0.25;
+    pallo.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
+    hitPosX = pallo.xPos;
+    hitPosY = pallo.yPos;
     reika.xPos = (canvas.width / GRIDWIDTH) * 2;
     reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     reika2.xPos = (canvas.width / GRIDWIDTH) * 2;
@@ -310,9 +316,9 @@ function setStage() {
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 3,
-        (canvas.height / GRIDHEIGHT) * 1,
+        (canvas.height / GRIDHEIGHT) * 1.18,
         canvas.width * 0.033,
-        (canvas.height / GRIDHEIGHT) * 4,
+        (canvas.height / GRIDHEIGHT) * 3.8,
         false,
         false
       )
@@ -339,9 +345,9 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 1,
+        (canvas.width / GRIDWIDTH) * 1.18,
         (canvas.height / GRIDHEIGHT) * 1,
-        (canvas.width / GRIDWIDTH) * 4,
+        (canvas.width / GRIDWIDTH) * 3.83,
         canvas.height * 0.033,
         false,
         false
@@ -369,9 +375,9 @@ function setStage() {
 
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 2.5,
+        (canvas.width / GRIDWIDTH) * 2.2,
         (canvas.height / GRIDHEIGHT) * 0,
-        canvas.width * 0.033,
+        canvas.width * 0.05,
         (canvas.height / GRIDHEIGHT) * 3.2,
         false,
         false
@@ -379,9 +385,9 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 2.7,
+        (canvas.width / GRIDWIDTH) * 2.5,
         (canvas.height / GRIDHEIGHT) * 0,
-        canvas.width * 0.033,
+        canvas.width * 0.05,
         (canvas.height / GRIDHEIGHT) * 3,
         false,
         false
@@ -389,9 +395,9 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 2.9,
+        (canvas.width / GRIDWIDTH) * 2.8,
         (canvas.height / GRIDHEIGHT) * 0,
-        canvas.width * 0.033,
+        canvas.width * 0.05,
         (canvas.height / GRIDHEIGHT) * 2.8,
         false,
         false
@@ -401,7 +407,7 @@ function setStage() {
       new Wall(
         (canvas.width / GRIDWIDTH) * 3.1,
         (canvas.height / GRIDHEIGHT) * 0,
-        canvas.width * 0.033,
+        canvas.width * 0.05,
         (canvas.height / GRIDHEIGHT) * 2.6,
         false,
         false
@@ -409,9 +415,9 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 3.3,
+        (canvas.width / GRIDWIDTH) * 3.4,
         (canvas.height / GRIDHEIGHT) * 0,
-        canvas.width * 0.033,
+        canvas.width * 0.05,
         (canvas.height / GRIDHEIGHT) * 2.4,
         false,
         false
@@ -419,9 +425,9 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 3.3,
+        (canvas.width / GRIDWIDTH) * 3.4,
         (canvas.height / GRIDHEIGHT) * 3.2,
-        canvas.width * 0.033,
+        canvas.width * 0.05,
         (canvas.height / GRIDHEIGHT) * 3,
         false,
         false
@@ -431,7 +437,7 @@ function setStage() {
       new Wall(
         (canvas.width / GRIDWIDTH) * 3.1,
         (canvas.height / GRIDHEIGHT) * 3.4,
-        canvas.width * 0.033,
+        canvas.width * 0.05,
         (canvas.height / GRIDHEIGHT) * 3,
         false,
         false
@@ -439,19 +445,9 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 2.9,
+        (canvas.width / GRIDWIDTH) * 2.8,
         (canvas.height / GRIDHEIGHT) * 3.6,
-        canvas.width * 0.033,
-        (canvas.height / GRIDHEIGHT) * 3,
-        false,
-        false
-      )
-    );
-    walls.push(
-      new Wall(
-        (canvas.width / GRIDWIDTH) * 2.7,
-        (canvas.height / GRIDHEIGHT) * 3.8,
-        canvas.width * 0.033,
+        canvas.width * 0.05,
         (canvas.height / GRIDHEIGHT) * 3,
         false,
         false
@@ -460,8 +456,18 @@ function setStage() {
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 2.5,
+        (canvas.height / GRIDHEIGHT) * 3.8,
+        canvas.width * 0.05,
+        (canvas.height / GRIDHEIGHT) * 3,
+        false,
+        false
+      )
+    );
+    walls.push(
+      new Wall(
+        (canvas.width / GRIDWIDTH) * 2.2,
         (canvas.height / GRIDHEIGHT) * 4,
-        canvas.width * 0.033,
+        canvas.width * 0.05,
         (canvas.height / GRIDHEIGHT) * 3,
         false,
         false
@@ -519,7 +525,7 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 5,
+        (canvas.width / GRIDWIDTH) * 4.98,
         (canvas.height / GRIDHEIGHT) * 5,
         canvas.width * 0.033,
         (canvas.height / GRIDHEIGHT) * 1,
@@ -629,7 +635,7 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 3,
+        (canvas.width / GRIDWIDTH) * 3.18,
         (canvas.height / GRIDHEIGHT) * 5,
         (canvas.width / GRIDWIDTH) * 1.5,
         canvas.height * 0.033,
@@ -659,7 +665,7 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 3,
+        (canvas.width / GRIDWIDTH) * 3.18,
         (canvas.height / GRIDHEIGHT) * 1.5,
         (canvas.width / GRIDWIDTH) * 1.5,
         canvas.height * 0.033,
@@ -779,9 +785,9 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 2.5,
+        (canvas.width / GRIDWIDTH) * 2,
         (canvas.height / GRIDHEIGHT) * 2,
-        (canvas.width / GRIDWIDTH) * 1,
+        (canvas.width / GRIDWIDTH) * 2,
         canvas.height * 0.033,
         false,
         false
@@ -789,9 +795,9 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 2.5,
+        (canvas.width / GRIDWIDTH) * 2,
         (canvas.height / GRIDHEIGHT) * 4,
-        (canvas.width / GRIDWIDTH) * 1,
+        (canvas.width / GRIDWIDTH) * 2,
         canvas.height * 0.033,
         false,
         false
@@ -910,7 +916,7 @@ function setStage() {
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 1,
-        (canvas.height / GRIDHEIGHT) * 1.1,
+        (canvas.height / GRIDHEIGHT) * 1.18,
         canvas.width * 0.033,
         (canvas.height / GRIDHEIGHT) * 2,
         false,
@@ -950,7 +956,7 @@ function setStage() {
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 3,
-        (canvas.height / GRIDHEIGHT) * 1.1,
+        (canvas.height / GRIDHEIGHT) * 1.18,
         canvas.width * 0.033,
         (canvas.height / GRIDHEIGHT) * 2.5,
         false,
@@ -970,9 +976,9 @@ function setStage() {
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 4,
-        (canvas.height / GRIDHEIGHT) * 2,
+        (canvas.height / GRIDHEIGHT) * 2.3,
         canvas.width * 0.033,
-        (canvas.height / GRIDHEIGHT) * 3,
+        (canvas.height / GRIDHEIGHT) * 2.8,
         false,
         false
       )
