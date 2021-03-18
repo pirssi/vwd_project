@@ -49,6 +49,7 @@ function initializeObstacles() {
   pools.splice(0, pools.length);
   sandPits.splice(0, sandPits.length);
   gridPosInUse.splice(0, gridPosInUse.length);
+  obstacleCount = 0;
 
   //console.log(gridPosInUse);
 
