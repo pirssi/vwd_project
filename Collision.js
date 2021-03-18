@@ -137,6 +137,46 @@ function wallCollision() {
     }
   }
 }
+function blockCollision() {
+  for (let i = 0; i < blocks.length; i++) {
+    var distX = Math.abs(pallo.xPos - blocks[i].xPos - blocks[i].wallWidth / 2);
+    var distY = Math.abs(
+      pallo.yPos - blocks[i].yPos - blocks[i].wallHeight / 2
+    );
+
+    if (distX > blocks[i].wallWidth / 2 + pallo.ballRad) {
+      blocks[i].topBotBool = false;
+      continue;
+    }
+    if (distY > blocks[i].wallHeight / 2 + pallo.ballRad) {
+      blocks[i].topBotBool = true;
+      continue;
+    }
+
+    if (
+      distX <= blocks[i].wallWidth &&
+      blocks[i].topBotBool == false &&
+      blocks[i].flipped == false
+    ) {
+      bounceAudio.cloneNode(true).play();
+      flippedTimer(blocks[i]);
+      blocks[i].flipped = true;
+      //console.log("topBot false");
+      horizontalVel = -horizontalVel;
+    }
+    if (
+      distY <= blocks[i].wallHeight &&
+      blocks[i].topBotBool == true &&
+      blocks[i].flipped == false
+    ) {
+      bounceAudio.cloneNode(true).play();
+      flippedTimer(blocks[i]);
+      blocks[i].flipped = true;
+      //console.log("topBottom true");
+      verticalVel = -verticalVel;
+    }
+  }
+}
 
 // timer function for flipped bools
 function flippedTimer(f) {

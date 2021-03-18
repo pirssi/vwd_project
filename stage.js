@@ -48,6 +48,7 @@ function initializeObstacles() {
   walls.splice(0, walls.length);
   pools.splice(0, pools.length);
   sandPits.splice(0, sandPits.length);
+  blocks.splice(0, blocks.length);
   gridPosInUse.splice(0, gridPosInUse.length);
   obstacleCount = 0;
 
@@ -87,6 +88,11 @@ function initializeObstacles() {
   console.log(gridPosInUse);
 
   //generate new pseudorandom sandpits and pools
+  //blocks = generateBlockPos();
+  blocks = generateBlockPos();
+  //walls.push.apply(walls, blocks);
+  console.log("blocks:");
+  console.log(blocks);
   sandPits = generateSandpitPos();
   pools = generatePoolPos();
   console.log(pools.length);
@@ -145,7 +151,7 @@ function setStage() {
         false
       )
     );
-
+    console.log(walls);
     //End of level 1
   } else if (stages[stagesIndex] == 1) {
     //Level 2

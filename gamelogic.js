@@ -19,6 +19,7 @@ function animate() {
     }
   }
   wallCollision();
+  blockCollision();
   poolsCollision();
   sandPitCollision();
   ballHoleGravity();
@@ -66,8 +67,7 @@ function pointerDown(e) {
 function pointerMove(e) {
   if (ballMoving || inHole) {
     return;
-  }
-  else {
+  } else {
     var mouseX = e.offsetX;
     var mouseY = e.offsetY;
 
@@ -79,7 +79,10 @@ function pointerMove(e) {
     drawAimLine(lineDirX, lineDirY);
 
     // check ballToPointerDistance and use it to set velFactor
-    ballToPointerDistance = Math.hypot(pallo.xPos - mouseX, pallo.yPos - mouseY);
+    ballToPointerDistance = Math.hypot(
+      pallo.xPos - mouseX,
+      pallo.yPos - mouseY
+    );
     if (ballToPointerDistance > 725) {
       ballToPointerDistance = 725;
     }
@@ -128,7 +131,7 @@ function pointerUp(e) {
     hitAudio.cloneNode(true).play();
   }
   ballHit = true;
-  
+
   // ball direction is according to mouseUpPositions and pallo centerposition
   dirX = mouseUpPosX - pallo.xPos;
   dirY = mouseUpPosY - pallo.yPos;

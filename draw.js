@@ -18,6 +18,7 @@ function drawScene() {
   drawSandPits();
   drawPools();
   drawWalls();
+  drawBlocks();
 
   //borders of the map
   ctx.beginPath();
@@ -188,5 +189,11 @@ function drawSandPits() {
 function drawWalls() {
   for (let i = 0; i < walls.length; i++) {
     walls[i].draw();
+  }
+}
+// draw blocks
+function drawBlocks() {
+  for (let i = 0; i < blocks.length; i++) {
+    blocks[i].draw();
   }
 }

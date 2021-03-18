@@ -42,8 +42,8 @@
 // }
 
 function generateBlockPos() {
-  const MAXCOUNT = 5;
-  const BLOCKSIZE = 0.05;
+  const MAXCOUNT = 10;
+  const BLOCKSIZE = (canvas.width / OBSTACLE_GRIDWIDTH) * 0.5;
 
   var blockPos = [];
 
@@ -53,37 +53,41 @@ function generateBlockPos() {
 
   var i;
   for (i = 0; i < blockCount; i++) {
-    let isValid = false;
+    if (obstacleCount < OBSTACLEMAXCOUNT) {
+      let isValid = false;
 
-    while (!isValid) {
-      pos = [
-        Math.floor(Math.random() * (GRIDWIDTH + 1)),
-        Math.floor(Math.random() * (GRIDHEIGHT + 1)),
-      ];
-
-      if (valid(pos)) {
-        gridPosInUse.push(pos);
-        isValid = true;
-      } else {
+      while (!isValid) {
         pos = [
-          Math.floor(Math.random() * (GRIDWIDTH + 1)),
-          Math.floor(Math.random() * (GRIDHEIGHT + 1)),
+          Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
+          Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
         ];
+
+        if (valid(pos)) {
+          pushGridAndSurrounding(pos);
+          isValid = true;
+        } else {
+          pos = [
+            Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
+            Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
+          ];
+        }
       }
+
+      ////console.log(i + ": " + pos);
+
+      blockPos.push(
+        new Block(
+          (canvas.width / OBSTACLE_GRIDWIDTH) * pos[0],
+          (canvas.height / OBSTACLE_GRIDHEIGHT) * pos[1],
+          BLOCKSIZE,
+          BLOCKSIZE,
+          false,
+          false,
+          "gray"
+        )
+      );
+      obstacleCount++;
     }
-
-    ////console.log(i + ": " + pos);
-
-    blockPos.push(
-      new Wall(
-        (canvas.width / GRIDWIDTH) * pos[0],
-        (canvas.height / GRIDHEIGHT) * pos[1],
-        BLOCKSIZE,
-        BLOCKSIZE,
-        false,
-        false
-      )
-    );
   }
 
   //console.log(gridPosInUse);

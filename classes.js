@@ -114,11 +114,30 @@ class Wall {
     this.wallHeight = wallHeight;
     this.topBotBool = topBotBool;
     this.flipped = flipped;
+    this.color = "rgb(95, 11, 11)";
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.fillStyle = this.color;
+    ctx.rect(this.xPos, this.yPos, this.wallWidth, this.wallHeight);
+    ctx.fill();
+  }
+}
+// blocks
+class Block {
+  constructor(xPos, yPos, wallWidth, wallHeight, topBotBool, flipped, color) {
+    this.xPos = xPos;
+    this.yPos = yPos;
+    this.wallWidth = wallWidth;
+    this.wallHeight = wallHeight;
+    this.topBotBool = topBotBool;
+    this.flipped = flipped;
+    this.color = color;
   }
 
   draw() {
     ctx.beginPath();
-    ctx.fillStyle = "rgb(95, 11, 11)";
+    ctx.fillStyle = this.color;
     ctx.rect(this.xPos, this.yPos, this.wallWidth, this.wallHeight);
     ctx.fill();
   }
