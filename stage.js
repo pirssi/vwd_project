@@ -759,16 +759,6 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 5,
-        (canvas.height / GRIDHEIGHT) * 5,
-        (canvas.width / GRIDWIDTH) * 1,
-        canvas.height * 0.033,
-        false,
-        false
-      )
-    );
-    walls.push(
-      new Wall(
         (canvas.width / GRIDWIDTH) * 2,
         (canvas.height / GRIDHEIGHT) * 5,
         (canvas.width / GRIDWIDTH) * 2,

@@ -29,4 +29,15 @@
 				margin:0px;				
 				color:white;
 				border-radius:2vmin;
+
+				text-align: center;
+				word-wrap:normal;
+			}
+			p {
+				font-size: large;
+				font-family:'Times New Roman', Times, serif;
+			}
+			h1 {
+				font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+				color:green;
 			}
