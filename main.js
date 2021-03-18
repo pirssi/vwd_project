@@ -97,6 +97,8 @@ function main() {
   canvas.width = SIZE;
   canvas.height = SIZE;
 
+  ctx.filter = "blur(20px)";
+
   // mouse event handling
   canvas.addEventListener("mousedown", pointerDown, false);
   canvas.addEventListener("mousemove", pointerMove, false);
@@ -118,6 +120,8 @@ function main() {
 }
 
 function hideTutorial() {
+  ctx.filter = "none";
+  redraw();
   let element = document.getElementById("overlay");
   element.style.display = "none";
 }
