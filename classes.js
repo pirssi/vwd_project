@@ -185,13 +185,17 @@ class Wall {
     this.wallHeight = wallHeight;
     this.topBotBool = topBotBool;
     this.flipped = flipped;
-    this.color = "rgb(95, 11, 11)";
+    this.color = "rgb(95, 45, 11)";
   }
   draw() {
     ctx.beginPath();
     ctx.fillStyle = this.color;
     ctx.rect(this.xPos, this.yPos, this.wallWidth, this.wallHeight);
     ctx.fill();
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(this.xPos, this.yPos, this.wallWidth, this.wallHeight);
   }
 }
 // blocks
@@ -259,6 +263,10 @@ class Block {
       this.wallWidth - 4,
       this.wallHeight - 4
     );
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "black";
+    ctx.strokeRect(this.xPos, this.yPos, this.wallWidth, this.wallHeight);
   }
 }
 //stages

@@ -96,23 +96,24 @@ function drawScore() {
 //draw forceMeter
 function drawForceMeter(velFactorPercent) {
   ctx.beginPath();
-  ctx.lineWidth = 0.2;
-  ctx.fillStyle = "black";
+  ctx.lineWidth = 2;
+
+  ctx.strokeStyle = "black";
   ctx.moveTo(10, 10);
   ctx.lineTo(10, 130);
   ctx.lineTo(30, 130);
   ctx.lineTo(30, 10);
   ctx.lineTo(10, 10);
-  ctx.fill();
+  ctx.stroke();
 
-  ctx.beginPath();
-  ctx.fillStyle = "green";
-  ctx.moveTo(11, 11);
-  ctx.lineTo(11, 129);
-  ctx.lineTo(29, 129);
-  ctx.lineTo(29, 11);
-  ctx.lineTo(9, 11);
-  ctx.fill();
+  // ctx.beginPath();
+  // ctx.fillStyle = "rgba(0,0,0,0)";
+  // ctx.moveTo(11, 11);
+  // ctx.lineTo(11, 129);
+  // ctx.lineTo(29, 129);
+  // ctx.lineTo(29, 11);
+  // ctx.lineTo(9, 11);
+  // ctx.fill();
 }
 
 // creates UI for current hit force in the left upper corner
@@ -122,13 +123,13 @@ function drawHitForceUI() {
     ctx.font = "20px Georgia";
     ctx.fillStyle = "White";
     ctx.fillText(
-      "Force: " + Math.round(velPercent) + "%",
-      canvas.width * 0.035,
-      canvas.height * 0.126
+      Math.round(velPercent) + "%",
+      canvas.width * 0.008,
+      canvas.height * 0.155
     );
 
     ctx.beginPath();
-    ctx.fillStyle = "lightYellow";
+    ctx.fillStyle = "white";
     ctx.moveTo(11, 129);
     ctx.lineTo(29, 129);
     ctx.lineTo(29, 109);
@@ -139,13 +140,13 @@ function drawHitForceUI() {
     ctx.font = "20px Georgia";
     ctx.fillStyle = "White";
     ctx.fillText(
-      "Force: " + Math.round(velPercent) + "%",
-      canvas.width * 0.035,
-      canvas.height * 0.126
+      Math.round(velPercent) + "%",
+      canvas.width * 0.008,
+      canvas.height * 0.155
     );
 
     ctx.beginPath();
-    ctx.fillStyle = "lightYellow";
+    ctx.fillStyle = "white";
     ctx.moveTo(11, 129);
     ctx.lineTo(29, 129);
     ctx.lineTo(29, 109);
@@ -153,8 +154,14 @@ function drawHitForceUI() {
     ctx.lineTo(11, 129);
     ctx.fill();
 
+    var gradient = ctx.createLinearGradient(0, 0, 0, canvas.height * 0.12);
+    gradient.addColorStop("0", "red");
+    gradient.addColorStop("0.7", "yellow");
+    gradient.addColorStop("1", "green");
+    ctx.fillStyle = gradient;
+
     ctx.beginPath();
-    ctx.fillStyle = "red";
+    ctx.fillStyle = gradient;
     ctx.moveTo(11, 109);
     ctx.lineTo(29, 109);
     ctx.lineTo(29, 111 - velPercent);
@@ -351,7 +358,7 @@ function drawVictory() {
   ctx.font = "22px Verdana";
   ctx.fillStyle = "black";
   ctx.fillText(
-    "Total Strokes: "+totalStrokes,
+    "Total Strokes: " + totalStrokes,
     (canvas.width / GRIDWIDTH) * 2.35,
     (canvas.height / GRIDHEIGHT) * 5.3
   );
