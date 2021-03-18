@@ -122,7 +122,8 @@ function wallCollision() {
       flippedTimer(walls[i]);
       walls[i].flipped = true;
       //console.log("topBot false");
-      horizontalVel = -horizontalVel;
+      horizontalVel *= -bounce;
+      //console.log("horizontal bounce: " + horizontalVel);
     }
     if (
       distY <= walls[i].wallHeight &&
@@ -133,7 +134,8 @@ function wallCollision() {
       flippedTimer(walls[i]);
       walls[i].flipped = true;
       //console.log("topBottom true");
-      verticalVel = -verticalVel;
+      verticalVel *= -bounce;
+      //console.log("vertical bounce: " + verticalVel);
     }
   }
 }
