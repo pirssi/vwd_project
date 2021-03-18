@@ -1,6 +1,3 @@
-function jani() {
-  drawObstacles();
-}
 // function generateWallPos() {
 //   const WALL_MAXCOUNT = 5;
 //   const WALL_WIDTH = 0.033;
@@ -43,6 +40,7 @@ function jani() {
 //   }
 //   return wallPos;
 // }
+
 function generateBlockPos() {
   const MAXCOUNT = 5;
   const BLOCKSIZE = 0.05;
@@ -94,10 +92,10 @@ function generateBlockPos() {
 }
 function generateSandpitPos() {
   const MAXCOUNT = 5;
-  const MINRADX = 80;
-  const MAXRADX = 120;
-  const MINRADY = 80;
-  const MAXRADY = 120;
+  const MINRADX = canvas.width / OBSTACLE_GRIDWIDTH / 1.75;
+  const MAXRADX = canvas.width / OBSTACLE_GRIDWIDTH;
+  const MINRADY = canvas.height / OBSTACLE_GRIDHEIGHT / 1.75;
+  const MAXRADY = canvas.height / OBSTACLE_GRIDHEIGHT;
   const MAXANGLE = 0;
 
   var sandPos = [];
@@ -114,17 +112,17 @@ function generateSandpitPos() {
 
     while (!isValid) {
       pos = [
-        Math.floor(Math.random() * (GRIDWIDTH + 1)),
-        Math.floor(Math.random() * (GRIDHEIGHT + 1)),
+        Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
+        Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
       ];
 
       if (valid(pos)) {
-        gridPosInUse.push(pos);
+        pushGridAndSurrounding(pos);
         isValid = true;
       } else {
         pos = [
-          Math.floor(Math.random() * (GRIDWIDTH + 1)),
-          Math.floor(Math.random() * (GRIDHEIGHT + 1)),
+          Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
+          Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
         ];
       }
     }
@@ -132,12 +130,12 @@ function generateSandpitPos() {
     ////console.log(i + ": " + pos);
 
     var radx = MINRADX + Math.random() * (MAXRADX - MINRADX);
-    var rady = radx * (0.75 + Math.random() * 0.5);
+    var rady = MINRADY + Math.random() * (MAXRADY - MINRADY);
 
     sandPos.push(
       new SandPit(
-        (canvas.width / GRIDWIDTH) * pos[0],
-        (canvas.height / GRIDHEIGHT) * pos[1],
+        (canvas.width / OBSTACLE_GRIDWIDTH) * pos[0],
+        (canvas.height / OBSTACLE_GRIDHEIGHT) * pos[1],
         radx,
         rady,
         Math.random() * MAXANGLE,
@@ -152,10 +150,10 @@ function generateSandpitPos() {
 }
 function generatePoolPos() {
   const MAXCOUNT = 5;
-  const MINRADX = 20;
-  const MAXRADX = 120;
-  const MINRADY = 20;
-  const MAXRADY = 120;
+  const MINRADX = canvas.width / OBSTACLE_GRIDWIDTH / 3;
+  const MAXRADX = canvas.width / OBSTACLE_GRIDWIDTH / 2;
+  const MINRADY = canvas.height / OBSTACLE_GRIDHEIGHT / 2;
+  const MAXRADY = canvas.height / OBSTACLE_GRIDHEIGHT;
   const MAXANGLE = 0;
 
   var poolPos = [];
@@ -170,17 +168,17 @@ function generatePoolPos() {
     let isValid = false;
     while (!isValid) {
       pos = [
-        Math.floor(Math.random() * (GRIDWIDTH + 1)),
-        Math.floor(Math.random() * (GRIDHEIGHT + 1)),
+        Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
+        Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
       ];
 
       if (valid(pos)) {
-        gridPosInUse.push(pos);
+        pushGridAndSurrounding(pos);
         isValid = true;
       } else {
         pos = [
-          Math.floor(Math.random() * (GRIDWIDTH + 1)),
-          Math.floor(Math.random() * (GRIDHEIGHT + 1)),
+          Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
+          Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
         ];
       }
     }
@@ -190,8 +188,8 @@ function generatePoolPos() {
 
     poolPos.push(
       new Pool(
-        (canvas.width / GRIDWIDTH) * pos[0],
-        (canvas.height / GRIDHEIGHT) * pos[1],
+        (canvas.width / OBSTACLE_GRIDWIDTH) * pos[0],
+        (canvas.height / OBSTACLE_GRIDHEIGHT) * pos[1],
         radx,
         rady,
         Math.random() * MAXANGLE,
@@ -215,6 +213,18 @@ function valid(pos) {
   }
   //console.log("eipä ollu 😳");
   return true;
+}
+function pushGridAndSurrounding(pos) {
+  gridPosInUse.push(pos);
+
+  gridPosInUse.push([pos[0] + 1, pos[1] + 1]);
+  gridPosInUse.push([pos[0] + 1, pos[1]]);
+  gridPosInUse.push([pos[0] + 1, pos[1] - 1]);
+  gridPosInUse.push([pos[0], pos[1] + 1]);
+  gridPosInUse.push([pos[0], pos[1] - 1]);
+  gridPosInUse.push([pos[0] - 1, pos[1] + 1]);
+  gridPosInUse.push([pos[0] - 1, pos[1]]);
+  gridPosInUse.push([pos[0] - 1, pos[1] - 1]);
 }
 
 //!ball hit mouse drag -> mouse down

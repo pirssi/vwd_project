@@ -52,7 +52,6 @@ function initializeObstacles() {
 
   //console.log(gridPosInUse);
 
-  //generate new pseudorandom sandpits and pools
   // console.log(
   //   "pallo: " +
   //     Math.floor(pallo.xPos / (canvas.width / GRIDWIDTH)) +
@@ -66,17 +65,27 @@ function initializeObstacles() {
   //     Math.floor(reika.yPos / (canvas.height / GRIDHEIGHT))
   // );
 
-  gridPosInUse.push(
-    [
-      Math.floor(pallo.xPos / (canvas.width / GRIDWIDTH)),
-      Math.floor(pallo.yPos / (canvas.height / GRIDHEIGHT)),
-    ],
-    [
-      Math.floor(reika.xPos / (canvas.width / GRIDWIDTH)),
-      Math.floor(reika.yPos / (canvas.height / GRIDHEIGHT)),
-    ]
-  );
+  // gridPosInUse.push(
+  //   [
+  //     Math.floor((pallo.xPos / (canvas.width / GRIDWIDTH)) * 2),
+  //     Math.floor((pallo.yPos / (canvas.height / GRIDHEIGHT)) * 2),
+  //   ],
+  //   [
+  //     Math.floor((reika.xPos / (canvas.width / GRIDWIDTH)) * 2),
+  //     Math.floor((reika.yPos / (canvas.height / GRIDHEIGHT)) * 2),
+  //   ]
+  // );
+  pushGridAndSurrounding([
+    Math.floor((pallo.xPos / (canvas.width / GRIDWIDTH)) * 2),
+    Math.floor((pallo.yPos / (canvas.height / GRIDHEIGHT)) * 2),
+  ]);
+  pushGridAndSurrounding([
+    Math.floor((reika.xPos / (canvas.width / GRIDWIDTH)) * 2),
+    Math.floor((reika.yPos / (canvas.height / GRIDHEIGHT)) * 2),
+  ]);
   console.log(gridPosInUse);
+
+  //generate new pseudorandom sandpits and pools
   sandPits = generateSandpitPos();
   pools = generatePoolPos();
 }

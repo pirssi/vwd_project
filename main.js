@@ -17,7 +17,7 @@ var horizontalVel;
 var verticalVel;
 var ballYPos = 500;
 var ballXPos = 500;
-var ballFriction = 0.97;
+var ballFriction = 0.987;
 var ballMoving = false;
 var ballHit = false;
 var allowClick = true;
@@ -78,6 +78,9 @@ var gridPosInUse = [];
 
 const GRIDWIDTH = 6;
 const GRIDHEIGHT = 6;
+
+const OBSTACLE_GRIDWIDTH = GRIDWIDTH * 2;
+const OBSTACLE_GRIDHEIGHT = GRIDHEIGHT * 2;
 
 var ctx;
 var canvas;
