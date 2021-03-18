@@ -8,14 +8,18 @@ function animate() {
       stageChanged = false;
     }
   }
-  wallCollision();
-  blockCollision();
-  poolsCollision();
-  sandPitCollision();
-  ballHoleGravity();
-  boundsCollision();
-  holeCollision();
   window.requestAnimationFrame(animate);
+  if (stagesIndex < 10) {
+    wallCollision();
+    blockCollision();
+    poolsCollision();
+    sandPitCollision();
+    ballHoleGravity();
+    boundsCollision();
+    holeCollision();
+  } else {
+    drawVictory();
+  }
 }
 
 // on pointer down
@@ -104,49 +108,51 @@ function redraw() {
 
 // after pointer release
 function pointerUp(e) {
-  redraw();
+  if (stagesIndex < 10) {
+    redraw();
 
-  if (!allowClick) {
-    return;
+    if (!allowClick) {
+      return;
+    }
+
+    // get the coordinates on mouseUp
+    mouseUpPosX = e.offsetX;
+    mouseUpPosY = e.offsetY;
+
+    // if ball isnt moving or in hole (allowClick is true) ball gets shot
+    if (velPercent <= 10) {
+      puttAudio.cloneNode(true).play();
+    } else {
+      hitAudio.cloneNode(true).play();
+    }
+    ballHit = true;
+
+    // ball direction is according to mouseUpPositions and pallo centerposition
+    dirX = mouseUpPosX - pallo.xPos;
+    dirY = mouseUpPosY - pallo.yPos;
+
+    // use directions and additional multiplier to set dir and vel
+    horizontalVel = dirX * velFactor;
+    verticalVel = dirY * velFactor;
+
+    if (horizontalVel > 35) {
+      var decreaseFactor = 35 / horizontalVel;
+      horizontalVel = 35;
+      verticalVel *= decreaseFactor;
+      //console.log(decreaseFactor);
+    } else if (verticalVel > 35) {
+      var decreaseFactor = 35 / verticalVel;
+      verticalVel = 35;
+      horizontalVel *= decreaseFactor;
+      //console.log(decreaseFactor);
+    }
+
+    //console.log(velPercent);
+    //console.log(Math.max(verticalVel, horizontalVel));
+
+    //animation
+    interval = setInterval(animateBalls, 10);
   }
-
-  // get the coordinates on mouseUp
-  mouseUpPosX = e.offsetX;
-  mouseUpPosY = e.offsetY;
-
-  // if ball isnt moving or in hole (allowClick is true) ball gets shot
-  if (velPercent <= 10) {
-    puttAudio.cloneNode(true).play();
-  } else {
-    hitAudio.cloneNode(true).play();
-  }
-  ballHit = true;
-
-  // ball direction is according to mouseUpPositions and pallo centerposition
-  dirX = mouseUpPosX - pallo.xPos;
-  dirY = mouseUpPosY - pallo.yPos;
-
-  // use directions and additional multiplier to set dir and vel
-  horizontalVel = dirX * velFactor;
-  verticalVel = dirY * velFactor;
-
-  if (horizontalVel > 35) {
-    var decreaseFactor = 35 / horizontalVel;
-    horizontalVel = 35;
-    verticalVel *= decreaseFactor;
-    //console.log(decreaseFactor);
-  } else if (verticalVel > 35) {
-    var decreaseFactor = 35 / verticalVel;
-    verticalVel = 35;
-    horizontalVel *= decreaseFactor;
-    //console.log(decreaseFactor);
-  }
-
-  //console.log(velPercent);
-  //console.log(Math.max(verticalVel, horizontalVel));
-
-  //animation
-  interval = setInterval(animateBalls, 10);
 }
 
 // moving ball

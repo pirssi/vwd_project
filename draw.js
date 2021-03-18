@@ -355,7 +355,7 @@ function drawVictory() {
   // Fill with gradient
   ctx.fillStyle = gradient;
   ctx.fillText(
-    "YOU'RE WINNER!",
+    "YOU'RE WINNER !",
     (canvas.width / GRIDWIDTH) * 0.4,
     (canvas.height / GRIDHEIGHT) * 1
   );

@@ -1,43 +1,42 @@
-		body{
-				background: rgb(2,0,36);
-				background: linear-gradient(6deg, rgba(2,0,36,1) 0%, rgba(20,20,230,1) 26%, rgba(0,212,255,1) 100%);
-				padding:0px;
-				margin:0px;
-			}
-			
-			canvas{
-				background:rgb(255, 255, 255);
-				position:absolute;
-				top:50%;
-				left:50%;
-				left:50%;
-				transform:translate(-50%,-50%);
-	
-			}
-			
-			#overlay{
-				background:rgba(0,0,0,0.7);
-				position:absolute;
-				top:50%;
-				left:50%;
-				left:50%;
-				transform:translate(-50%,-50%);
-				width:70vmin;		
-				height:70vmin;	
+body {
+  /* background: rgb(2,0,36);
+				background: linear-gradient(6deg, rgba(2,0,36,1) 0%, rgba(20,20,230,1) 26%, rgba(0,212,255,1) 100%); */
+  padding: 0px;
+  margin: 0px;
+}
 
-				padding:1vmin;
-				margin:0px;				
-				color:white;
-				border-radius:2vmin;
+canvas {
+  background: rgb(255, 255, 255);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-				text-align: center;
-				word-wrap:normal;
-			}
-			p {
-				font-size: large;
-				font-family:'Times New Roman', Times, serif;
-			}
-			h1 {
-				font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-				color:green;
-			}
+#overlay {
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vmin;
+  height: 70vmin;
+
+  padding: 1vmin;
+  margin: 0px;
+  color: white;
+  border-radius: 2vmin;
+
+  text-align: center;
+  word-wrap: normal;
+}
+p {
+  font-size: large;
+  font-family: "Times New Roman", Times, serif;
+}
+h1 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  color: green;
+}
