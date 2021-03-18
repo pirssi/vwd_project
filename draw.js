@@ -237,7 +237,7 @@ function drawVictory() {
     (canvas.height / GRIDHEIGHT) * 2
   );
   ctx.stroke();
-  //left side of base
+  //left side of handle
   ctx.moveTo(
     (canvas.width / GRIDWIDTH) * 2.8,
     (canvas.height / GRIDHEIGHT) * 4
@@ -249,7 +249,7 @@ function drawVictory() {
     (canvas.height / GRIDHEIGHT) * 5
   );
   ctx.stroke();
-  //right side of base
+  //right side of handle
   ctx.moveTo(
     (canvas.width / GRIDWIDTH) * 3.2,
     (canvas.height / GRIDHEIGHT) * 4
@@ -323,6 +323,7 @@ function drawVictory() {
     (canvas.height / GRIDHEIGHT) * 2.15
   );
   ctx.stroke();
+  //base
   ctx.fillStyle = "saddlebrown";
   ctx.fillRect(
     (canvas.width / GRIDWIDTH) * 2.2,
@@ -338,6 +339,22 @@ function drawVictory() {
     (canvas.height / GRIDHEIGHT) * 0.1
   );
   ctx.stroke();
+  //score placate
+  ctx.fillStyle = "yellow";
+  ctx.fillRect(
+    (canvas.width / GRIDWIDTH) * 2.3,
+    (canvas.height / GRIDHEIGHT) * 5.1,
+    (canvas.width / GRIDWIDTH) * 1.4,
+    (canvas.height / GRIDHEIGHT) * 0.3
+  );
+  ctx.stroke();
+  ctx.font = "22px Verdana";
+  ctx.fillStyle = "black";
+  ctx.fillText(
+    "Total Strokes: "+totalStrokes,
+    (canvas.width / GRIDWIDTH) * 2.35,
+    (canvas.height / GRIDHEIGHT) * 5.3
+  );
 
   ctx.font = "102px Verdana";
   // Create gradient

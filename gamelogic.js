@@ -3,6 +3,7 @@ function animate() {
     ballHit = false;
     if (!stageChanged) {
       strokes += 1;
+      totalStrokes++;
       drawScene(); // niko
     } else {
       stageChanged = false;

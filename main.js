@@ -39,6 +39,7 @@ var lastStage = 0;
 var stageChanged = false;
 var strokes = 1;
 var score = 0;
+var totalStrokes = 0;
 
 var interval;
 var ballsAreTouching = false;
