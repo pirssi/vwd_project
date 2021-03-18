@@ -88,6 +88,8 @@ function initializeObstacles() {
   //generate new pseudorandom sandpits and pools
   sandPits = generateSandpitPos();
   pools = generatePoolPos();
+  console.log(pools.length);
+  console.log(sandPits.length);
 }
 
 // StageChange system that sets stage depending on stageIndex

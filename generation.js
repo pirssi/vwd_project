@@ -91,7 +91,7 @@ function generateBlockPos() {
   return blockPos;
 }
 function generateSandpitPos() {
-  const MAXCOUNT = 5;
+  const MAXCOUNT = 10;
   const MINRADX = canvas.width / OBSTACLE_GRIDWIDTH / 1.75;
   const MAXRADX = canvas.width / OBSTACLE_GRIDWIDTH;
   const MINRADY = canvas.height / OBSTACLE_GRIDHEIGHT / 1.75;
@@ -108,40 +108,43 @@ function generateSandpitPos() {
 
   var i;
   for (i = 0; i < sandCount; i++) {
-    let isValid = false;
+    if (obstacleCount < OBSTACLEMAXCOUNT) {
+      let isValid = false;
 
-    while (!isValid) {
-      pos = [
-        Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
-        Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
-      ];
-
-      if (valid(pos)) {
-        pushGridAndSurrounding(pos);
-        isValid = true;
-      } else {
+      while (!isValid) {
         pos = [
           Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
           Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
         ];
+
+        if (valid(pos)) {
+          pushGridAndSurrounding(pos);
+          isValid = true;
+        } else {
+          pos = [
+            Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
+            Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
+          ];
+        }
       }
+
+      ////console.log(i + ": " + pos);
+
+      var radx = MINRADX + Math.random() * (MAXRADX - MINRADX);
+      var rady = MINRADY + Math.random() * (MAXRADY - MINRADY);
+
+      sandPos.push(
+        new SandPit(
+          (canvas.width / OBSTACLE_GRIDWIDTH) * pos[0],
+          (canvas.height / OBSTACLE_GRIDHEIGHT) * pos[1],
+          radx,
+          rady,
+          Math.random() * MAXANGLE,
+          "khaki"
+        )
+      );
+      obstacleCount++;
     }
-
-    ////console.log(i + ": " + pos);
-
-    var radx = MINRADX + Math.random() * (MAXRADX - MINRADX);
-    var rady = MINRADY + Math.random() * (MAXRADY - MINRADY);
-
-    sandPos.push(
-      new SandPit(
-        (canvas.width / OBSTACLE_GRIDWIDTH) * pos[0],
-        (canvas.height / OBSTACLE_GRIDHEIGHT) * pos[1],
-        radx,
-        rady,
-        Math.random() * MAXANGLE,
-        "khaki"
-      )
-    );
   }
 
   //console.log(gridPosInUse);
@@ -149,7 +152,7 @@ function generateSandpitPos() {
   return sandPos;
 }
 function generatePoolPos() {
-  const MAXCOUNT = 5;
+  const MAXCOUNT = 10;
   const MINRADX = canvas.width / OBSTACLE_GRIDWIDTH / 3;
   const MAXRADX = canvas.width / OBSTACLE_GRIDWIDTH / 2;
   const MINRADY = canvas.height / OBSTACLE_GRIDHEIGHT / 2;
@@ -165,37 +168,40 @@ function generatePoolPos() {
   ////console.log("pool:");
   var i;
   for (i = 0; i < poolCount; i++) {
-    let isValid = false;
-    while (!isValid) {
-      pos = [
-        Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
-        Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
-      ];
-
-      if (valid(pos)) {
-        pushGridAndSurrounding(pos);
-        isValid = true;
-      } else {
+    if (obstacleCount < OBSTACLEMAXCOUNT) {
+      let isValid = false;
+      while (!isValid) {
         pos = [
           Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
           Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
         ];
+
+        if (valid(pos)) {
+          pushGridAndSurrounding(pos);
+          isValid = true;
+        } else {
+          pos = [
+            Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
+            Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
+          ];
+        }
       }
+
+      var radx = MINRADX + Math.random() * (MAXRADX - MINRADX);
+      var rady = radx * (0.75 + Math.random() * 0.5);
+
+      poolPos.push(
+        new Pool(
+          (canvas.width / OBSTACLE_GRIDWIDTH) * pos[0],
+          (canvas.height / OBSTACLE_GRIDHEIGHT) * pos[1],
+          radx,
+          rady,
+          Math.random() * MAXANGLE,
+          "aqua"
+        )
+      );
+      obstacleCount++;
     }
-
-    var radx = MINRADX + Math.random() * (MAXRADX - MINRADX);
-    var rady = radx * (0.75 + Math.random() * 0.5);
-
-    poolPos.push(
-      new Pool(
-        (canvas.width / OBSTACLE_GRIDWIDTH) * pos[0],
-        (canvas.height / OBSTACLE_GRIDHEIGHT) * pos[1],
-        radx,
-        rady,
-        Math.random() * MAXANGLE,
-        "aqua"
-      )
-    );
   }
   //console.log(gridPosInUse);
   return poolPos;

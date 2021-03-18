@@ -71,7 +71,8 @@ var topBottom = false;
 
 var bounce = 0.95;
 
-const OBSTACLECOUNT = 5;
+const OBSTACLEMAXCOUNT = 12;
+var obstacleCount = 0;
 var gridPosInUse = [];
 
 const GRIDWIDTH = 6;
