@@ -42,12 +42,12 @@
 // }
 
 function generateBlockPos() {
-  const MAXCOUNT = 10;
+  const MAXCOUNT = 5;
   const BLOCKSIZE = (canvas.width / OBSTACLE_GRIDWIDTH) * 0.5;
 
   var blockPos = [];
 
-  var blockCount = Math.floor(Math.random() * MAXCOUNT) + 1;
+  var blockCount = Math.floor(Math.random() * MAXCOUNT);
 
   var pos = [];
 
@@ -58,8 +58,8 @@ function generateBlockPos() {
 
       while (!isValid) {
         pos = [
-          Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
-          Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
+          Math.floor(Math.random() * OBSTACLE_GRIDWIDTH) + 1,
+          Math.floor(Math.random() * OBSTACLE_GRIDHEIGHT) + 1,
         ];
 
         if (valid(pos)) {
@@ -67,8 +67,8 @@ function generateBlockPos() {
           isValid = true;
         } else {
           pos = [
-            Math.floor(Math.random() * (OBSTACLE_GRIDWIDTH + 1)),
-            Math.floor(Math.random() * (OBSTACLE_GRIDHEIGHT + 1)),
+            Math.floor(Math.random() * OBSTACLE_GRIDWIDTH) + 1,
+            Math.floor(Math.random() * OBSTACLE_GRIDHEIGHT) + 1,
           ];
         }
       }
@@ -83,7 +83,7 @@ function generateBlockPos() {
           BLOCKSIZE,
           false,
           false,
-          "gray"
+          "rgb(40, 40, 40)"
         )
       );
       obstacleCount++;
@@ -104,7 +104,7 @@ function generateSandpitPos() {
 
   var sandPos = [];
 
-  var sandCount = Math.floor(Math.random() * MAXCOUNT) + 1;
+  var sandCount = Math.floor(Math.random() * MAXCOUNT);
 
   var pos = [];
 
@@ -165,7 +165,7 @@ function generatePoolPos() {
 
   var poolPos = [];
 
-  var poolCount = Math.floor(Math.random() * MAXCOUNT) + 1;
+  var poolCount = Math.floor(Math.random() * MAXCOUNT);
 
   var pos = [];
 

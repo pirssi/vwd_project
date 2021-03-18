@@ -91,12 +91,13 @@ function initializeObstacles() {
   //blocks = generateBlockPos();
   blocks = generateBlockPos();
   //walls.push.apply(walls, blocks);
-  console.log("blocks:");
-  console.log(blocks);
+
+  //console.log(blocks);
   sandPits = generateSandpitPos();
   pools = generatePoolPos();
-  console.log(pools.length);
-  console.log(sandPits.length);
+  console.log("pools: " + pools.length);
+  console.log("sandpits: " + sandPits.length);
+  console.log("blocks: " + blocks.length);
 }
 
 // StageChange system that sets stage depending on stageIndex
