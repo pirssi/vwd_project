@@ -197,7 +197,7 @@ function drawVictory() {
   ctx.arc(
     (canvas.width / GRIDWIDTH) * 3,
     (canvas.height / GRIDHEIGHT) * 3,
-    canvas.height * 0.5,
+    canvas.height * 0.45,
     0,
     Math.PI * 2
   );
@@ -352,9 +352,25 @@ function drawVictory() {
   gradient.addColorStop("1.0", "darkorange");
   // Fill with gradient
   ctx.fillStyle = gradient;
+  ctx.strokeText(
+    "YOU'RE WINNER !",
+    (canvas.width / GRIDWIDTH) * 0.4,
+    (canvas.height / GRIDHEIGHT) * 1
+  );
   ctx.fillText(
     "YOU'RE WINNER !",
     (canvas.width / GRIDWIDTH) * 0.4,
     (canvas.height / GRIDHEIGHT) * 1
   );
+  ctx.font = "154px Verdana";
+  ctx.lineWidth = 5;
+  ctx.strokeText(
+    "1",
+    (canvas.width / GRIDWIDTH) * 2.7,
+    (canvas.height / GRIDHEIGHT) * 3
+  );
+  if (victoryAudioPlayed == false) {
+    victoryAudio.play();
+    victoryAudioPlayed = true;
+  }
 }

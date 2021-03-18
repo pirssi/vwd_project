@@ -292,7 +292,7 @@ function setStage() {
     walls.push(
       new Wall(
         (canvas.width / GRIDWIDTH) * 5,
-        (canvas.height / GRIDHEIGHT) * 1,
+        (canvas.height / GRIDHEIGHT) * 1.18,
         canvas.width * 0.033,
         (canvas.height / GRIDHEIGHT) * 4,
         false,
@@ -303,7 +303,7 @@ function setStage() {
       new Wall(
         (canvas.width / GRIDWIDTH) * 1.18,
         (canvas.height / GRIDHEIGHT) * 1,
-        (canvas.width / GRIDWIDTH) * 3.83,
+        (canvas.width / GRIDWIDTH) * 4.02,
         canvas.height * 0.033,
         false,
         false
@@ -683,38 +683,8 @@ function setStage() {
       new Wall(
         (canvas.width / GRIDWIDTH) * 0,
         (canvas.height / GRIDHEIGHT) * 5,
-        (canvas.width / GRIDWIDTH) * 1,
-        canvas.height * 0.033,
-        false,
-        false
-      )
-    );
-    walls.push(
-      new Wall(
-        (canvas.width / GRIDWIDTH) * 5,
-        (canvas.height / GRIDHEIGHT) * 5,
-        (canvas.width / GRIDWIDTH) * 1,
-        canvas.height * 0.033,
-        false,
-        false
-      )
-    );
-    walls.push(
-      new Wall(
-        (canvas.width / GRIDWIDTH) * 0,
-        (canvas.height / GRIDHEIGHT) * 1,
-        (canvas.width / GRIDWIDTH) * 1,
-        canvas.height * 0.033,
-        false,
-        false
-      )
-    );
-    walls.push(
-      new Wall(
-        (canvas.width / GRIDWIDTH) * 5,
-        (canvas.height / GRIDHEIGHT) * 1,
-        (canvas.width / GRIDWIDTH) * 1,
-        canvas.height * 0.033,
+        (canvas.width / GRIDWIDTH) * 1.2,
+        canvas.height * 1,
         false,
         false
       )
@@ -761,19 +731,9 @@ function setStage() {
     );
     walls.push(
       new Wall(
-        (canvas.width / GRIDWIDTH) * 1,
-        (canvas.height / GRIDHEIGHT) * 5,
-        canvas.width * 0.033,
-        (canvas.height / GRIDHEIGHT) * 1,
-        false,
-        false
-      )
-    );
-    walls.push(
-      new Wall(
-        (canvas.width / GRIDWIDTH) * 1,
+        (canvas.width / GRIDWIDTH) * 0,
         (canvas.height / GRIDHEIGHT) * 0,
-        canvas.width * 0.033,
+        canvas.width /GRIDWIDTH* 1.2,
         (canvas.height / GRIDHEIGHT) * 1.2,
         false,
         false
@@ -783,7 +743,7 @@ function setStage() {
       new Wall(
         (canvas.width / GRIDWIDTH) * 4.8,
         (canvas.height / GRIDHEIGHT) * 0,
-        canvas.width * 0.033,
+        canvas.width /GRIDWIDTH*1.2,
         (canvas.height / GRIDHEIGHT) * 1.2,
         false,
         false
@@ -793,7 +753,7 @@ function setStage() {
       new Wall(
         (canvas.width / GRIDWIDTH) * 4.8,
         (canvas.height / GRIDHEIGHT) * 5,
-        canvas.width * 0.033,
+        canvas.width /GRIDWIDTH* 1.2,
         (canvas.height / GRIDHEIGHT) * 1,
         false,
         false

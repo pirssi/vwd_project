@@ -10,6 +10,9 @@ var waterAudio = new Audio("audio/splash.mp3");
 waterAudio.volume = 0.3; //doesnt change the volume for some reason
 var bounceAudio = new Audio("audio/bounce.mp3");
 var cheerAudio = new Audio("audio/cheer.mp3");
+var victoryAudio = new Audio("audio/victory_song.wav");
+victoryAudio.volume = 0.2;
+victoryAudioPlayed = false;
 var cooldownTime = 1;
 var stageSet = false;
 
