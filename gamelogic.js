@@ -1,13 +1,3 @@
-function init() {
-  // mouse event handling
-  canvas.addEventListener("mousedown", pointerDown, false);
-  canvas.addEventListener("mousemove", pointerMove, false);
-  canvas.addEventListener("mouseup", pointerUp, false);
-
-  drawScene(); // niko
-  animate();
-}
-
 function animate() {
   if (horizontalVel == 0 && verticalVel == 0 && !inHole && ballHit == true) {
     ballHit = false;

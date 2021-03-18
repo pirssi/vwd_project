@@ -1,10 +1,3 @@
-function draw() {
-  canvas.width = SIZE;
-  canvas.height = SIZE;
-
-  setStage();
-}
-
 function drawScene() {
   //background
   ctx.beginPath();
@@ -201,7 +194,7 @@ function drawVictory() {
   //window.cancelAnimationFrame(animate);
   // pallo.xPos=canvas.width*0.45;
   // pallo.yPos=canvas.height*0.45;
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
   ctx.arc(
     (canvas.width / GRIDWIDTH) * 3,
@@ -235,7 +228,10 @@ function drawVictory() {
   );
   ctx.stroke();
   //right side of trophy
-  ctx.moveTo((canvas.width / GRIDWIDTH) * 2.8, (canvas.height / GRIDHEIGHT) * 4);
+  ctx.moveTo(
+    (canvas.width / GRIDWIDTH) * 2.8,
+    (canvas.height / GRIDHEIGHT) * 4
+  );
   ctx.quadraticCurveTo(
     (canvas.width / GRIDWIDTH) * 2,
     (canvas.height / GRIDHEIGHT) * 3.8,
@@ -244,7 +240,10 @@ function drawVictory() {
   );
   ctx.stroke();
   //left side of base
-  ctx.moveTo((canvas.width / GRIDWIDTH) * 2.8, (canvas.height / GRIDHEIGHT) * 4);
+  ctx.moveTo(
+    (canvas.width / GRIDWIDTH) * 2.8,
+    (canvas.height / GRIDHEIGHT) * 4
+  );
   ctx.quadraticCurveTo(
     (canvas.width / GRIDWIDTH) * 2.9,
     (canvas.height / GRIDHEIGHT) * 4.5,
@@ -253,7 +252,10 @@ function drawVictory() {
   );
   ctx.stroke();
   //right side of base
-  ctx.moveTo((canvas.width / GRIDWIDTH) * 3.2, (canvas.height / GRIDHEIGHT) * 4);
+  ctx.moveTo(
+    (canvas.width / GRIDWIDTH) * 3.2,
+    (canvas.height / GRIDHEIGHT) * 4
+  );
   ctx.quadraticCurveTo(
     (canvas.width / GRIDWIDTH) * 3.1,
     (canvas.height / GRIDHEIGHT) * 4.5,
@@ -262,10 +264,16 @@ function drawVictory() {
   );
   ctx.stroke();
   //bottom line of gold part
-  ctx.lineTo((canvas.width / GRIDWIDTH) * 2.5, (canvas.height / GRIDHEIGHT) * 5);
+  ctx.lineTo(
+    (canvas.width / GRIDWIDTH) * 2.5,
+    (canvas.height / GRIDHEIGHT) * 5
+  );
   ctx.stroke();
   //left handle outer line
-  ctx.moveTo((canvas.width / GRIDWIDTH) * 2.25, (canvas.height / GRIDHEIGHT) * 3.5);
+  ctx.moveTo(
+    (canvas.width / GRIDWIDTH) * 2.25,
+    (canvas.height / GRIDHEIGHT) * 3.5
+  );
   ctx.bezierCurveTo(
     (canvas.width / GRIDWIDTH) * 0.2,
     (canvas.height / GRIDHEIGHT) * 1.9,
@@ -276,7 +284,10 @@ function drawVictory() {
   );
   ctx.stroke();
   //left handle inner line
-  ctx.moveTo((canvas.width / GRIDWIDTH) * 2.19, (canvas.height / GRIDHEIGHT) * 3.35);
+  ctx.moveTo(
+    (canvas.width / GRIDWIDTH) * 2.19,
+    (canvas.height / GRIDHEIGHT) * 3.35
+  );
   ctx.bezierCurveTo(
     (canvas.width / GRIDWIDTH) * 0.8,
     (canvas.height / GRIDHEIGHT) * 2.2,
@@ -287,7 +298,10 @@ function drawVictory() {
   );
   ctx.stroke();
   //right handle outer line
-  ctx.moveTo((canvas.width / GRIDWIDTH) * 3.75, (canvas.height / GRIDHEIGHT) * 3.5);
+  ctx.moveTo(
+    (canvas.width / GRIDWIDTH) * 3.75,
+    (canvas.height / GRIDHEIGHT) * 3.5
+  );
   ctx.bezierCurveTo(
     (canvas.width / GRIDWIDTH) * 5.8,
     (canvas.height / GRIDHEIGHT) * 1.9,
@@ -298,7 +312,10 @@ function drawVictory() {
   );
   ctx.stroke();
   //right handle inner line
-  ctx.moveTo((canvas.width / GRIDWIDTH) * 3.81, (canvas.height / GRIDHEIGHT) * 3.35);
+  ctx.moveTo(
+    (canvas.width / GRIDWIDTH) * 3.81,
+    (canvas.height / GRIDHEIGHT) * 3.35
+  );
   ctx.bezierCurveTo(
     (canvas.width / GRIDWIDTH) * 5.2,
     (canvas.height / GRIDHEIGHT) * 2.2,

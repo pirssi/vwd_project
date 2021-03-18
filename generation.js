@@ -58,8 +58,8 @@ function generateBlockPos() {
 
       while (!isValid) {
         pos = [
-          Math.floor(Math.random() * OBSTACLE_GRIDWIDTH) + 1,
-          Math.floor(Math.random() * OBSTACLE_GRIDHEIGHT) + 1,
+          0.5 + Math.floor(Math.random() * OBSTACLE_GRIDWIDTH) + 1,
+          0.5 + Math.floor(Math.random() * OBSTACLE_GRIDHEIGHT) + 1,
         ];
 
         if (valid(pos)) {
@@ -67,14 +67,16 @@ function generateBlockPos() {
           isValid = true;
         } else {
           pos = [
-            Math.floor(Math.random() * OBSTACLE_GRIDWIDTH) + 1,
-            Math.floor(Math.random() * OBSTACLE_GRIDHEIGHT) + 1,
+            0.5 + Math.floor(Math.random() * OBSTACLE_GRIDWIDTH) + 1,
+            0.5 + Math.floor(Math.random() * OBSTACLE_GRIDHEIGHT) + 1,
           ];
         }
       }
 
       ////console.log(i + ": " + pos);
 
+      console.log("pos:");
+      console.log(pos);
       blockPos.push(
         new Block(
           (canvas.width / OBSTACLE_GRIDWIDTH) * pos[0],

@@ -91,12 +91,18 @@ var canvas;
 function main() {
   canvas = document.getElementById("myCanvas");
   ctx = canvas.getContext("2d");
+  canvas.width = SIZE;
+  canvas.height = SIZE;
 
-  draw();
-  init();
-  //boundsCollision();
-  //holeCollision();
-  //drawObstacles();
+  // mouse event handling
+  canvas.addEventListener("mousedown", pointerDown, false);
+  canvas.addEventListener("mousemove", pointerMove, false);
+  canvas.addEventListener("mouseup", pointerUp, false);
+
+  setStage();
+
+  drawScene();
+  animate();
 
   document.addEventListener("keyup", (e) => {
     if (e.code === "KeyR") {
