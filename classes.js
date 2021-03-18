@@ -149,9 +149,6 @@ class SandPit {
       2 * Math.PI
     );
     ctx.fill();
-    //ctx.restore();
-
-    //ctx.save();
     ctx.beginPath();
     ctx.fillStyle = "#ECCCA2";
     ctx.ellipse(
@@ -214,7 +211,6 @@ class Block {
     ctx.rect(this.xPos, this.yPos, this.wallWidth, this.wallHeight);
     ctx.fill();
 
-    //ctx.fill();
     //vertical lines
     ctx.beginPath();
     ctx.lineWidth = 1;

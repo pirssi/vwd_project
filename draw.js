@@ -6,8 +6,6 @@ function drawScene() {
   ctx.fill();
   ctx.stroke();
 
-  //setStage();
-  //checkStageChange();
   drawSandPits();
   drawPools();
   drawWalls();

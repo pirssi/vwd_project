@@ -1,7 +1,6 @@
 function initializeStage() {
   //if setting the first stage, initialize ball, hole and hole "hitbox"
   if (stageSet == false) {
-    console.log("test");
     pallo = new Ball(
       (canvas.width / GRIDWIDTH) * 1,
       (canvas.height / GRIDHEIGHT) * 1,
@@ -25,17 +24,6 @@ function initializeStage() {
     stageSet = true;
   }
 
-  //remove previous walls, pools and sandpits
-  // while (walls.length) {
-  //   walls.pop();
-  // }
-  // while (pools.length) {
-  //   pools.pop();
-  // }
-  // while (sandPits.length) {
-  //   sandPits.pop();
-  // }
-
   // default position for the ball
   pallo.xPos = canvas.width * 0.1;
   pallo.yPos = canvas.height * 0.1;
@@ -52,31 +40,6 @@ function initializeObstacles() {
   gridPosInUse.splice(0, gridPosInUse.length);
   obstacleCount = 0;
 
-  //console.log(gridPosInUse);
-
-  // console.log(
-  //   "pallo: " +
-  //     Math.floor(pallo.xPos / (canvas.width / GRIDWIDTH)) +
-  //     "," +
-  //     Math.floor(pallo.yPos / (canvas.height / GRIDHEIGHT))
-  // );
-  // console.log(
-  //   "reika: " +
-  //     Math.floor(reika.xPos / (canvas.width / GRIDWIDTH)) +
-  //     "," +
-  //     Math.floor(reika.yPos / (canvas.height / GRIDHEIGHT))
-  // );
-
-  // gridPosInUse.push(
-  //   [
-  //     Math.floor((pallo.xPos / (canvas.width / GRIDWIDTH)) * 2),
-  //     Math.floor((pallo.yPos / (canvas.height / GRIDHEIGHT)) * 2),
-  //   ],
-  //   [
-  //     Math.floor((reika.xPos / (canvas.width / GRIDWIDTH)) * 2),
-  //     Math.floor((reika.yPos / (canvas.height / GRIDHEIGHT)) * 2),
-  //   ]
-  // );
   pushGridAndSurrounding([
     Math.floor((pallo.xPos / (canvas.width / GRIDWIDTH)) * 2),
     Math.floor((pallo.yPos / (canvas.height / GRIDHEIGHT)) * 2),
@@ -85,19 +48,12 @@ function initializeObstacles() {
     Math.floor((reika.xPos / (canvas.width / GRIDWIDTH)) * 2),
     Math.floor((reika.yPos / (canvas.height / GRIDHEIGHT)) * 2),
   ]);
-  console.log(gridPosInUse);
 
-  //generate new pseudorandom sandpits and pools
-  //blocks = generateBlockPos();
   blocks = generateBlockPos();
-  //walls.push.apply(walls, blocks);
 
-  //console.log(blocks);
+  //
   sandPits = generateSandpitPos();
   pools = generatePoolPos();
-  console.log("pools: " + pools.length);
-  console.log("sandpits: " + sandPits.length);
-  console.log("blocks: " + blocks.length);
 }
 
 // StageChange system that sets stage depending on stageIndex
@@ -152,7 +108,7 @@ function setStage() {
         false
       )
     );
-    console.log(walls);
+
     //End of level 1
   } else if (stages[stagesIndex] == 1) {
     //Level 2
@@ -997,7 +953,6 @@ function setStage() {
     //End of level 10
     //The final level!!!
   }
-  //checkCollisionSets();
 }
 function checkStageChange() {
   if (lastStage != stagesIndex) {
@@ -1009,29 +964,6 @@ function checkStageChange() {
     lastStage = stagesIndex;
     prevPar = stagePar;
     scoreTime = Date.now() + 5000;
-    //removePoolsCollision();
-    //removeSandPitsCollision();
     setStage();
   }
 }
-// function checkCollisionSets() {
-//   if (!wallCollisionsSet) {
-//     wallCollisionsSet = true;
-//     for (let i = 0; i < walls.length; i++) {
-//       wallCollisions.push(walls[i]);
-//       //console.log(wallCollisions[i]);
-//     }
-//   }
-//   if (!poolCollisionsSet) {
-//     poolCollisionsSet = true;
-//     for (let i = 0; i < pools.length; i++) {
-//       poolCollisions.push(pools[i]);
-//     }
-//   }
-//   if (!sandPitCollisionsSet) {
-//     sandPitCollisionsSet = true;
-//     for (let i = 0; i < sandPits.length; i++) {
-//       sandPitCollisions.push(sandPits[i]);
-//     }
-//   }
-// }

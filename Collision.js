@@ -77,7 +77,7 @@ function poolsCollision() {
       verticalVel = 0;
       pallo.xPos = hitPosX;
       pallo.yPos = hitPosY;
-      //console.log(hitPosX, hitPosY);
+      //
     }
   }
 }
@@ -96,8 +96,6 @@ function sandPitCollision() {
     }
   }
 }
-// a bit buggy :D
-// UPDATE: maybe fixed now :DD
 // using timer to prevent ball from changing direction multiple times when hitting wall
 function wallCollision() {
   for (let i = 0; i < walls.length; i++) {
@@ -121,9 +119,7 @@ function wallCollision() {
       bounceAudio.cloneNode(true).play();
       flippedTimer(walls[i]);
       walls[i].flipped = true;
-      //console.log("topBot false");
       horizontalVel *= -bounce;
-      //console.log("horizontal bounce: " + horizontalVel);
     }
     if (
       distY <= walls[i].wallHeight &&
@@ -133,9 +129,7 @@ function wallCollision() {
       bounceAudio.cloneNode(true).play();
       flippedTimer(walls[i]);
       walls[i].flipped = true;
-      //console.log("topBottom true");
       verticalVel *= -bounce;
-      //console.log("vertical bounce: " + verticalVel);
     }
   }
 }
@@ -163,7 +157,6 @@ function blockCollision() {
       bounceAudio.cloneNode(true).play();
       flippedTimer(blocks[i]);
       blocks[i].flipped = true;
-      //console.log("topBot false");
       horizontalVel = -horizontalVel;
     }
     if (
@@ -174,7 +167,6 @@ function blockCollision() {
       bounceAudio.cloneNode(true).play();
       flippedTimer(blocks[i]);
       blocks[i].flipped = true;
-      //console.log("topBottom true");
       verticalVel = -verticalVel;
     }
   }

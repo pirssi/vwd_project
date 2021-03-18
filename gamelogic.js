@@ -139,16 +139,11 @@ function pointerUp(e) {
       var decreaseFactor = 35 / horizontalVel;
       horizontalVel = 35;
       verticalVel *= decreaseFactor;
-      //console.log(decreaseFactor);
     } else if (verticalVel > 35) {
       var decreaseFactor = 35 / verticalVel;
       verticalVel = 35;
       horizontalVel *= decreaseFactor;
-      //console.log(decreaseFactor);
     }
-
-    //console.log(velPercent);
-    //console.log(Math.max(verticalVel, horizontalVel));
 
     //animation
     interval = setInterval(animateBalls, 10);
@@ -185,7 +180,6 @@ function animateBalls() {
 
     hitPosX = pallo.xPos;
     hitPosY = pallo.yPos;
-    //console.log("Hitpositions set. X : ", hitPosX, "|| Y : ", hitPosY);
   }
 
   // check is moving
@@ -197,18 +191,9 @@ function animateBalls() {
   ) {
     clearInterval(interval);
     ballMoving = false;
-
-    //console.log("interval cleared");
   } else {
     ballMoving = true;
   }
-
-  // if balls are touching change ball color to red
-  //   if (ballsAreTouching) {
-  //     pallo.ballColor = "red";
-  //   } else {
-  //     pallo.ballColor = "white";
-  //   }
 
   pallo.moveBall(animBallX, animBallY);
   drawScene(); // niko
@@ -226,7 +211,7 @@ function ballHoleGravity() {
   var ballHoleRadDist =
     (pallo.ballRad + reika.reikaRad) * (pallo.ballRad + reika.reikaRad);
 
-  ////console.log(ballHoleRadDist);
+  ////
   if (sqrDistance < ballHoleRadDist) {
     ballsAreTouching = true;
 
@@ -258,7 +243,6 @@ function nextStage() {
   //inHole = true;
 
   stagesIndex++;
-  console.log("stagesIndex: " + stagesIndex);
 
   stageChanged = true;
   horizontalVel = 0;
