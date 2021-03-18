@@ -21,12 +21,10 @@ var ballFriction = 0.987;
 var ballMoving = false;
 var ballHit = false;
 var allowClick = true;
+var ballToPointerDistance;
 
-var dragging = false;
-var dragStartPosX;
-var dragStartPosY;
-var dragEndPosX;
-var dragEndPosY;
+var mouseUpPosX;
+var mouseUpPosY;
 
 var reikaRad;
 var inHole = false;
