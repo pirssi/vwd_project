@@ -13,14 +13,14 @@ function initializeStage() {
       (canvas.width / GRIDWIDTH) * 5,
       (canvas.height / GRIDHEIGHT) * 5,
       15,
-      "black"
+      "rgba(0,0,0,1)"
     );
 
     reika2 = new Hole(
       (canvas.width / GRIDWIDTH) * 5,
       (canvas.height / GRIDHEIGHT) * 5,
       5,
-      "black"
+      "rgba(0,0,0,0)"
     );
     stageSet = true;
   }

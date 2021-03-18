@@ -22,7 +22,7 @@ function drawScene() {
 
   //borders of the map
   ctx.beginPath();
-  ctx.fillStyle = "black";
+  ctx.strokeStyle = "black";
   ctx.lineWidth = 5;
   ctx.rect(0, 0, SIZE, SIZE);
   ctx.stroke();

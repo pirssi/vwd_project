@@ -82,8 +82,7 @@ function generateBlockPos() {
           BLOCKSIZE,
           BLOCKSIZE,
           false,
-          false,
-          "rgb(40, 40, 40)"
+          false
         )
       );
       obstacleCount++;
@@ -201,7 +200,7 @@ function generatePoolPos() {
           radx,
           rady,
           Math.random() * MAXANGLE,
-          "aqua"
+          "#4D7CD6"
         )
       );
       obstacleCount++;

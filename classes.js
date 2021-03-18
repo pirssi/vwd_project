@@ -36,8 +36,25 @@ class Hole {
     ctx.fillStyle = this.holeColor;
     ctx.arc(this.xPos, this.yPos, this.reikaRad, 0, 2 * Math.PI);
     ctx.fill();
-    ctx.stroke();
+    //ctx.stroke();
     ctx.restore();
+
+    if (this.holeColor != "rgba(0,0,0,0)") {
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.moveTo(this.xPos, this.yPos - this.reikaRad);
+      ctx.lineTo(this.xPos, this.yPos - this.reikaRad - 50);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.lineWidth = 2;
+      ctx.moveTo(this.xPos, this.yPos - this.reikaRad - 50);
+      ctx.lineTo(this.xPos + 20, this.yPos - this.reikaRad - 40);
+      ctx.lineTo(this.xPos, this.yPos - this.reikaRad - 30);
+      ctx.fillStyle = "white";
+      ctx.stroke();
+      ctx.fill();
+    }
   }
 }
 
@@ -53,9 +70,9 @@ class Pool {
   draw() {
     ctx.beginPath();
 
-    ctx.save();
+    //ctx.save();
 
-    ctx.fillStyle = this.poolColor;
+    ctx.fillStyle = "#3257B4";
     ctx.ellipse(
       this.xPos,
       this.yPos,
@@ -66,7 +83,37 @@ class Pool {
       2 * Math.PI
     );
     ctx.fill();
-    ctx.restore();
+
+    // ctx.beginPath();
+    // ctx.fillStyle = "#4A6ABF";
+    // ctx.ellipse(
+    //   this.xPos,
+    //   this.yPos,
+    //   this.poolRadX - 5,
+    //   this.poolRadY - 5,
+    //   this.poolRotation,
+    //   0,
+    //   2 * Math.PI
+    // );
+    // ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle = "#657ECC";
+    ctx.ellipse(
+      this.xPos,
+      this.yPos,
+      this.poolRadX - 1,
+      this.poolRadY - 1,
+      this.poolRotation,
+      0,
+      2 * Math.PI
+    );
+    ctx.fill();
+    //ctx.restore();
+
+    //ctx.save();
+
+    //ctx.restore();
   }
 }
 // sandPits
@@ -89,9 +136,9 @@ class SandPit {
   draw() {
     ctx.beginPath();
 
-    ctx.save();
+    //ctx.save();
 
-    ctx.fillStyle = this.sandPitColor;
+    ctx.fillStyle = "#E1BF92";
     ctx.ellipse(
       this.xPos,
       this.yPos,
@@ -102,7 +149,34 @@ class SandPit {
       2 * Math.PI
     );
     ctx.fill();
-    ctx.restore();
+    //ctx.restore();
+
+    //ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = "#ECCCA2";
+    ctx.ellipse(
+      this.xPos,
+      this.yPos,
+      this.sandPitRadX - 5,
+      this.sandPitRadY - 5,
+      this.sandPitRotation,
+      0,
+      2 * Math.PI
+    );
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.fillStyle = "#F6D7B0";
+    ctx.ellipse(
+      this.xPos,
+      this.yPos,
+      this.sandPitRadX - 10,
+      this.sandPitRadY - 10,
+      this.sandPitRotation,
+      0,
+      2 * Math.PI
+    );
+    ctx.fill();
   }
 }
 // walls
@@ -125,21 +199,70 @@ class Wall {
 }
 // blocks
 class Block {
-  constructor(xPos, yPos, wallWidth, wallHeight, topBotBool, flipped, color) {
+  constructor(xPos, yPos, wallWidth, wallHeight, topBotBool, flipped) {
     this.xPos = xPos;
     this.yPos = yPos;
     this.wallWidth = wallWidth;
     this.wallHeight = wallHeight;
     this.topBotBool = topBotBool;
     this.flipped = flipped;
-    this.color = color;
   }
 
   draw() {
     ctx.beginPath();
-    ctx.fillStyle = this.color;
+    ctx.fillStyle = "rgb(185,122,87)";
     ctx.rect(this.xPos, this.yPos, this.wallWidth, this.wallHeight);
     ctx.fill();
+
+    //ctx.fill();
+    //vertical lines
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgb(128,64,64)";
+    ctx.moveTo(this.xPos + (this.wallWidth / 4) * 1, this.yPos);
+    ctx.lineTo(
+      this.xPos + (this.wallWidth / 4) * 1,
+      this.yPos + this.wallHeight
+    );
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgb(128,64,64)";
+    ctx.moveTo(this.xPos + (this.wallWidth / 4) * 2, this.yPos);
+    ctx.lineTo(
+      this.xPos + (this.wallWidth / 4) * 2,
+      this.yPos + this.wallHeight
+    );
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgb(128,64,64)";
+    ctx.moveTo(this.xPos + (this.wallWidth / 4) * 3, this.yPos);
+    ctx.lineTo(
+      this.xPos + (this.wallWidth / 4) * 3,
+      this.yPos + this.wallHeight
+    );
+    ctx.stroke();
+
+    //diagonal line
+    ctx.beginPath();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "rgb(128,64,64)";
+    ctx.moveTo(this.xPos + this.wallWidth - 2, this.yPos + 2);
+    ctx.lineTo(this.xPos + 2, this.yPos + this.wallHeight - 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "rgb(128,64,64)";
+    ctx.strokeRect(
+      this.xPos + 2,
+      this.yPos + 2,
+      this.wallWidth - 4,
+      this.wallHeight - 4
+    );
   }
 }
 //stages
