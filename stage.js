@@ -65,6 +65,7 @@ function setStage() {
     initializeStage();
 
     stagePar = 1;
+    totalPar += stagePar;
 
     initializeObstacles();
 
@@ -117,6 +118,8 @@ function setStage() {
     initializeStage();
 
     stagePar = 3;
+    totalPar += stagePar;
+
     pallo.xPos = (canvas.width / GRIDWIDTH) * 0.5;
     pallo.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     hitPosX = pallo.xPos;
@@ -165,7 +168,8 @@ function setStage() {
     //start of level 3
     initializeStage();
 
-    stagePar = 1;
+    stagePar = 2;
+    totalPar += stagePar;
 
     reika.xPos = (canvas.width / GRIDWIDTH) * 0.5;
     reika.yPos = (canvas.height / GRIDHEIGHT) * 5.5;
@@ -211,7 +215,8 @@ function setStage() {
     //start of level 4
     initializeStage();
 
-    stagePar = 1;
+    stagePar = 2;
+    totalPar += stagePar;
 
     reika.xPos = (canvas.width / GRIDWIDTH) * 5.5;
     reika.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
@@ -238,6 +243,8 @@ function setStage() {
     initializeStage();
 
     stagePar = 6;
+    totalPar += stagePar;
+
     pallo.xPos = (canvas.width / GRIDWIDTH) * 0.25;
     pallo.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     hitPosX = pallo.xPos;
@@ -317,6 +324,8 @@ function setStage() {
     initializeStage();
 
     stagePar = 3;
+    totalPar += stagePar;
+
     pallo.xPos = (canvas.width / GRIDWIDTH) * 0.5;
     pallo.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     hitPosX = pallo.xPos;
@@ -437,6 +446,8 @@ function setStage() {
     initializeStage();
 
     stagePar = 2;
+    totalPar += stagePar;
+
     pallo.xPos = (canvas.width / GRIDWIDTH) * 1.5;
     pallo.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     hitPosX = pallo.xPos;
@@ -556,7 +567,9 @@ function setStage() {
     //start of level 8
     initializeStage();
 
-    stagePar = 3;
+    stagePar = 4;
+    totalPar += stagePar;
+
     pallo.xPos = (canvas.width / GRIDWIDTH) * 0.5;
     pallo.yPos = (canvas.height / GRIDHEIGHT) * 5.6;
     hitPosX = pallo.xPos;
@@ -647,6 +660,8 @@ function setStage() {
     initializeStage();
 
     stagePar = 2;
+    totalPar += stagePar;
+
     pallo.xPos = (canvas.width / GRIDWIDTH) * 3;
     pallo.yPos = (canvas.height / GRIDHEIGHT) * 5.7;
     hitPosX = pallo.xPos;
@@ -806,7 +821,9 @@ function setStage() {
     //start of level 10
     initializeStage();
 
-    stagePar = 2;
+    stagePar = 4;
+    totalPar += stagePar;
+
     pallo.xPos = (canvas.width / GRIDWIDTH) * 3;
     pallo.yPos = (canvas.height / GRIDHEIGHT) * 0.5;
     hitPosX = pallo.xPos;

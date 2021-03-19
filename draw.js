@@ -358,10 +358,27 @@ function drawVictory() {
   ctx.font = "22px Verdana";
   ctx.fillStyle = "black";
   ctx.fillText(
-    "Total Strokes: " + totalStrokes,
+    "Total Score: " + (totalStrokes-totalPar),
     (canvas.width / GRIDWIDTH) * 2.35,
     (canvas.height / GRIDHEIGHT) * 5.3
   );
+
+  ctx.font = "22px Verdana";
+  ctx.fillStyle = "black";
+  ctx.fillText(
+    "Total Par: " + totalPar,
+    (canvas.width / GRIDWIDTH) * 0.15,
+    (canvas.height / GRIDHEIGHT) * 5.2
+  );
+
+  ctx.font = "22px Verdana";
+  ctx.fillStyle = "black";
+  ctx.fillText(
+    "Total Strokes: " + totalStrokes,
+    (canvas.width / GRIDWIDTH) * 0.15,
+    (canvas.height / GRIDHEIGHT) * 5.4
+  );
+
 
   ctx.font = "102px Verdana";
   // Create gradient
